@@ -84,7 +84,7 @@ const AboutSection = () => {
           <div className="grid grid-cols-1 gap-6">
             <div className="relative rounded-2xl overflow-hidden shadow-xl h-64 lg:h-96">
               <img 
-                src="/images/about-team.jpg" 
+                src="/images/anec4.jpg" 
                 alt="L'équipe eco2lodgy" 
                 className="w-full h-full object-cover"
               />

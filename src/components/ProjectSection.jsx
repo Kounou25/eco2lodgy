@@ -13,28 +13,28 @@ const ProjectSection = () => {
       title: "Résidence Eco-Valley",
       category: "Architecture Résidentielle",
       description: "Un ensemble résidentiel moderne intégrant des solutions écologiques innovantes et des espaces verts.",
-      image: "/images/project1.jpg",
+      image: "/images/archi.jpg",
     },
     {
       id: 2,
       title: "Tour Green Square",
       category: "Architecture Commerciale",
       description: "Un immeuble de bureaux à énergie positive, alliant esthétique contemporaine et technologies durables.",
-      image: "/images/project2.jpg",
+      image: "/images/anec2.jpg",
     },
     {
       id: 3,
       title: "App Immobilière 360°",
       category: "Solution Numérique",
       description: "Application permettant une visite virtuelle immersive de biens immobiliers avec réalité augmentée.",
-      image: "/images/project3.jpg",
+      image: "/images/anec3.jpg",
     },
     {
       id: 4,
       title: "Complexe The Sustainable",
       category: "Promotion Immobilière",
       description: "Développement d'un quartier mixte intégrant logements, commerces et espaces culturels.",
-      image: "/images/project4.jpg",
+      image: "/images/anec5.jpg",
     },
   ];
 
@@ -90,45 +90,45 @@ const ProjectSection = () => {
         </div>
 
         <div className="overflow-hidden">
-          <div 
-            ref={sliderRef}
-            className="flex transition-transform duration-500 gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {projects.map((project, index) => (
-              <div 
-                key={project.id} 
-                className="project-item min-w-[300px] md:min-w-[400px] lg:min-w-[500px] flex-shrink-0 snap-center"
-              >
-                <div className="bg-white rounded-xl overflow-hidden shadow-lg h-full transform transition-transform duration-300 hover:scale-[1.02]">
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <img 
-                      src={project.image} 
-                      alt={project.title} 
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 p-6">
-                      <span className="inline-block px-3 py-1 bg-eco-green/90 text-white text-sm rounded-full mb-3">
-                        {project.category}
-                      </span>
-                      <h3 className="text-xl md:text-2xl font-bold text-white mb-2">{project.title}</h3>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <p className="text-foreground/80 mb-4">{project.description}</p>
-                    <Button 
-                      variant="outline" 
-                      className="border-eco-green text-eco-green hover:bg-eco-green hover:text-white transition-colors"
-                    >
-                      Voir le projet
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ))}
+  <div 
+    ref={sliderRef}
+    className="flex transition-transform duration-500 gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+  >
+    {projects.map((project, index) => (
+      <div 
+        key={project.id} 
+        className="project-item min-w-[300px] md:min-w-[400px] lg:min-w-[500px] flex-shrink-0 snap-center"
+      >
+        <div className="bg-white rounded-xl overflow-hidden shadow-lg h-full transform transition-transform duration-300 hover:scale-[1.02]">
+          <div className="relative w-500px] h-[620px] overflow-hidden mx-auto mt-4"> {/* Format 16:9 plus grand */}
+            <img 
+              src={project.image} 
+              alt={project.title} 
+              className="w-full h-full object-cover" // Pas de zoom ni transition
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <div className="absolute bottom-0 left-0 p-4">
+              <span className="inline-block px-3 py-1 bg-eco-green/90 text-white text-sm rounded-full mb-3">
+                {project.category}
+              </span>
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-2">{project.title}</h3>
+            </div>
+          </div>
+          <div className="p-6">
+            <p className="text-foreground/80 mb-4">{project.description}</p>
+            <Button 
+              variant="outline" 
+              className="border-eco-green text-eco-green hover:bg-eco-green hover:text-white transition-colors"
+            >
+              Voir le projet
+            </Button>
           </div>
         </div>
+      </div>
+    ))}
+  </div>
+</div>
 
         <div className="mt-10 text-center">
           <div className="inline-flex items-center space-x-2">

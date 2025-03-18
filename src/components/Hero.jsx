@@ -58,7 +58,7 @@ const Hero = () => {
           <div className="relative">
             <div className="relative aspect-video md:aspect-square rounded-2xl overflow-hidden shadow-2xl transform md:rotate-2 transition-all duration-500 hover:rotate-0 image-container">
               <img 
-                src="/images/hero-building.jpg" 
+                src="/images/anec4.jpg" 
                 alt="Construction innovante eco2lodgy" 
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
               />

@@ -1,22 +1,24 @@
-
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const PresentationSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const slideRef = useRef(null);
+  const autoPlayRef = useRef(null);
 
+  // Données des slides (identiques à ton code initial)
   const slides = [
     {
       id: 1,
       title: "Éco2lodgy, Partenaire Stratégique",
       subtitle: "Des solutions intégrées en ingénierie, maîtrise d'œuvre, promotion immobilière et R&D",
       content: (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center text-center">
           <div className="w-32 h-32 md:w-40 md:h-40 mb-6">
-            <img 
-              src="https://images.unsplash.com/photo-1618853686805-5e1523436f2c?q=80&w=800&auto=format&fit=crop" 
-              alt="Logo Eco2lodgy" 
+            <img
+              src="https://images.unsplash.com/photo-1618853686805-5e1523436f2c?q=80&w=800&auto=format&fit=crop"
+              alt="Logo Eco2lodgy"
               className="w-full h-full object-cover rounded-full border-4 border-eco-green"
             />
           </div>
@@ -24,7 +26,7 @@ const PresentationSection = () => {
           <p className="text-lg font-medium">Partenaire principal : Ecotech (La Réunion)</p>
         </div>
       ),
-      image: "https://images.unsplash.com/photo-1606836576983-8b458e75221d?q=80&w=2000&auto=format&fit=crop"
+      image: "https://images.unsplash.com/photo-1606836576983-8b458e75221d?q=80&w=2000&auto=format&fit=crop",
     },
     {
       id: 2,
@@ -49,7 +51,7 @@ const PresentationSection = () => {
           </div>
         </div>
       ),
-      image: "https://images.unsplash.com/photo-1590274853742-d7674c128a7e?q=80&w=2000&auto=format&fit=crop"
+      image: "https://images.unsplash.com/photo-1590274853742-d7674c128a7e?q=80&w=2000&auto=format&fit=crop",
     },
     {
       id: 3,
@@ -83,7 +85,7 @@ const PresentationSection = () => {
           </div>
         </div>
       ),
-      image: "https://images.unsplash.com/photo-1581922819941-6ab31ab79afc?q=80&w=2000&auto=format&fit=crop"
+      image: "https://images.unsplash.com/photo-1581922819941-6ab31ab79afc?q=80&w=2000&auto=format&fit=crop",
     },
     {
       id: 4,
@@ -93,9 +95,9 @@ const PresentationSection = () => {
         <div className="grid grid-cols-1 gap-4">
           <div className="flex bg-white/60 backdrop-blur-sm p-3 rounded-lg shadow-sm">
             <div className="w-16 h-16 flex-shrink-0 mr-4 rounded-lg overflow-hidden">
-              <img 
-                src="https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?q=80&w=400&auto=format&fit=crop" 
-                alt="Projet Rive Sûre" 
+              <img
+                src="https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?q=80&w=400&auto=format&fit=crop"
+                alt="Projet Rive Sûre"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -106,9 +108,9 @@ const PresentationSection = () => {
           </div>
           <div className="flex bg-white/60 backdrop-blur-sm p-3 rounded-lg shadow-sm">
             <div className="w-16 h-16 flex-shrink-0 mr-4 rounded-lg overflow-hidden">
-              <img 
-                src="https://images.unsplash.com/photo-1590074072786-a66914d668f1?q=80&w=400&auto=format&fit=crop" 
-                alt="Nouvelle Oasis" 
+              <img
+                src="https://images.unsplash.com/photo-1590074072786-a66914d668f1?q=80&w=400&auto=format&fit=crop"
+                alt="Nouvelle Oasis"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -119,9 +121,9 @@ const PresentationSection = () => {
           </div>
           <div className="flex bg-white/60 backdrop-blur-sm p-3 rounded-lg shadow-sm">
             <div className="w-16 h-16 flex-shrink-0 mr-4 rounded-lg overflow-hidden">
-              <img 
-                src="https://images.unsplash.com/photo-1560184611-5b5749138c3c?q=80&w=400&auto=format&fit=crop" 
-                alt="Résidences Sahéliennes" 
+              <img
+                src="https://images.unsplash.com/photo-1560184611-5b5749138c3c?q=80&w=400&auto=format&fit=crop"
+                alt="Résidences Sahéliennes"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -132,7 +134,7 @@ const PresentationSection = () => {
           </div>
         </div>
       ),
-      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2000&auto=format&fit=crop"
+      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2000&auto=format&fit=crop",
     },
     {
       id: 5,
@@ -152,7 +154,6 @@ const PresentationSection = () => {
               <p className="text-sm">Docteur en génie civil reconnu internationalement</p>
             </div>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-white/60 backdrop-blur-sm p-4 rounded-lg">
               <h3 className="font-bold text-lg text-eco-green mb-2">Équipes pluridisciplinaires</h3>
@@ -176,7 +177,7 @@ const PresentationSection = () => {
           </div>
         </div>
       ),
-      image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2000&auto=format&fit=crop"
+      image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2000&auto=format&fit=crop",
     },
     {
       id: 6,
@@ -214,7 +215,7 @@ const PresentationSection = () => {
           </div>
         </div>
       ),
-      image: "https://images.unsplash.com/photo-1610647752706-3bb12232b3ab?q=80&w=2000&auto=format&fit=crop"
+      image: "https://images.unsplash.com/photo-1610647752706-3bb12232b3ab?q=80&w=2000&auto=format&fit=crop",
     },
     {
       id: 7,
@@ -225,9 +226,9 @@ const PresentationSection = () => {
           <div className="text-center mb-6">
             <h3 className="font-bold text-2xl text-eco-green mb-4">éco2lodgy</h3>
             <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-eco-green">
-              <img 
-                src="https://images.unsplash.com/photo-1618853686805-5e1523436f2c?q=80&w=400&auto=format&fit=crop" 
-                alt="éco2lodgy logo" 
+              <img
+                src="https://images.unsplash.com/photo-1618853686805-5e1523436f2c?q=80&w=400&auto=format&fit=crop"
+                alt="éco2lodgy logo"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -244,100 +245,133 @@ const PresentationSection = () => {
           </div>
         </div>
       ),
-      image: "https://images.unsplash.com/photo-1576485290814-1c72aa4bbb8b?q=80&w=2000&auto=format&fit=crop"
-    }
+      image: "https://images.unsplash.com/photo-1576485290814-1c72aa4bbb8b?q=80&w=2000&auto=format&fit=crop",
+    },
   ];
 
-  const nextSlide = () => {
+  // Fonctions de navigation
+  const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-  };
+  }, [slides.length]);
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-  };
+  }, [slides.length]);
 
-  const goToSlide = (index) => {
+  const goToSlide = useCallback((index) => {
     setCurrentSlide(index);
-  };
+  }, []);
+
+  // Navigation au clavier
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [nextSlide, prevSlide]);
+
+  // Défilement automatique (désactivé par défaut, décommenter pour activer)
+  useEffect(() => {
+    // const interval = setInterval(() => nextSlide(), 5000); // 5 secondes
+    // return () => clearInterval(interval);
+  }, [nextSlide]);
 
   const currentSlideData = slides[currentSlide];
 
   return (
-    <section id="presentation" className="py-20 overflow-hidden">
+    <section
+      id="presentation"
+      className="relative py-20 bg-gray-50 overflow-hidden"
+      aria-label="Présentation interactive de éco2lodgy"
+    >
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center mb-12">
-          <span className="inline-block px-3 py-1 bg-eco-green/20 text-eco-green text-sm rounded-full mb-4">
+        {/* En-tête */}
+        <header className="max-w-4xl mx-auto text-center mb-12">
+          <span className="inline-block px-4 py-2 bg-eco-green/20 text-eco-green text-sm font-semibold rounded-full mb-4">
             PRÉSENTATION
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold font-display">Présentation de éco2lodgy</h2>
-          <p className="text-foreground/80 mt-4 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold font-display text-gray-800">
+            Présentation de éco2lodgy
+          </h2>
+          <p className="text-foreground/80 mt-4 max-w-2xl mx-auto text-lg md:text-xl">
             Découvrez notre entreprise à travers cette présentation interactive qui détaille
             nos activités, nos innovations et notre vision pour le Niger.
           </p>
-        </div>
+        </header>
 
+        {/* Carrousel */}
         <div className="relative max-w-6xl mx-auto">
-          {/* Slide Background */}
-          <div 
-            className="absolute inset-0 rounded-2xl overflow-hidden"
+          {/* Fond d'image */}
+          <div
+            className="absolute inset-0 rounded-2xl overflow-hidden transition-opacity duration-700 ease-in-out"
             style={{
               backgroundImage: `url(${currentSlideData.image})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              filter: 'brightness(0.2)'
+              filter: 'brightness(0.25) blur(2px)',
             }}
           ></div>
-          
-          {/* Content Overlay */}
-          <div className="relative z-10 min-h-[600px] rounded-2xl overflow-hidden bg-gradient-to-b from-eco-green/20 to-eco-green/50 backdrop-blur-sm">
-            
-            {/* Slide Content */}
-            <div className="pt-10 pb-20 px-6 md:px-12 min-h-[600px]">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl md:text-3xl font-bold text-white font-display mb-2">
+
+          {/* Contenu du slide */}
+          <div
+            ref={slideRef}
+            className="relative z-10 min-h-[600px] rounded-2xl overflow-hidden bg-gradient-to-br from-eco-green/40 to-eco-green/70 backdrop-blur-lg shadow-2xl transition-all duration-500 ease-in-out"
+            key={currentSlide}
+          >
+            <div className="pt-12 pb-20 px-6 md:px-12 min-h-[600px] flex flex-col justify-between">
+              {/* Titre et sous-titre */}
+              <div className="text-center mb-10">
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white font-display mb-3 animate-slideIn">
                   {currentSlideData.title}
                 </h3>
-                <p className="text-white/80 text-lg">
+                <p className="text-white/90 text-lg md:text-xl animate-slideIn delay-100">
                   {currentSlideData.subtitle}
                 </p>
               </div>
-              
-              <div className="mt-10 bg-white/20 p-6 md:p-10 rounded-xl backdrop-blur-sm text-white shadow-lg">
+
+              {/* Contenu */}
+              <div className="mt-8 bg-white/25 p-6 md:p-10 rounded-xl backdrop-blur-md text-white shadow-lg flex-1 animate-fadeIn">
                 {currentSlideData.content}
               </div>
             </div>
-            
-            {/* Navigation Controls */}
-            <div className="absolute bottom-6 left-0 right-0 flex justify-between items-center px-6">
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className="bg-white/20 hover:bg-white/40 text-white rounded-full h-12 w-12"
+
+            {/* Contrôles de navigation */}
+            <div className="absolute bottom-6 left-0 right-0 flex justify-between items-center px-6 md:px-12">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="bg-white/20 hover:bg-white/40 text-white rounded-full h-12 w-12 transition-all duration-300 hover:scale-110 focus:ring-2 focus:ring-eco-green"
                 onClick={prevSlide}
+                aria-label="Slide précédente"
               >
                 <ChevronLeft className="h-6 w-6" />
               </Button>
-              
-              <div className="flex items-center space-x-2">
+
+              {/* Pagination */}
+              <div className="flex items-center space-x-3">
                 {slides.map((_, index) => (
                   <button
                     key={index}
-                    className={`h-3 rounded-full transition-all ${
-                      index === currentSlide 
-                        ? 'w-8 bg-white' 
-                        : 'w-3 bg-white/40 hover:bg-white/60'
+                    className={`h-3 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-eco-green ${
+                      index === currentSlide
+                        ? 'w-10 bg-eco-green scale-110'
+                        : 'w-3 bg-white/60 hover:bg-white/90 hover:scale-105'
                     }`}
                     onClick={() => goToSlide(index)}
-                    aria-label={`Go to slide ${index + 1}`}
+                    aria-label={`Aller au slide ${index + 1}`}
+                    aria-current={index === currentSlide ? 'true' : 'false'}
                   />
                 ))}
               </div>
-              
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className="bg-white/20 hover:bg-white/40 text-white rounded-full h-12 w-12"
+
+              <Button
+                variant="ghost"
+                size="icon"
+                className="bg-white/20 hover:bg-white/40 text-white rounded-full h-12 w-12 transition-all duration-300 hover:scale-110 focus:ring-2 focus:ring-eco-green"
                 onClick={nextSlide}
+                aria-label="Slide suivante"
               >
                 <ChevronRight className="h-6 w-6" />
               </Button>
@@ -345,6 +379,39 @@ const PresentationSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Styles et animations */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.6s ease-out forwards;
+        }
+        .animate-slideIn {
+          animation: slideIn 0.5s ease-out forwards;
+        }
+        .delay-100 {
+          animation-delay: 0.1s;
+        }
+      `}</style>
     </section>
   );
 };
