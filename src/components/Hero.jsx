@@ -14,14 +14,14 @@ const Hero = () => {
     const subtitle = subtitleRef.current;
     const cta = ctaRef.current;
 
-    if (title) title.classList.add('animate-fade-up');
+    if (title) title.classList.add('animate-fade-up', 'opacity-100');
     
     setTimeout(() => {
-      if (subtitle) subtitle.classList.add('animate-fade-up');
+      if (subtitle) subtitle.classList.add('animate-fade-up', 'opacity-100');
     }, 200);
     
     setTimeout(() => {
-      if (cta) cta.classList.add('animate-fade-up');
+      if (cta) cta.classList.add('animate-fade-up', 'opacity-100');
     }, 400);
   }, []);
 
@@ -34,17 +34,17 @@ const Hero = () => {
       <div className="container mx-auto px-4 py-20 md:py-32 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 max-w-2xl">
-            <h5 className="text-eco-green font-medium opacity-0" ref={subtitleRef}>
+            <h5 className="text-eco-green font-medium transform transition-opacity duration-500" ref={subtitleRef}>
               LEADER DE LA CONSTRUCTION AU NIGER
             </h5>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-balance font-display opacity-0" ref={titleRef}>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-balance font-display transform transition-opacity duration-500" ref={titleRef}>
               Innovation et Excellence dans la Construction au Niger
             </h1>
-            <p className="text-lg text-foreground/80 max-w-lg text-balance opacity-0" ref={subtitleRef}>
+            <p className="text-lg text-foreground/80 max-w-lg text-balance transform transition-opacity duration-500" ref={subtitleRef}>
               eco2lodgy transforme le secteur de la construction au Niger en apportant des solutions innovantes 
               aux défis critiques du logement en Afrique de l'Ouest.
             </p>
-            <div className="flex flex-wrap gap-4 opacity-0" ref={ctaRef}>
+            <div className="flex flex-wrap gap-4 transform transition-opacity duration-500" ref={ctaRef}>
               <Button className="bg-eco-green hover:bg-eco-light text-white px-6 py-6 rounded-full transition-all duration-300 text-base font-medium group">
                 Découvrir nos innovations
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -61,7 +61,6 @@ const Hero = () => {
                 src="/images/hero-building.jpg" 
                 alt="Construction innovante eco2lodgy" 
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                onLoad={(e) => e.target.classList.add('image-loaded')}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-eco-green/40 to-transparent"></div>
             </div>
