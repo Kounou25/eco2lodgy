@@ -1,0 +1,9 @@
+
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="48" height="48" rx="8" fill="white" fillOpacity="0.1"/>
+  <path d="M24 8L36 16V32L24 40L12 32V16L24 8Z" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M24 24L36 16" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M24 24V40" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M24 24L12 16" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M24 8V16" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+</svg>
