@@ -35,22 +35,22 @@ const Hero = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 max-w-2xl">
             <h5 className="text-eco-green font-medium opacity-0" ref={subtitleRef}>
-              ARCHITECTURE & SOLUTIONS NUMÉRIQUES
+              LEADER DE LA CONSTRUCTION AU NIGER
             </h5>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-balance font-display opacity-0" ref={titleRef}>
-              <span className="hero-underline">Concevoir</span> des espaces durables qui inspirent.
+              Innovation et Excellence dans la Construction au Niger
             </h1>
             <p className="text-lg text-foreground/80 max-w-lg text-balance opacity-0" ref={subtitleRef}>
-              Eco2lodgy transforme vos idées en réalités architecturales et numériques, 
-              avec une approche intégrée combinant expertise technique et créativité.
+              eco2lodgy transforme le secteur de la construction au Niger en apportant des solutions innovantes 
+              aux défis critiques du logement en Afrique de l'Ouest.
             </p>
             <div className="flex flex-wrap gap-4 opacity-0" ref={ctaRef}>
               <Button className="bg-eco-green hover:bg-eco-light text-white px-6 py-6 rounded-full transition-all duration-300 text-base font-medium group">
-                Découvrir nos services
+                Découvrir nos innovations
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button variant="outline" className="border-eco-green text-eco-green hover:bg-eco-green/10 px-6 py-6 rounded-full transition-all duration-300 text-base font-medium">
-                Voir nos projets
+                Nos réalisations
               </Button>
             </div>
           </div>
@@ -59,7 +59,7 @@ const Hero = () => {
             <div className="relative aspect-video md:aspect-square rounded-2xl overflow-hidden shadow-2xl transform md:rotate-2 transition-all duration-500 hover:rotate-0 image-container">
               <img 
                 src="/images/hero-building.jpg" 
-                alt="Eco2lodgy Sustainable Architecture" 
+                alt="Construction innovante eco2lodgy" 
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 onLoad={(e) => e.target.classList.add('image-loaded')}
               />
@@ -74,9 +74,9 @@ const Hero = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-medium text-lg">Engagement Écologique</h3>
+                  <h3 className="font-medium text-lg">Impact Environnemental</h3>
                   <p className="text-sm text-foreground/70 mt-1">
-                    Notre démarche allie esthétique et respect de l'environnement.
+                    Réduction de 40% des émissions de CO2 grâce à nos solutions innovantes
                   </p>
                 </div>
               </div>
