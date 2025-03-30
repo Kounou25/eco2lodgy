@@ -31,22 +31,33 @@ const Navbar = () => {
     }
   };
 
+  // Fonction pour défiler vers une section
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+    // Ferme le menu mobile après avoir cliqué
+    setIsMenuOpen(false);
+  };
+
   const navItems = [
-    { name: 'Accueil', href: '/' },
+    { name: 'Accueil', href: '/', sectionId: null },
     {
       name: 'Services',
       href: '#',
+      sectionId: null,
       dropdown: [
-        { name: 'Architecture', href: '/services/architecture' },
-        { name: 'Promotion Immobilière', href: '/services/promotion' },
-        { name: 'Ingénierie Civile', href: '/services/ingenierie' },
-        { name: 'Infographie', href: '/services/infographie' },
-        { name: 'Solutions Numériques', href: '/services/solutions-numeriques' },
+        { name: 'Architecture', href: '/services/architecture', sectionId: null },
+        { name: 'Promotion Immobilière', href: '/services/promotion', sectionId: null },
+        { name: 'Ingénierie Civile', href: '/services/ingenierie', sectionId: null },
+        { name: 'Infographie', href: '/services/infographie', sectionId: null },
+        { name: 'Solutions Numériques', href: '/services/solutions-numeriques', sectionId: null },
       ],
     },
-    { name: 'Projets', href: '#projets' },
-    { name: 'À Propos', href: '/a-propos' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Projets', href: '#projects', sectionId: 'projects' },
+    { name: 'À Propos', href: '/a-propos', sectionId: 'about' },
+    { name: 'Contact', href: '/contact', sectionId: 'contact' },
   ];
 
   return (
@@ -92,6 +103,12 @@ const Navbar = () => {
                 ) : (
                   <a
                     href={item.href}
+                    onClick={(e) => {
+                      if (item.sectionId) {
+                        e.preventDefault();
+                        scrollToSection(item.sectionId);
+                      }
+                    }}
                     className={cn(
                       "font-medium hover:text-[#D4A017] transition-colors",
                       isScrolled ? "text-[#2E5A27]" : "text-white"
@@ -101,7 +118,8 @@ const Navbar = () => {
                   </a>
                 )}
 
-                {item.dropdown && (
+                {/* Dropdown (désactivé dans ton code initial, mais je le laisse pour référence) */}
+                {/* {item.dropdown && (
                   <div className="absolute left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2">
                     <div className="bg-white glass-card rounded-md shadow-xl overflow-hidden">
                       <div className="py-2">
@@ -117,7 +135,7 @@ const Navbar = () => {
                       </div>
                     </div>
                   </div>
-                )}
+                )} */}
               </div>
             ))}
 
@@ -160,6 +178,12 @@ const Navbar = () => {
                             <a
                               key={subIndex}
                               href={subItem.href}
+                              onClick={(e) => {
+                                if (subItem.sectionId) {
+                                  e.preventDefault();
+                                  scrollToSection(subItem.sectionId);
+                                }
+                              }}
                               className="block py-2 text-sm text-[#2E5A27] hover:text-[#D4A017]"
                             >
                               {subItem.name}
@@ -171,6 +195,12 @@ const Navbar = () => {
                   ) : (
                     <a
                       href={item.href}
+                      onClick={(e) => {
+                        if (item.sectionId) {
+                          e.preventDefault();
+                          scrollToSection(item.sectionId);
+                        }
+                      }}
                       className="block py-2 font-medium text-[#2E5A27] hover:text-[#D4A017]"
                     >
                       {item.name}
