@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -69,7 +68,7 @@ const Navbar = () => {
             />
             <span className={cn(
               "font-display font-bold text-2xl transition-colors duration-300",
-              isScrolled ? "text-eco-green" : "text-white"
+              isScrolled ? "text-[#2E5A27]" : "text-white"
             )}>
               Eco2lodgy
             </span>
@@ -83,8 +82,8 @@ const Navbar = () => {
                   <button
                     onClick={() => toggleDropdown(index)}
                     className={cn(
-                      "flex items-center space-x-1 font-medium hover:text-eco-green transition-colors",
-                      isScrolled ? "text-foreground" : "text-white"
+                      "flex items-center space-x-1 font-medium hover:text-[#D4A017] transition-colors",
+                      isScrolled ? "text-[#2E5A27]" : "text-white"
                     )}
                   >
                     <span>{item.name}</span>
@@ -94,8 +93,8 @@ const Navbar = () => {
                   <a
                     href={item.href}
                     className={cn(
-                      "font-medium hover:text-eco-green transition-colors",
-                      isScrolled ? "text-foreground" : "text-white"
+                      "font-medium hover:text-[#D4A017] transition-colors",
+                      isScrolled ? "text-[#2E5A27]" : "text-white"
                     )}
                   >
                     {item.name}
@@ -110,7 +109,7 @@ const Navbar = () => {
                           <a
                             key={subIndex}
                             href={subItem.href}
-                            className="block px-4 py-2 text-sm text-foreground hover:bg-eco-green/10 hover:text-eco-green transition-colors"
+                            className="block px-4 py-2 text-sm text-[#2E5A27] hover:bg-[#D4A017]/10 hover:text-[#D4A017] transition-colors"
                           >
                             {subItem.name}
                           </a>
@@ -122,7 +121,7 @@ const Navbar = () => {
               </div>
             ))}
 
-            <Button className="bg-eco-green hover:bg-eco-light transition-colors">
+            <Button className="bg-[#2E5A27] hover:bg-[#2E5A27]/80 text-white transition-colors">
               Demander un devis
             </Button>
           </div>
@@ -130,7 +129,10 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
-            className="md:hidden text-foreground"
+            className={cn(
+              "md:hidden transition-colors",
+              isScrolled ? "text-[#2E5A27]" : "text-white"
+            )}
             aria-label="Menu"
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -147,18 +149,18 @@ const Navbar = () => {
                     <div>
                       <button
                         onClick={() => toggleDropdown(index)}
-                        className="flex items-center justify-between w-full py-2 font-medium"
+                        className="flex items-center justify-between w-full py-2 font-medium text-[#2E5A27]"
                       >
                         <span>{item.name}</span>
                         <ChevronDown className="h-4 w-4" />
                       </button>
                       {activeDropdown === index && (
-                        <div className="mt-2 ml-4 space-y-2 border-l-2 border-eco-green pl-4">
+                        <div className="mt-2 ml-4 space-y-2 border-l-2 border-[#2E5A27] pl-4">
                           {item.dropdown.map((subItem, subIndex) => (
                             <a
                               key={subIndex}
                               href={subItem.href}
-                              className="block py-2 text-sm text-foreground hover:text-eco-green"
+                              className="block py-2 text-sm text-[#2E5A27] hover:text-[#D4A017]"
                             >
                               {subItem.name}
                             </a>
@@ -169,14 +171,14 @@ const Navbar = () => {
                   ) : (
                     <a
                       href={item.href}
-                      className="block py-2 font-medium hover:text-eco-green"
+                      className="block py-2 font-medium text-[#2E5A27] hover:text-[#D4A017]"
                     >
                       {item.name}
                     </a>
                   )}
                 </div>
               ))}
-              <Button className="w-full bg-eco-green hover:bg-eco-light transition-colors">
+              <Button className="w-full bg-[#2E5A27] hover:bg-[#2E5A27]/80 text-white transition-colors">
                 Demander un devis
               </Button>
             </div>
