@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
 const CtaSection = () => {
   return (
-    <section className="py-16 bg-eco-green relative overflow-hidden">
+    <section className="py-16 bg-[#2E5A27] relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +27,7 @@ const CtaSection = () => {
             notre approche intégrée peut vous aider à atteindre vos objectifs.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button className="bg-white text-eco-green hover:bg-eco-beige transition-colors px-6 py-6 text-base font-medium rounded-full group">
+            <Button className="bg-white text-[#2E5A27] hover:bg-[#D4A017] transition-colors px-6 py-6 text-base font-medium rounded-full group">
               Demander un devis
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
