@@ -25,21 +25,22 @@ const ContactSection = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      console.log('Form submitted:', formData);
-      setIsSubmitting(false);
-      alert('Votre message a été envoyé avec succès!');
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: '',
-      });
-    }, 1500);
+  
+    fetch("https://formsubmit.co/5833982a3df4b7985b4a4a2dc12b60e0", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log("Form response:", data);
+      alert("Votre message a été envoyé avec succès !");
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    })
+    .catch(error => console.error("Erreur d'envoi :", error))
+    .finally(() => setIsSubmitting(false));
   };
+  
 
   const contactInfo = [
     {
