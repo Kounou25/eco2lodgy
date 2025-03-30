@@ -44,7 +44,7 @@ const Navbar = () => {
         { name: 'Solutions Numériques', href: '/services/solutions-numeriques' },
       ],
     },
-    { name: 'Projets', href: '/projets' },
+    { name: 'Projets', href: '#projets' },
     { name: 'À Propos', href: '/a-propos' },
     { name: 'Contact', href: '/contact' },
   ];

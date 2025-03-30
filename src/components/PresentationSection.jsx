@@ -19,7 +19,7 @@ const PresentationSection = () => {
             <img
               src="https://images.unsplash.com/photo-1618853686805-5e1523436f2c?q=80&w=800&auto=format&fit=crop"
               alt="Logo Eco2lodgy"
-              className="w-full h-full object-cover rounded-full border-4 border-eco-green"
+              className="w-full h-full object-cover rounded-full border-4 border-[#2E5A27]"
             />
           </div>
           <p className="text-lg font-medium mb-4">Siège : Niamey, Niger</p>
@@ -60,27 +60,27 @@ const PresentationSection = () => {
       content: (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="bg-white/50 backdrop-blur-sm p-4 rounded-lg shadow-sm">
-            <h3 className="font-bold text-lg mb-2 text-eco-green">Calcul de structure</h3>
+            <h3 className="font-bold text-lg mb-2 text-[#2E5A27]">Calcul de structure</h3>
             <p>Expertise en béton, acier, terre stabilisée. Optimisation de la résistance et durabilité.</p>
           </div>
           <div className="bg-white/50 backdrop-blur-sm p-4 rounded-lg shadow-sm">
-            <h3 className="font-bold text-lg mb-2 text-eco-green">Maîtrise d'œuvre</h3>
+            <h3 className="font-bold text-lg mb-2 text-[#2E5A27]">Maîtrise d'œuvre</h3>
             <p>Gestion et coordination de A à Z. Contrôle qualité des chantiers et respect des normes.</p>
           </div>
           <div className="bg-white/50 backdrop-blur-sm p-4 rounded-lg shadow-sm">
-            <h3 className="font-bold text-lg mb-2 text-eco-green">Promotion immobilière</h3>
+            <h3 className="font-bold text-lg mb-2 text-[#2E5A27]">Promotion immobilière</h3>
             <p>Recherche foncière, montage financier, commercialisation. Assistance à la gestion locative.</p>
           </div>
           <div className="bg-white/50 backdrop-blur-sm p-4 rounded-lg shadow-sm">
-            <h3 className="font-bold text-lg mb-2 text-eco-green">Laboratoire R&D</h3>
+            <h3 className="font-bold text-lg mb-2 text-[#2E5A27]">Laboratoire R&D</h3>
             <p>Études sur bétons biosourcés. Solutions low cost pour lutter contre inondations et chaleurs extrêmes.</p>
           </div>
           <div className="bg-white/50 backdrop-blur-sm p-4 rounded-lg shadow-sm">
-            <h3 className="font-bold text-lg mb-2 text-eco-green">Matériaux innovants</h3>
+            <h3 className="font-bold text-lg mb-2 text-[#2E5A27]">Matériaux innovants</h3>
             <p>Blocs de terre stabilisée, béton léger. Outils adaptés au marché local.</p>
           </div>
           <div className="bg-white/50 backdrop-blur-sm p-4 rounded-lg shadow-sm">
-            <h3 className="font-bold text-lg mb-2 text-eco-green">Architecture bioclimatique</h3>
+            <h3 className="font-bold text-lg mb-2 text-[#2E5A27]">Architecture bioclimatique</h3>
             <p>Conception adaptée (orientation, ventilation naturelle). Adaptation aux besoins culturels et climatiques.</p>
           </div>
         </div>
@@ -102,7 +102,7 @@ const PresentationSection = () => {
               />
             </div>
             <div>
-              <h3 className="font-bold text-lg text-eco-green">Projet "Rive Sûre" à Niamey</h3>
+              <h3 className="font-bold text-lg text-[#2E5A27]">Projet "Rive Sûre" à Niamey</h3>
               <p>Digues de protection contre les crues</p>
             </div>
           </div>
@@ -115,7 +115,7 @@ const PresentationSection = () => {
               />
             </div>
             <div>
-              <h3 className="font-bold text-lg text-eco-green">Complexe "Nouvelle Oasis" à Zinder</h3>
+              <h3 className="font-bold text-lg text-[#2E5A27]">Complexe "Nouvelle Oasis" à Zinder</h3>
               <p>50 logements sociaux climato-résilients</p>
             </div>
           </div>
@@ -128,7 +128,7 @@ const PresentationSection = () => {
               />
             </div>
             <div>
-              <h3 className="font-bold text-lg text-eco-green">Programme "Résidences Sahéliennes"</h3>
+              <h3 className="font-bold text-lg text-[#2E5A27]">Programme "Résidences Sahéliennes"</h3>
               <p>Logements moyen standing, intégration bioclimatique</p>
             </div>
           </div>
@@ -146,17 +146,17 @@ const PresentationSection = () => {
             <img
               src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop"
               alt="Directeur"
-              className="w-24 h-24 rounded-full border-2 border-eco-green mr-4 object-cover"
+              className="w-24 h-24 rounded-full border-2 border-[#2E5A27] mr-4 object-cover"
             />
             <div>
-              <h3 className="font-bold text-xl text-eco-green">Direction</h3>
+              <h3 className="font-bold text-xl text-[#2E5A27]">Direction</h3>
               <p>Dr. YOUSSOUFOU MAHAMAN LAOUALI SOULEY</p>
               <p className="text-sm">Docteur en génie civil reconnu internationalement</p>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-white/60 backdrop-blur-sm p-4 rounded-lg">
-              <h3 className="font-bold text-lg text-eco-green mb-2">Équipes pluridisciplinaires</h3>
+              <h3 className="font-bold text-lg text-[#2E5A27] mb-2">Équipes pluridisciplinaires</h3>
               <ul className="space-y-1">
                 <li>4 Ingénieurs structures</li>
                 <li>5 Chercheurs et techniciens de laboratoire</li>
@@ -166,7 +166,7 @@ const PresentationSection = () => {
               </ul>
             </div>
             <div className="bg-white/60 backdrop-blur-sm p-4 rounded-lg">
-              <h3 className="font-bold text-lg text-eco-green mb-2">Matériel et logistique</h3>
+              <h3 className="font-bold text-lg text-[#2E5A27] mb-2">Matériel et logistique</h3>
               <ul className="space-y-1">
                 <li>2 drones UAV équipés Lidar</li>
                 <li>Laboratoire d'essais complet</li>
@@ -186,30 +186,30 @@ const PresentationSection = () => {
       content: (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white/60 backdrop-blur-sm p-4 rounded-lg flex">
-            <div className="w-12 h-12 bg-eco-green rounded-full flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">1</div>
+            <div className="w-12 h-12 bg-[#2E5A27] rounded-full flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">1</div>
             <div>
-              <h3 className="font-bold text-lg text-eco-green">Habitat résilient</h3>
+              <h3 className="font-bold text-lg text-[#2E5A27]">Habitat résilient</h3>
               <p>Diffusion de méthodes de construction sûres contre les inondations et la surchauffe</p>
             </div>
           </div>
           <div className="bg-white/60 backdrop-blur-sm p-4 rounded-lg flex">
-            <div className="w-12 h-12 bg-eco-green rounded-full flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">2</div>
+            <div className="w-12 h-12 bg-[#2E5A27] rounded-full flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">2</div>
             <div>
-              <h3 className="font-bold text-lg text-eco-green">Matériaux écologiques</h3>
+              <h3 className="font-bold text-lg text-[#2E5A27]">Matériaux écologiques</h3>
               <p>Blocs de terre stabilisée, bétons biosourcés, faible impact carbone</p>
             </div>
           </div>
           <div className="bg-white/60 backdrop-blur-sm p-4 rounded-lg flex">
-            <div className="w-12 h-12 bg-eco-green rounded-full flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">3</div>
+            <div className="w-12 h-12 bg-[#2E5A27] rounded-full flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">3</div>
             <div>
-              <h3 className="font-bold text-lg text-eco-green">Approche Low Tech</h3>
+              <h3 className="font-bold text-lg text-[#2E5A27]">Approche Low Tech</h3>
               <p>Solutions simplifiées pour être adoptées par tous (fiches techniques, formations courtes)</p>
             </div>
           </div>
           <div className="bg-white/60 backdrop-blur-sm p-4 rounded-lg flex">
-            <div className="w-12 h-12 bg-eco-green rounded-full flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">4</div>
+            <div className="w-12 h-12 bg-[#2E5A27] rounded-full flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">4</div>
             <div>
-              <h3 className="font-bold text-lg text-eco-green">Cartographie rurale</h3>
+              <h3 className="font-bold text-lg text-[#2E5A27]">Cartographie rurale</h3>
               <p>Drones + SIG pour améliorer la planification foncière et le cadastre</p>
             </div>
           </div>
@@ -224,8 +224,8 @@ const PresentationSection = () => {
       content: (
         <div className="bg-white/70 backdrop-blur-lg p-6 rounded-xl max-w-md mx-auto">
           <div className="text-center mb-6">
-            <h3 className="font-bold text-2xl text-eco-green mb-4">éco2lodgy</h3>
-            <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-eco-green">
+            <h3 className="font-bold text-2xl text-[#2E5A27] mb-4">éco2lodgy</h3>
+            <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-[#2E5A27]">
               <img
                 src="https://images.unsplash.com/photo-1618853686805-5e1523436f2c?q=80&w=400&auto=format&fit=crop"
                 alt="éco2lodgy logo"
@@ -240,7 +240,7 @@ const PresentationSection = () => {
             <p><span className="font-semibold">Site web :</span> www.eco2lodgy.ne</p>
           </div>
           <div className="mt-8 text-center">
-            <p className="text-lg font-bold text-eco-green">Merci de votre attention</p>
+            <p className="text-lg font-bold text-[#2E5A27]">Merci de votre attention</p>
             <p className="italic">Contactez-nous pour vos projets de construction durable</p>
           </div>
         </div>
@@ -289,7 +289,7 @@ const PresentationSection = () => {
       <div className="container mx-auto px-4">
         {/* En-tête */}
         <header className="max-w-4xl mx-auto text-center mb-12">
-          <span className="inline-block px-4 py-2 bg-eco-green/20 text-eco-green text-sm font-semibold rounded-full mb-4">
+          <span className="inline-block px-4 py-2 bg-[#2E5A27]/20 text-[#2E5A27] text-sm font-semibold rounded-full mb-4">
             PRÉSENTATION
           </span>
           <h2 className="text-3xl md:text-4xl font-bold font-display text-gray-800">
@@ -317,7 +317,7 @@ const PresentationSection = () => {
           {/* Contenu du slide */}
           <div
             ref={slideRef}
-            className="relative z-10 min-h-[600px] rounded-2xl overflow-hidden bg-gradient-to-br from-eco-green/40 to-eco-green/70 backdrop-blur-lg shadow-2xl transition-all duration-500 ease-in-out"
+            className="relative z-10 min-h-[600px] rounded-2xl overflow-hidden bg-gradient-to-br from-[#2E5A27]/40 to-[#2E5A27]/70 backdrop-blur-lg shadow-2xl transition-all duration-500 ease-in-out"
             key={currentSlide}
           >
             <div className="pt-12 pb-20 px-6 md:px-12 min-h-[600px] flex flex-col justify-between">
@@ -342,7 +342,7 @@ const PresentationSection = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="bg-white/20 hover:bg-white/40 text-white rounded-full h-12 w-12 transition-all duration-300 hover:scale-110 focus:ring-2 focus:ring-eco-green"
+                className="bg-white/20 hover:bg-white/40 text-white rounded-full h-12 w-12 transition-all duration-300 hover:scale-110 focus:ring-2 focus:ring-[#2E5A27]"
                 onClick={prevSlide}
                 aria-label="Slide précédente"
               >
@@ -354,9 +354,9 @@ const PresentationSection = () => {
                 {slides.map((_, index) => (
                   <button
                     key={index}
-                    className={`h-3 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-eco-green ${
+                    className={`h-3 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#2E5A27] ${
                       index === currentSlide
-                        ? 'w-10 bg-eco-green scale-110'
+                        ? 'w-10 bg-[#2E5A27] scale-110'
                         : 'w-3 bg-white/60 hover:bg-white/90 hover:scale-105'
                     }`}
                     onClick={() => goToSlide(index)}
@@ -369,7 +369,7 @@ const PresentationSection = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="bg-white/20 hover:bg-white/40 text-white rounded-full h-12 w-12 transition-all duration-300 hover:scale-110 focus:ring-2 focus:ring-eco-green"
+                className="bg-white/20 hover:bg-white/40 text-white rounded-full h-12 w-12 transition-all duration-300 hover:scale-110 focus:ring-2 focus:ring-[#2E5A27]"
                 onClick={nextSlide}
                 aria-label="Slide suivante"
               >

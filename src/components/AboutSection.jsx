@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, Users, Trophy, Lightbulb } from 'lucide-react';
@@ -6,19 +5,19 @@ import { ArrowRight, CheckCircle, Users, Trophy, Lightbulb } from 'lucide-react'
 const AboutSection = () => {
   const stats = [
     { 
-      icon: <Users className="w-10 h-10 text-eco-green" />,
+      icon: <Users className="w-10 h-10 text-[#2E5A27]" />,
       value: "50+", 
       label: "Experts",
       description: "Emplois directs qualifiés dès la Phase 1" 
     },
     { 
-      icon: <Trophy className="w-10 h-10 text-eco-green" />,
+      icon: <Trophy className="w-10 h-10 text-[#2E5A27]" />,
       value: "40%", 
       label: "Réduction CO2",
       description: "Impact environnemental positif" 
     },
     { 
-      icon: <Lightbulb className="w-10 h-10 text-eco-green" />,
+      icon: <Lightbulb className="w-10 h-10 text-[#2E5A27]" />,
       value: "30%", 
       label: "Économies",
       description: "Réduction des coûts de construction" 
@@ -45,11 +44,11 @@ const AboutSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-eco-beige/30" id="about">
+    <section className="py-20 bg-[#D4A017]/30" id="about">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <span className="inline-block px-3 py-1 bg-eco-green/20 text-eco-green text-sm rounded-full mb-4">
+            <span className="inline-block px-3 py-1 bg-[#2E5A27]/20 text-[#2E5A27] text-sm rounded-full mb-4">
               À PROPOS DE NOUS
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mb-6 font-display">Leader Émergent de la Construction au Niger</h2>
@@ -66,7 +65,7 @@ const AboutSection = () => {
             <div className="space-y-4">
               {values.map((value, index) => (
                 <div key={index} className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-eco-green mt-1 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-[#2E5A27] mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="font-semibold">{value.title}</h4>
                     <p className="text-sm text-foreground/70">{value.description}</p>
@@ -75,7 +74,7 @@ const AboutSection = () => {
               ))}
             </div>
             
-            <Button className="mt-8 bg-eco-green hover:bg-eco-light text-white transition-colors">
+            <Button className="mt-8 bg-[#2E5A27] hover:bg-[#2E5A27]/80 text-white transition-colors">
               Découvrir notre vision
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
@@ -88,7 +87,7 @@ const AboutSection = () => {
                 alt="L'équipe eco2lodgy" 
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-eco-green/60 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#2E5A27]/60 to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-6">
                 <h3 className="text-xl font-bold text-white">Notre équipe</h3>
                 <p className="text-white/90">Des experts passionnés par l'innovation durable</p>
@@ -101,7 +100,7 @@ const AboutSection = () => {
                   <div className="mb-3">{stat.icon}</div>
                   <div className="flex items-baseline gap-1">
                     <span className="text-3xl font-bold text-foreground">{stat.value}</span>
-                    <span className="text-eco-green font-medium">{stat.label}</span>
+                    <span className="text-[#2E5A27] font-medium">{stat.label}</span>
                   </div>
                   <p className="text-sm text-foreground/70 mt-2">{stat.description}</p>
                 </div>
