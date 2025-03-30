@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -10,14 +9,14 @@ const ServiceCard = ({ icon, title, description, href, index }) => {
       className="bg-white rounded-xl p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px] border border-border"
       style={{ animationDelay: `${index * 150}ms` }}
     >
-      <div className="w-12 h-12 rounded-full bg-eco-green/10 flex items-center justify-center text-eco-green mb-4">
+      <div className="w-12 h-12 rounded-full bg-[#2E5A27]/10 flex items-center justify-center text-[#2E5A27] mb-4">
         {icon}
       </div>
-      <h3 className="text-xl font-semibold mb-3">{title}</h3>
+      <h3 className="text-xl font-semibold mb-3 text-[#2E5A27]">{title}</h3>
       <p className="text-foreground/80 mb-4 text-balance">{description}</p>
       <a 
         href={href} 
-        className="inline-flex items-center text-eco-green font-medium hover:underline group"
+        className="inline-flex items-center text-[#D4A017] font-medium hover:underline group"
       >
         En savoir plus
         <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -91,11 +90,11 @@ const ServiceSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-muted" id="services">
+    <section className="py-20 bg-[#D4A017]/10" id="services">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-display">Nos Services</h2>
-          <div className="h-1 w-20 bg-eco-green mx-auto mb-6"></div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-display text-[#2E5A27]">Nos Services</h2>
+          <div className="h-1 w-20 bg-[#2E5A27] mx-auto mb-6"></div>
           <p className="text-lg text-foreground/80">
             Une approche multidisciplinaire pour répondre à tous vos besoins en architecture et solutions numériques.
           </p>
@@ -115,7 +114,7 @@ const ServiceSection = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Button className="bg-eco-green hover:bg-eco-light text-white transition-colors">
+          <Button className="bg-[#2E5A27] hover:bg-[#2E5A27]/80 text-white transition-colors">
             Tous nos services
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
