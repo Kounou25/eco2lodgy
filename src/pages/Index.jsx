@@ -8,6 +8,7 @@ import AboutSection from '../components/AboutSection';
 import TestimonialSection from '../components/TestimonialSection';
 import CtaSection from '../components/CtaSection';
 import ContactSection from '../components/ContactSection';
+import Eco2BoxSection from '../components/Eco2BoxSection';
 import PresentationSection from '../components/PresentationSection';
 import Footer from '../components/Footer';
 
@@ -23,8 +24,9 @@ const Index = () => {
       <main className="flex-grow">
         <Hero />
         <ServiceSection />
-        <ProjectSection />
+        <Eco2BoxSection />
         <AboutSection />
+        <ProjectSection />
         <PresentationSection />
         <TestimonialSection />
         <CtaSection />

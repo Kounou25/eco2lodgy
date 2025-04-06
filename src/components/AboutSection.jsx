@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, Users, Trophy, Lightbulb } from 'lucide-react';
@@ -6,40 +7,40 @@ const AboutSection = () => {
   const stats = [
     { 
       icon: <Users className="w-10 h-10 text-[#2E5A27]" />,
-      value: "50+", 
-      label: "Experts",
-      description: "Emplois directs qualifiés dès la Phase 1" 
+      value: "100+", 
+      label: "Clients",
+      description: "Collectivités et entreprises accompagnées" 
     },
     { 
       icon: <Trophy className="w-10 h-10 text-[#2E5A27]" />,
-      value: "40%", 
-      label: "Réduction CO2",
-      description: "Impact environnemental positif" 
+      value: "30%", 
+      label: "Économies",
+      description: "D'énergie constatées en moyenne" 
     },
     { 
       icon: <Lightbulb className="w-10 h-10 text-[#2E5A27]" />,
-      value: "30%", 
-      label: "Économies",
-      description: "Réduction des coûts de construction" 
+      value: "24/7", 
+      label: "Monitoring",
+      description: "Suivi en temps réel des consommations" 
     },
   ];
 
   const values = [
     {
       title: "Innovation",
-      description: "Nous développons des matériaux révolutionnaires et des systèmes constructifs innovants."
-    },
-    {
-      title: "Expertise",
-      description: "Notre équipe combine expertise internationale et connaissance approfondie du contexte local."
+      description: "Nous développons des solutions digitales de pointe pour le pilotage des ressources énergétiques."
     },
     {
       title: "Durabilité",
-      description: "Nos solutions réduisent l'impact environnemental tout en garantissant une durabilité accrue."
+      description: "Nos outils permettent de réduire significativement les consommations et les émissions de CO₂."
     },
     {
-      title: "Excellence",
-      description: "Nous respectons les plus hauts standards de qualité et les normes internationales."
+      title: "Accessibilité",
+      description: "Des interfaces intuitives et pédagogiques adaptées à tous les utilisateurs."
+    },
+    {
+      title: "Expertise",
+      description: "Notre équipe combine connaissance technique et compréhension des enjeux énergétiques."
     },
   ];
 
@@ -51,15 +52,14 @@ const AboutSection = () => {
             <span className="inline-block px-3 py-1 bg-[#2E5A27]/20 text-[#2E5A27] text-sm rounded-full mb-4">
               À PROPOS DE NOUS
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-display">Leader Émergent de la Construction au Niger</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-display">Acteur de l'Innovation Durable</h2>
             <p className="text-foreground/80 mb-6">
-              eco2lodgy, en alliance stratégique avec ecotech (La Réunion), transforme le secteur de la construction 
-              au Niger en apportant des solutions innovantes aux défis critiques du logement en Afrique de l'Ouest.
+              Eco2lodgy accompagne les collectivités, entreprises et particuliers dans la transition énergétique 
+              et numérique grâce à des solutions innovantes de pilotage des ressources.
             </p>
             <p className="text-foreground/80 mb-8">
-              Dirigée par Dr. Youssoufou Mahaman Laouali Souley, expert nigérien reconnu internationalement, 
-              notre équipe combine expertise technique et connaissance approfondie du marché local pour créer 
-              une proposition de valeur unique.
+              Notre vision est de construire une ville durable, inclusive et intelligente, où l'innovation est 
+              mise au service de l'humain et de l'environnement.
             </p>
             
             <div className="space-y-4">
@@ -83,14 +83,14 @@ const AboutSection = () => {
           <div className="grid grid-cols-1 gap-6">
             <div className="relative rounded-2xl overflow-hidden shadow-xl h-64 lg:h-96">
               <img 
-                src="/images/anec4.jpg" 
-                alt="L'équipe eco2lodgy" 
+                src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=2000&auto=format&fit=crop" 
+                alt="Solutions digitales Eco2lodgy" 
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#2E5A27]/60 to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-6">
-                <h3 className="text-xl font-bold text-white">Notre équipe</h3>
-                <p className="text-white/90">Des experts passionnés par l'innovation durable</p>
+                <h3 className="text-xl font-bold text-white">Nos Solutions</h3>
+                <p className="text-white/90">Des outils connectés pour une gestion intelligente de l'énergie</p>
               </div>
             </div>
             

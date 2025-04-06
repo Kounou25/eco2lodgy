@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
@@ -40,30 +41,30 @@ const Hero = () => {
       <div className="container mx-auto px-4 py-20 md:py-32 relative z-10 text-center">
         <div className="space-y-8 max-w-3xl mx-auto">
           <h5 
-            className="text-[#D4A017] font-medium uppercase tracking-wider transform transition-opacity duration-500" 
+            className="text-[#D4A017] font-medium uppercase tracking-wider transform opacity-0 transition-opacity duration-500" 
             ref={subtitleRef}
           >
-            Leader de la construction au Niger
+            Solutions digitales pour la transition énergétique
           </h5>
           <h1 
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white text-balance font-display transform transition-opacity duration-500" 
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white text-balance font-display transform opacity-0 transition-opacity duration-500" 
             ref={titleRef}
           >
-            Innovation et Excellence dans la Construction au Niger
+            Innovation au Service de l'Humain et de l'Environnement
           </h1>
           <p 
-            className="text-lg text-gray-200 max-w-2xl mx-auto text-balance transform transition-opacity duration-500" 
+            className="text-lg text-gray-200 max-w-2xl mx-auto text-balance transform opacity-0 transition-opacity duration-500" 
             ref={subtitleRef}
           >
-            eco2lodgy transforme le secteur de la construction au Niger en apportant des solutions innovantes 
-            aux défis critiques du logement en Afrique de l'Ouest.
+            Eco2lodgy accompagne les collectivités, entreprises et particuliers dans la transition 
+            énergétique et numérique grâce à des solutions innovantes de pilotage des ressources.
           </p>
           <div 
-            className="flex flex-wrap gap-4 justify-center transform transition-opacity duration-500" 
+            className="flex flex-wrap gap-4 justify-center transform opacity-0 transition-opacity duration-500" 
             ref={ctaRef}
           >
             <Button className="bg-[#D4A017] text-black hover:bg-[#D4A017]/80 px-8 py-3 rounded-full transition-all duration-300 text-base font-medium group">
-              Découvrir nos innovations
+              Découvrir nos solutions
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
@@ -79,9 +80,9 @@ const Hero = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="font-medium text-lg text-white">Impact Environnemental</h3>
+                <h3 className="font-medium text-lg text-white">Économies d'Énergie</h3>
                 <p className="text-sm text-gray-200 mt-1">
-                  Réduction de 40% des émissions de CO2 grâce à nos solutions innovantes
+                  Jusqu'à 30% d'économies d'énergie constatées grâce à nos solutions
                 </p>
               </div>
             </div>

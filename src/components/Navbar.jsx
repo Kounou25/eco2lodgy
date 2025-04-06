@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -44,20 +45,18 @@ const Navbar = () => {
   const navItems = [
     { name: 'Accueil', href: '/', sectionId: null },
     {
-      name: 'Services',
+      name: 'Solutions',
       href: '#',
       sectionId: null,
       dropdown: [
-        { name: 'Architecture', href: '/services/architecture', sectionId: null },
-        { name: 'Promotion Immobilière', href: '/services/promotion', sectionId: null },
-        { name: 'Ingénierie Civile', href: '/services/ingenierie', sectionId: null },
-        { name: 'Infographie', href: '/services/infographie', sectionId: null },
-        { name: 'Solutions Numériques', href: '/services/solutions-numeriques', sectionId: null },
+        { name: 'Eco2Box', href: '/solutions/eco2box', sectionId: null },
+        { name: 'Plateforme Web & Mobile', href: '/solutions/plateforme', sectionId: null },
+        { name: 'Accompagnement', href: '/solutions/services', sectionId: null },
       ],
     },
-    { name: 'Projets', href: '#projects', sectionId: 'projects' },
-    { name: 'À Propos', href: '/a-propos', sectionId: 'about' },
-    { name: 'Contact', href: '/contact', sectionId: 'contact' },
+    { name: 'Domaines', href: '#projects', sectionId: 'projects' },
+    { name: 'À Propos', href: '#about', sectionId: 'about' },
+    { name: 'Contact', href: '#contact', sectionId: 'contact' },
   ];
 
   return (
@@ -118,8 +117,8 @@ const Navbar = () => {
                   </a>
                 )}
 
-                {/* Dropdown (désactivé dans ton code initial, mais je le laisse pour référence) */}
-                {/* {item.dropdown && (
+                {/* Dropdown */}
+                {item.dropdown && (
                   <div className="absolute left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2">
                     <div className="bg-white glass-card rounded-md shadow-xl overflow-hidden">
                       <div className="py-2">
@@ -135,12 +134,12 @@ const Navbar = () => {
                       </div>
                     </div>
                   </div>
-                )} */}
+                )}
               </div>
             ))}
 
             <Button className="bg-[#2E5A27] hover:bg-[#2E5A27]/80 text-white transition-colors">
-              Demander un devis
+              Demander une démo
             </Button>
           </div>
 
@@ -209,7 +208,7 @@ const Navbar = () => {
                 </div>
               ))}
               <Button className="w-full bg-[#2E5A27] hover:bg-[#2E5A27]/80 text-white transition-colors">
-                Demander un devis
+                Demander une démo
               </Button>
             </div>
           </div>
@@ -219,4 +218,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar; 
+export default Navbar;
