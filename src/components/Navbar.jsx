@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -25,37 +24,35 @@ const Navbar = () => {
   };
 
   const toggleDropdown = (index) => {
-    if (activeDropdown === index) {
-      setActiveDropdown(null);
-    } else {
-      setActiveDropdown(index);
-    }
+    setActiveDropdown(activeDropdown === index ? null : index);
   };
 
-  // Fonction pour défiler vers une section
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
     }
-    // Ferme le menu mobile après avoir cliqué
     setIsMenuOpen(false);
   };
 
   const navItems = [
     { name: 'Accueil', href: '/', sectionId: null },
     {
-      name: 'Solutions',
+      name: 'Départements',
       href: '#',
       sectionId: null,
       dropdown: [
-        { name: 'Eco2Box', href: '/solutions/eco2box', sectionId: null },
-        { name: 'Plateforme Web & Mobile', href: '/solutions/plateforme', sectionId: null },
-        { name: 'Accompagnement', href: '/solutions/services', sectionId: null },
+        { name: 'Technique', href: '/departements/technique', sectionId: 'services' },
+        { name: 'Urbanisme', href: '/departements/urbanisme', sectionId: 'services' },
+        { name: 'R&D', href: '/departements/rd', sectionId: 'services' },
+        { name: 'Économie', href: '/departements/economie', sectionId: 'services' },
+        { name: 'Numérique', href: '/departements/numerique', sectionId: 'services' },
+        { name: 'Formation', href: '/departements/formation', sectionId: 'services' },
       ],
     },
-    { name: 'Domaines', href: '#projects', sectionId: 'projects' },
-    { name: 'À Propos', href: '#about', sectionId: 'about' },
+    { name: 'Projets', href: '#projects', sectionId: 'projects' },
+    { name: 'Présentation', href: '#presentation', sectionId: 'presentation' },
+    { name: 'Équipe', href: '#team', sectionId: 'team' },
     { name: 'Contact', href: '#contact', sectionId: 'contact' },
   ];
 
@@ -65,23 +62,17 @@ const Navbar = () => {
         'fixed top-0 left-0 w-full z-50 transition-all duration-300',
         isScrolled
           ? 'bg-white/90 backdrop-blur-md shadow-md py-2'
-          : 'bg-transparent py-6'
+          : 'bg-[#2E5A27]/80 backdrop-blur-md py-6'
       )}
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
           <a href="/" className="flex items-center space-x-2">
             <img
-              src="/images/eco2lodgy.png"
+              src="/images/eco2lodgy.png" // Replace with actual logo path
               alt="Eco2lodgy"
               className="h-20 w-auto"
             />
-            {/* <span className={cn(
-              "font-display font-bold text-2xl transition-colors duration-300",
-              isScrolled ? "text-[#2E5A27]" : "text-white"
-            )}>
-              
-            </span> */}
           </a>
 
           {/* Desktop Navigation */}
@@ -92,8 +83,8 @@ const Navbar = () => {
                   <button
                     onClick={() => toggleDropdown(index)}
                     className={cn(
-                      "flex items-center space-x-1 font-medium hover:text-[#D4A017] transition-colors",
-                      isScrolled ? "text-[#2E5A27]" : "text-white"
+                      'flex items-center space-x-1 font-medium hover:text-[#D4A017] transition-colors',
+                      isScrolled ? 'text-[#2E5A27]' : 'text-white'
                     )}
                   >
                     <span>{item.name}</span>
@@ -109,8 +100,8 @@ const Navbar = () => {
                       }
                     }}
                     className={cn(
-                      "font-medium hover:text-[#D4A017] transition-colors",
-                      isScrolled ? "text-[#2E5A27]" : "text-white"
+                      'font-medium hover:text-[#D4A017] transition-colors',
+                      isScrolled ? 'text-[#2E5A27]' : 'text-white'
                     )}
                   >
                     {item.name}
@@ -119,14 +110,25 @@ const Navbar = () => {
 
                 {/* Dropdown */}
                 {item.dropdown && (
-                  <div className="absolute left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2">
-                    <div className="bg-white glass-card rounded-md shadow-xl overflow-hidden">
+                  <div
+                    className={cn(
+                      'absolute left-0 mt-2 w-56 opacity-0 invisible transition-all duration-300 transform translate-y-2',
+                      activeDropdown === index || 'group-hover:opacity-100 group-hover:visible group-hover:translate-y-0'
+                    )}
+                  >
+                    <div className="bg-white rounded-md shadow-xl overflow-hidden border border-[#2E5A27]/10">
                       <div className="py-2">
                         {item.dropdown.map((subItem, subIndex) => (
                           <a
                             key={subIndex}
                             href={subItem.href}
-                            className="block px-4 py-2 text-sm text-[#2E5A27] hover:bg-[#D4A017]/10 hover:text-[#D4A017] transition-colors"
+                            onClick={(e) => {
+                              if (subItem.sectionId) {
+                                e.preventDefault();
+                                scrollToSection(subItem.sectionId);
+                              }
+                            }}
+                            className="block px-4 py-2 text-sm text-[#2E5A27] hover:bg-[#D4A017]/20 hover:text-[#D4A017] transition-colors"
                           >
                             {subItem.name}
                           </a>
@@ -138,8 +140,8 @@ const Navbar = () => {
               </div>
             ))}
 
-            <Button className="bg-[#2E5A27] hover:bg-[#2E5A27]/80 text-white transition-colors">
-              Demander une démo
+            <Button className="bg-[#D4A017] hover:bg-[#D4A017]/80 text-black transition-colors">
+              Nous Contacter
             </Button>
           </div>
 
@@ -147,8 +149,8 @@ const Navbar = () => {
           <button
             onClick={toggleMenu}
             className={cn(
-              "md:hidden transition-colors",
-              isScrolled ? "text-[#2E5A27]" : "text-white"
+              'md:hidden transition-colors',
+              isScrolled ? 'text-[#2E5A27]' : 'text-white'
             )}
             aria-label="Menu"
           >
@@ -172,7 +174,7 @@ const Navbar = () => {
                         <ChevronDown className="h-4 w-4" />
                       </button>
                       {activeDropdown === index && (
-                        <div className="mt-2 ml-4 space-y-2 border-l-2 border-[#2E5A27] pl-4">
+                        <div className="mt-2 ml-4 space-y-2 border-l-2 border-[#D4A017] pl-4">
                           {item.dropdown.map((subItem, subIndex) => (
                             <a
                               key={subIndex}
@@ -207,8 +209,8 @@ const Navbar = () => {
                   )}
                 </div>
               ))}
-              <Button className="w-full bg-[#2E5A27] hover:bg-[#2E5A27]/80 text-white transition-colors">
-                Demander une démo
+              <Button className="w-full bg-[#D4A017] hover:bg-[#D4A017]/80 text-black transition-colors">
+                Nous Contacter
               </Button>
             </div>
           </div>

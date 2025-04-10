@@ -30,8 +30,8 @@ const Footer = () => {
           {/* Company Info */}
           <div>
             <div className="flex items-center space-x-2 mb-6">
-              <img src="/images/logo-white.svg" alt="Eco2lodgy" className="h-10 w-auto" />
-              <span className="font-display font-bold text-2xl text-white">Eco2lodgy</span>
+              <img src="/images/logo.jpg" alt="Eco2lodgy" className="h-20 w-auto" />
+              {/* <span className="font-display font-bold text-2xl text-white">Eco2lodgy</span> */}
             </div>
             <p className="text-white/80 mb-6">
               Une agence innovante proposant des solutions complètes en architecture, 
