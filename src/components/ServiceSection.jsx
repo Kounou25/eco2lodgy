@@ -30,12 +30,12 @@ const ServiceSection = () => {
     {
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605" />
         </svg>
       ),
-      title: "Architecture",
-      description: "Conception architecturale innovante et durable pour tous types de projets résidentiels et commerciaux.",
-      href: "/services/architecture"
+      title: "Technique (Ingénierie & Construction)",
+      description: "Conception et mise en œuvre de bâtiments résilients aux inondations et à la chaleur, utilisant des matériaux locaux comme la voûte nubienne, avec expertise en calcul de structure.",
+      href: "/services/technique",
     },
     {
       icon: (
@@ -43,19 +43,9 @@ const ServiceSection = () => {
           <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5l-1.5-.5M6.75 7.364V3h-3v18m3-13.636l10.5-3.819" />
         </svg>
       ),
-      title: "Promotion Immobilière",
-      description: "Développement de projets immobiliers de qualité, de la conception à la livraison, avec une approche responsable.",
-      href: "/services/promotion"
-    },
-    {
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605" />
-        </svg>
-      ),
-      title: "Ingénierie Civile",
-      description: "Services d'ingénierie complets pour assurer la solidité, la sécurité et la durabilité de vos projets de construction.",
-      href: "/services/ingenierie"
+      title: "Urbanisme",
+      description: "Planification architecturale bioclimatique et aménagement territorial pour des quartiers durables, intégrant espaces verts et infrastructures adaptées au Niger.",
+      href: "/services/urbanisme",
     },
     {
       icon: (
@@ -63,9 +53,19 @@ const ServiceSection = () => {
           <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
         </svg>
       ),
-      title: "Infographie",
-      description: "Visualisations 3D, rendus photoréalistes et animations pour donner vie à vos projets avant leur construction.",
-      href: "/services/infographie"
+      title: "Recherche & Développement (R&D)",
+      description: "Innovation en matériaux locaux (argile, latérite) et techniques de construction durables pour des logements abordables et climatiqement adaptés.",
+      href: "/services/rd",
+    },
+    {
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659l-.879-.659M15 9H9m6 0a3 3 0 01-3 3m3-3a3 3 0 00-3-3m-3 6h6" />
+        </svg>
+      ),
+      title: "Économie/Financier",
+      description: "Modèles économiques viables pour des projets immobiliers abordables, optimisant les coûts tout en soutenant le développement local.",
+      href: "/services/economie",
     },
     {
       icon: (
@@ -73,19 +73,29 @@ const ServiceSection = () => {
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
         </svg>
       ),
-      title: "Développement Web",
-      description: "Création de sites web sur mesure, applications mobiles et solutions numériques adaptées à votre activité.",
-      href: "/services/developpement-web"
+      title: "Informatique",
+      description: "Développement d’outils numériques pour la gestion de projets, l’intégration de données cadastraux et la coordination des équipes au Niger.",
+      href: "/services/informatique",
     },
     {
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 9.373 7.372-7.432-.727zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59" />
         </svg>
       ),
-      title: "Applications Mobiles",
-      description: "Développement d'applications mobiles innovantes et intuitives pour iOS et Android adaptées à vos besoins.",
-      href: "/services/applications-mobiles"
+      title: "Infographie",
+      description: "Visualisations 3D et rendus pour présenter les projets de logements durables et faciliter la communication avec les partenaires locaux.",
+      href: "/services/infographie",
+    },
+    {
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M12 3v2.25m-8.25 3h16.5M3.75 11.25h16.5M3.75 14.25h16.5" />
+        </svg>
+      ),
+      title: "Formation",
+      description: "Transfert de compétences aux artisans locaux pour des constructions durables, renforçant l’autonomie des communautés nigériennes.",
+      href: "/services/formation",
     },
   ];
 
@@ -93,10 +103,10 @@ const ServiceSection = () => {
     <section className="py-20 bg-[#D4A017]/10" id="services">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-display text-[#2E5A27]">Nos Services</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-display text-[#2E5A27]">Nos Départements</h2>
           <div className="h-1 w-20 bg-[#2E5A27] mx-auto mb-6"></div>
           <p className="text-lg text-foreground/80">
-            Une approche multidisciplinaire pour répondre à tous vos besoins en architecture et solutions numériques.
+            Une expertise pluridisciplinaire pour des solutions de logement durables et adaptées aux défis du Niger.
           </p>
         </div>
 
@@ -115,7 +125,7 @@ const ServiceSection = () => {
 
         <div className="text-center mt-12">
           <Button className="bg-[#2E5A27] hover:bg-[#2E5A27]/80 text-white transition-colors">
-            Tous nos services
+            Explorer nos solutions
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
