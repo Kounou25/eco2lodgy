@@ -414,6 +414,6 @@ const PresentationSection = () => {
       `}</style>
     </section>
   );
-};
+}; 
 
 export default PresentationSection;

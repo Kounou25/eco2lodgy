@@ -72,16 +72,16 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           <a href="/" className="flex items-center space-x-2">
             <img
-              src="/images/logo.svg"
+              src="/images/eco2lodgy.png"
               alt="Eco2lodgy"
-              className="h-10 w-auto"
+              className="h-20 w-auto"
             />
-            <span className={cn(
+            {/* <span className={cn(
               "font-display font-bold text-2xl transition-colors duration-300",
               isScrolled ? "text-[#2E5A27]" : "text-white"
             )}>
-              Eco2lodgy
-            </span>
+              
+            </span> */}
           </a>
 
           {/* Desktop Navigation */}
