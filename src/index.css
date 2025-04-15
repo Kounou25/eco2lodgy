@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -9,32 +8,23 @@
   :root {
     --background: 60 30% 98%;
     --foreground: 140 20% 15%;
-
     --card: 0 0% 100%;
     --card-foreground: 140 20% 15%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 140 20% 15%;
-
     --primary: 142 43% 30%;
     --primary-foreground: 60 30% 98%;
-
     --secondary: 142 34% 44%;
     --secondary-foreground: 60 30% 98%;
-
     --muted: 60 15% 95%;
     --muted-foreground: 140 3% 45%;
-
     --accent: 32 59% 55%;
     --accent-foreground: 60 30% 98%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 60 30% 98%;
-
     --border: 140 5% 85%;
     --input: 140 5% 85%;
     --ring: 142 43% 30%;
-
     --radius: 0.75rem;
   }
 
@@ -44,12 +34,12 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased overflow-x-hidden;
+    @apply bg-background text-foreground antialiased overflow-x-hidden font-sans;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display tracking-tight;
+    @apply font-orbitron tracking-tight;
   }
 }
 
@@ -57,20 +47,21 @@
   .glass-card {
     @apply bg-white/70 backdrop-blur-lg border border-white/50 shadow-lg;
   }
-  
+
   .section-padding {
     @apply py-20 px-6 md:px-12 lg:px-24;
   }
-  
+
   .text-balance {
     text-wrap: balance;
   }
-  
+
   .mask-image-gradient {
     mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
   }
 }
 
+/* Autres animations et effets */
 .hero-underline {
   position: relative;
 }
@@ -98,7 +89,6 @@
   }
 }
 
-/* Smooth image loading effect */
 .image-container {
   position: relative;
   overflow: hidden;
@@ -113,7 +103,6 @@
   opacity: 1;
 }
 
-/* Button hover effects */
 .btn-hover-effect {
   position: relative;
   overflow: hidden;
@@ -142,7 +131,6 @@
   color: white;
 }
 
-/* Fix for Hero animation */
 .animate-fade-up {
   animation: fade-up 0.8s ease-out forwards;
 }

@@ -31,9 +31,9 @@ const CtaSection = () => {
               Demander un devis
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button variant="outline" className="border-white text-white hover:bg-white/20 px-6 py-6 text-base font-medium rounded-full">
+            {/* <Button variant="outline" className="border-white text-white hover:bg-white/20 px-6 py-6 text-base font-medium rounded-full">
               En savoir plus
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>

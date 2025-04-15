@@ -159,12 +159,12 @@ const ProjectSection = () => {
                   </div>
                   <div className="p-4">
                     <p className="text-foreground/80 text-sm mb-4">{project.description}</p>
-                    <Button
+                    {/* <Button
                       variant="outline"
                       className="border-[#D4A017] text-[#D4A017] hover:bg-[#D4A017] hover:text-black transition-colors text-sm"
                     >
                       En savoir plus
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               </div>

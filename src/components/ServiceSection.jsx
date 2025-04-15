@@ -14,13 +14,13 @@ const ServiceCard = ({ icon, title, description, href, index }) => {
       </div>
       <h3 className="text-xl font-semibold mb-3 text-[#2E5A27]">{title}</h3>
       <p className="text-foreground/80 mb-4 text-balance">{description}</p>
-      <a 
+      {/* <a 
         href={href} 
         className="inline-flex items-center text-[#D4A017] font-medium hover:underline group"
       >
         En savoir plus
         <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-      </a>
+      </a> */}
     </div>
   );
 };
