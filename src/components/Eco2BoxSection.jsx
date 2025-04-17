@@ -76,9 +76,9 @@ const Eco2BoxSection = () => {
                 <Button className="bg-[#2E5A27] hover:bg-[#2E5A27]/80 text-white">
                   Demander une démo
                 </Button>
-                <Button variant="outline" className="border-[#2E5A27] text-[#2E5A27] hover:bg-[#2E5A27]/10">
+                {/* <Button variant="outline" className="border-[#2E5A27] text-[#2E5A27] hover:bg-[#2E5A27]/10">
                   En savoir plus
-                </Button>
+                </Button> */}
               </div>
             </div>
           </div>

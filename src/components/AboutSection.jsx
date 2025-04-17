@@ -80,10 +80,10 @@ const AboutSection = () => {
               ))}
             </div>
 
-            <Button className="mt-6 bg-[#2E5A27] hover:bg-[#2E5A27]/90 text-white transition-colors">
+            {/* <Button className="mt-6 bg-[#2E5A27] hover:bg-[#2E5A27]/90 text-white transition-colors">
               En savoir plus
               <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            </Button> */}
           </div>
 
           {/* Image et statistiques */}
