@@ -77,6 +77,7 @@ const TechnicalDepartmentSection = () => {
     },
   ];
 
+  // Animation variants pour Framer Motion
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -152,9 +153,6 @@ const TechnicalDepartmentSection = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.2 }}
-               らせ
-
-
                 viewport={{ once: true }}
               >
                 <div className="mb-4 flex justify-center">{stat.icon}</div>
