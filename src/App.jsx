@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import TechnicalDepartmentSection from "./pages/Techniques";
+import UrbanPlanningDepartmentSection from "./pages/urbanisme";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ const App = () => (
         <Route path="/" element={<Index />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="/techniques" element={<TechnicalDepartmentSection />} />
+        <Route path="/urbanisme" element={<UrbanPlanningDepartmentSection />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         {/* Catch-all route for 404 Not Found */}
         <Route path="*" element={<NotFound />} />
