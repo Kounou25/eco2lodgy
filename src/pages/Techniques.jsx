@@ -98,7 +98,7 @@ const TechnicalDepartmentSection = () => {
             DÉPARTEMENT TECHNIQUE
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mt-4 font-display text-[#1A3C34]">
-            Ingénierie & Construction Durables
+            Ingénierie & Construction  Durables
           </h2>
           <p className="text-foreground/70 mt-4 max-w-2xl mx-auto text-lg">
             Le département Technique d'Eco2lodgy conçoit et construit des habitats résilients, écologiques et adaptés au contexte nigérien.
@@ -263,4 +263,4 @@ const TechnicalDepartmentSection = () => {
   );
 };
 
-export default TechnicalDepartmentSection;
+export default TechnicalDepartmentSection; 
