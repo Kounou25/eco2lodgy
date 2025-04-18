@@ -1,103 +1,81 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Map, Trees, Droplets, Sun, LayoutGrid, LandPlot, DraftingCompass, Palette, Globe } from 'lucide-react';
+import { ArrowRight, FlaskConical, Microscope, Leaf, BrainCircuit, TestTube2, Rocket, BarChart, Lightbulb } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 
-const UrbanPlanningDepartmentSection = () => {
+const ResearchDevelopmentSection = () => {
   const missions = [
     {
-      icon: <Map className="w-8 h-8 text-[#556331]" />,
-      title: "Planification Stratégique",
-      description: "Conception de plans directeurs intégrant les spécificités climatiques et culturelles du Niger.",
+      icon: <FlaskConical className="w-8 h-8 text-[#556331]" />,
+      title: "Innovation Technologique",
+      description: "Développement de solutions scientifiques adaptées aux défis spécifiques du Niger.",
     },
     {
-      icon: <Trees className="w-8 h-8 text-[#556331]" />,
-      title: "Espaces Verts Intégrés",
-      description: "Développement de corridors verts et d'infrastructures végétales pour lutter contre les îlots de chaleur.",
+      icon: <Microscope className="w-8 h-8 text-[#556331]" />,
+      title: "Recherche Appliquée",
+      description: "Études approfondies pour des applications concrètes dans divers secteurs.",
     },
     {
-      icon: <Droplets className="w-8 h-8 text-[#556331]" />,
-      title: "Gestion Hydraulique",
-      description: "Systèmes de drainage durable adaptés aux pluies torrentielles du Sahel.",
+      icon: <Leaf className="w-8 h-8 text-[#556331]" />,
+      title: "Développement Durable",
+      description: "Solutions écologiques et durables pour l'agriculture et l'environnement.",
     },
   ];
 
   const stats = [
     {
-      icon: <LandPlot className="w-10 h-10 text-[#556331]" />,
-      value: "25+",
-      label: "Plans Directeurs",
-      description: "De villes et communes nigériennes",
+      icon: <BrainCircuit className="w-10 h-10 text-[#556331]" />,
+      value: "15+",
+      label: "Projets Innovants",
+      description: "En cours de développement",
     },
     {
-      icon: <Sun className="w-10 h-10 text-[#556331]" />,
-      value: "40%",
-      label: "Réduction Chaleur",
-      description: "Grâce à nos aménagements bioclimatiques",
+      icon: <TestTube2 className="w-10 h-10 text-[#556331]" />,
+      value: "8",
+      label: "Brevets Déposés",
+      description: "Technologies protégées",
     },
     {
-      icon: <LayoutGrid className="w-10 h-10 text-[#556331]" />,
-      value: "120ha",
-      label: "Espaces Aménagés",
-      description: "Dont 30% d'espaces verts en moyenne",
+      icon: <Rocket className="w-10 h-10 text-[#556331]" />,
+      value: "12",
+      label: "Pilotes Industriels",
+      description: "Solutions testées en conditions réelles",
     },
   ];
 
   const projects = [
     {
-      title: "Éco-Quartier de Niamey",
-      description: "Aménagement d'un quartier pilote avec circulation douce et jardins communautaires.",
-      image: "https://images.unsplash.com/photo-1607962837359-5e7e89f86776?q=80&w=2070&auto=format&fit=crop",
+      title: "Agriculture Intelligente",
+      description: "Systèmes d'irrigation optimisés par IA pour les cultures sahéliennes.",
+      image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ce?q=80&w=2070&auto=format&fit=crop",
     },
     {
-      title: "Plan Climat Agadez",
-      description: "Stratégie d'adaptation urbaine aux températures extrêmes.",
-      image: "https://images.unsplash.com/photo-1468824357306-a439d58ccb1c?q=80&w=1974&auto=format&fit=crop",
-    },
-  ];
-
-  // Nouvelle section Équipe Créative
-  const creativeTeam = [
-    {
-      number: "01",
-      icon: <DraftingCompass className="w-8 h-8 text-[#556331]" />,
-      title: "Architectes",
-      description: "Concepteurs de logements bioclimatiques qui concilient esthétique, fonctionnalité et efficacité énergétique.",
-    },
-    {
-      number: "02",
-      icon: <Trees className="w-8 h-8 text-[#556331]" />,
-      title: "Paysagistes",
-      description: "Assurent l'intégration harmonieuse des constructions dans leur environnement naturel, créant des espaces extérieurs qui contribuent au confort thermique et à la qualité de vie.",
-    },
-    {
-      number: "03",
-      icon: <Globe className="w-8 h-8 text-[#556331]" />,
-      title: "Aménageurs territoriaux",
-      description: "Élèvent la réflexion à l'échelle du quartier et de la ville, garantissant la cohérence globale des développements et établissant les orientations stratégiques qui guident les conceptions architecturales.",
+      title: "Énergies Renouvelables",
+      description: "Stockage innovant pour systèmes solaires en milieu rural.",
+      image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=2072&auto=format&fit=crop",
     },
   ];
 
   const teamMembers = [
     {
-      name: "Harouna Moussa",
-      role: "Urbaniste Principal",
-      description: "Spécialiste en planification territoriale avec 12 ans d'expérience au Sahel.",
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1887&auto=format&fit=crop",
+      name: "Dr. Amina Bello",
+      role: "Directrice de Recherche",
+      description: "PhD en Sciences de l'Environnement avec 15 ans d'expérience en R&D africaine.",
+      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1887&auto=format&fit=crop",
     },
     {
-      name: "Aïchatou Diallo",
-      role: "Paysagiste",
-      description: "Expert en intégration végétale en milieu urbain aride.",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1888&auto=format&fit=crop",
+      name: "Prof. Ibrahim Kane",
+      role: "Responsable Innovation",
+      description: "Expert en technologies adaptées aux climats arides.",
+      image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=2070&auto=format&fit=crop",
     },
     {
-      name: "Yacouba Issa",
-      role: "Spécialiste Mobilité",
-      description: "Conception de réseaux de transport résilients.",
-      image: "https://images.unsplash.com/photo-1545167622-3a6ac756afa4?q=80&w=1856&auto=format&fit=crop",
+      name: "Dr. Fatouma Diop",
+      role: "Chef de Projets",
+      description: "Spécialiste en transfert technologique et industrialisation.",
+      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop",
     },
   ];
 
@@ -139,11 +117,11 @@ const UrbanPlanningDepartmentSection = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      {/* Hero Section - Urbanisme */}
+      {/* Hero Section - R&D */}
       <motion.section 
         className="relative h-[600px] bg-cover bg-center flex items-center justify-center"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')`,
+          backgroundImage: `url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop')`,
         }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -158,16 +136,16 @@ const UrbanPlanningDepartmentSection = () => {
           transition={{ delay: 0.3, duration: 0.8 }}
         >
           <h1 className="text-4xl md:text-6xl font-bold font-display mb-6 text-white leading-tight">
-            Urbanisme bioclimatique pour le Niger
+            Recherche & Développement Innovant
           </h1>
           <p className="text-xl text-white/90 mb-8 leading-relaxed">
-            Planification architecturale et aménagement territorial pour des quartiers durables, intégrant espaces verts et infrastructures adaptées.
+            Conception de solutions scientifiques et technologiques pour répondre aux défis du développement au Niger.
           </p>
           <Button
             className="bg-[#be9838] hover:bg-[#be9838]/90 text-[#556331] font-semibold px-8 py-4 rounded-full transition-all hover:scale-105"
-            aria-label="Découvrir nos plans"
+            aria-label="Découvrir nos projets"
           >
-            Voir nos réalisations
+            Explorer nos recherches
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </motion.div>
@@ -188,67 +166,20 @@ const UrbanPlanningDepartmentSection = () => {
               className="inline-block px-5 py-2 bg-[#556331]/10 text-[#556331] text-sm font-medium rounded-full mb-4"
               variants={fadeIn}
             >
-              DÉPARTEMENT D'URBANISME
+              DÉPARTEMENT RECHERCHE & DÉVELOPPEMENT
             </motion.span>
             <motion.h2 
               className="text-3xl md:text-5xl font-bold font-display text-[#556331] mb-6"
               variants={fadeIn}
             >
-              Villes Résilientes et Inclusives
+              Science au Service du Développement
             </motion.h2>
             <motion.p 
               className="text-lg text-[#556331]/80 max-w-3xl mx-auto leading-relaxed"
               variants={fadeIn}
             >
-              Eco2lodgy dispose d'une équipe pluridisciplinaire travaillant en synergie pour développer des logements durables au Niger. 
-              L'équipe technique comprend des ingénieurs en structure, des spécialistes du bâtiment, des experts VRD et des géomètres. 
-              L'équipe créative est composée d'architectes spécialisés en conception bioclimatique, de paysagistes et d'urbanistes. 
-              Cette approche intégrée permet de créer des solutions d'habitat innovantes, adaptées au contexte nigérien et économiquement viables, 
-              tout en assurant le transfert de compétences aux acteurs locaux.
+              Notre équipe pluridisciplinaire développe des solutions innovantes pour l'agriculture, l'énergie, la santé et l'environnement.
             </motion.p>
-          </motion.section>
-
-          {/* Creative Team Section */}
-          <motion.section
-            className="mb-24"
-            initial="hidden"
-            whileInView="visible"
-            variants={staggerContainer}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <motion.h3 
-              className="text-2xl md:text-3xl font-semibold text-[#556331] text-center mb-12"
-              variants={fadeIn}
-            >
-              Notre <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Équipe Créative</span>
-            </motion.h3>
-            
-            <motion.div 
-              className="grid grid-cols-1 md:grid-cols-3 gap-8"
-              variants={staggerContainer}
-            >
-              {creativeTeam.map((item, index) => (
-                <motion.div
-                  key={index}
-                  className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all group"
-                  variants={fadeInItem}
-                  whileHover={{ y: -5 }}
-                >
-                  <div className="flex items-start mb-6">
-                    <span className="text-2xl font-bold text-[#be9838] mr-4">{item.number}</span>
-                    <div className="bg-[#556331]/10 p-3 rounded-full">
-                      {item.icon}
-                    </div>
-                  </div>
-                  <h4 className="text-xl font-semibold text-[#556331] mb-3">
-                    {item.title}
-                  </h4>
-                  <p className="text-[#556331]/80">
-                    {item.description}
-                  </p>
-                </motion.div>
-              ))}
-            </motion.div>
           </motion.section>
 
           {/* Missions Section */}
@@ -263,7 +194,7 @@ const UrbanPlanningDepartmentSection = () => {
               className="text-2xl md:text-3xl font-semibold text-[#556331] text-center mb-12"
               variants={fadeIn}
             >
-              Notre <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Approche</span>
+              Nos <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Domaines</span>
             </motion.h3>
             
             <motion.div 
@@ -305,7 +236,7 @@ const UrbanPlanningDepartmentSection = () => {
               className="text-2xl md:text-3xl font-semibold text-[#556331] text-center mb-12"
               variants={fadeIn}
             >
-              Chiffres <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Clés</span>
+              Résultats <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Concrets</span>
             </motion.h3>
             
             <motion.div 
@@ -346,7 +277,7 @@ const UrbanPlanningDepartmentSection = () => {
               className="text-2xl md:text-3xl font-semibold text-[#556331] text-center mb-12"
               variants={fadeIn}
             >
-              Études <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Récentes</span>
+              Projets <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Phares</span>
             </motion.h3>
             
             <motion.div 
@@ -387,7 +318,7 @@ const UrbanPlanningDepartmentSection = () => {
               className="text-2xl md:text-3xl font-semibold text-[#556331] text-center mb-12"
               variants={fadeIn}
             >
-              L'Équipe <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Urbanisme</span>
+              Notre <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Équipe</span>
             </motion.h3>
             
             <motion.div 
@@ -428,20 +359,20 @@ const UrbanPlanningDepartmentSection = () => {
               className="text-2xl md:text-3xl font-bold text-white mb-4"
               variants={fadeIn}
             >
-              Un Projet Urbain Durable ?
+              Un Projet de Recherche ?
             </motion.h3>
             <motion.p 
               className="text-white/80 mb-8 max-w-2xl mx-auto text-lg"
               variants={fadeIn}
             >
-              Collaborons pour concevoir des espaces de vie résilients et harmonieux.
+              Collaborons pour développer des solutions innovantes adaptées à vos besoins.
             </motion.p>
             <motion.div variants={fadeIn}>
               <Button
                 className="bg-[#be9838] hover:bg-[#be9838]/90 text-[#556331] font-semibold px-8 py-4 rounded-full transition-all hover:scale-105"
-                aria-label="Contacter le département Urbanisme"
+                aria-label="Contacter le département R&D"
               >
-                Planifier une consultation
+                Proposer un partenariat
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </motion.div>
@@ -454,4 +385,4 @@ const UrbanPlanningDepartmentSection = () => {
   );
 };
 
-export default UrbanPlanningDepartmentSection;
+export default ResearchDevelopmentSection;

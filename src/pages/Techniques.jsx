@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Wrench, Building2, ShieldCheck, Leaf, Recycle, Home } from 'lucide-react';
+import { ArrowRight, Wrench, Building2, ShieldCheck, Leaf, Recycle, Home, Ruler, HardHat, DraftingCompass, Map, Cpu } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
@@ -77,6 +77,32 @@ const TechnicalDepartmentSection = () => {
       description: "Garante des normes de sécurité et de durabilité sur tous les chantiers.",
       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=2000&auto=format&fit=crop",
     },
+  ];
+
+  // Nouvelle section Travaux Publics
+  const publicWorks = [
+    {
+      icon: <DraftingCompass className="w-8 h-8 text-[#556331]" />,
+      title: "Géomètres-experts",
+      description: "Fournissent les relevés précis qui constituent la base informationnelle de tous les projets, établissent les limites de propriété et alimentent le travail des autres experts techniques et de l'équipe numérique.",
+    },
+    {
+      icon: <HardHat className="w-8 h-8 text-[#556331]" />,
+      title: "Ingénieurs en structure",
+      description: "Experts en calculs et dimensionnement qui définissent les caractéristiques structurelles des bâtiments, travaillant avec les spécialistes du bâtiment et l'équipe R&D pour garantir solidité et innovation.",
+      subItems: [
+        {
+          icon: <Cpu className="w-6 h-6 text-[#556331]" />,
+          title: "Experts VRD",
+          description: "Conçoivent et intègrent les réseaux (eau, assainissement, électricité) essentiels à la viabilisation des sites, en s'appuyant sur les données topographiques et en coordination avec les autres spécialistes.",
+        },
+        {
+          icon: <Ruler className="w-6 h-6 text-[#556331]" />,
+          title: "Experts en calculs",
+          description: "Transforment les calculs théoriques en solutions constructives concrètes, assurant la mise en œuvre sur le terrain en coordination avec ingénieurs et experts VRD, tout en respectant la vision architecturale.",
+        }
+      ]
+    }
   ];
 
   // Animations
@@ -180,6 +206,64 @@ const TechnicalDepartmentSection = () => {
             >
               Notre département conçoit et construit des habitats résilients, écologiques et parfaitement adaptés au contexte nigérien.
             </motion.p>
+          </motion.section>
+
+          {/* Public Works Section */}
+          <motion.section
+            className="mb-24"
+            initial="hidden"
+            whileInView="visible"
+            variants={staggerContainer}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <motion.h3 
+              className="text-2xl md:text-3xl font-semibold text-[#556331] text-center mb-12"
+              variants={fadeIn}
+            >
+              <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Travaux Publics</span> & Expertise
+            </motion.h3>
+            
+            <motion.div 
+              className="grid grid-cols-1 md:grid-cols-2 gap-8"
+              variants={staggerContainer}
+            >
+              {publicWorks.map((item, index) => (
+                <motion.div
+                  key={index}
+                  className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all"
+                  variants={fadeInItem}
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="flex items-center mb-4">
+                    <div className="bg-[#556331]/10 p-3 rounded-full mr-4">
+                      {item.icon}
+                    </div>
+                    <h4 className="text-xl font-semibold text-[#556331]">
+                      {item.title}
+                    </h4>
+                  </div>
+                  <p className="text-[#556331]/80 mb-4 pl-16">
+                    {item.description}
+                  </p>
+                  
+                  {item.subItems && (
+                    <div className="mt-6 space-y-4 pl-8 border-l-2 border-[#be9838]/30">
+                      {item.subItems.map((subItem, subIndex) => (
+                        <div key={subIndex} className="flex items-start">
+                          <div className="bg-[#556331]/10 p-2 rounded-full mr-3 mt-1">
+                            {subItem.icon}
+                          </div>
+                          <div>
+                            <h5 className="font-medium text-[#556331]">{subItem.title}</h5>
+                            <p className="text-sm text-[#556331]/70">{subItem.description}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </motion.div>
           </motion.section>
 
           {/* Missions Section */}
