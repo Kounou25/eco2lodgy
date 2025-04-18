@@ -14,13 +14,13 @@ const ServiceCard = ({ icon, title, description, href, index }) => {
       </div>
       <h3 className="text-xl font-semibold mb-3 text-[#2E5A27]">{title}</h3>
       <p className="text-foreground/80 mb-4 text-balance">{description}</p>
-      {/* <a 
+      <a 
         href={href} 
         className="inline-flex items-center text-[#D4A017] font-medium hover:underline group"
       >
         En savoir plus
         <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-      </a> */}
+      </a>
     </div>
   );
 };
@@ -35,7 +35,7 @@ const ServiceSection = () => {
       ),
       title: "Technique (Ingénierie & Construction)",
       description: "Conception et mise en œuvre de bâtiments résilients aux inondations et à la chaleur, utilisant des matériaux locaux comme la voûte nubienne, avec expertise en calcul de structure.",
-      href: "/services/technique",
+      href: "/services/techniques",
     },
     {
       icon: (
@@ -55,7 +55,7 @@ const ServiceSection = () => {
       ),
       title: "Recherche & Développement (R&D)",
       description: "Innovation en matériaux locaux (argile, latérite) et techniques de construction durables pour des logements abordables et climatiqement adaptés.",
-      href: "/services/rd",
+      href: "/services/r&d",
     },
     {
       icon: (
@@ -65,7 +65,7 @@ const ServiceSection = () => {
       ),
       title: "Économie/Financier",
       description: "Modèles économiques viables pour des projets immobiliers abordables, optimisant les coûts tout en soutenant le développement local.",
-      href: "/services/economie",
+      href: "/services/finances",
     },
     {
       icon: (
@@ -75,18 +75,9 @@ const ServiceSection = () => {
       ),
       title: "Informatique",
       description: "Développement d’outils numériques pour la gestion de projets, l’intégration de données cadastraux et la coordination des équipes au Niger.",
-      href: "/services/informatique",
+      href: "/services/numeriques",
     },
-    {
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 9.373 7.372-7.432-.727zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59" />
-        </svg>
-      ),
-      title: "Infographie",
-      description: "Visualisations 3D et rendus pour présenter les projets de logements durables et faciliter la communication avec les partenaires locaux.",
-      href: "/services/infographie",
-    },
+   
     {
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -95,7 +86,7 @@ const ServiceSection = () => {
       ),
       title: "Formation",
       description: "Transfert de compétences aux artisans locaux pour des constructions durables, renforçant l’autonomie des communautés nigériennes.",
-      href: "/services/formation",
+      href: "/services/formations",
     },
   ];
 
