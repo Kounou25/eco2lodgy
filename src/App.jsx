@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import TechnicalDepartmentSection from "./pages/Techniques";
 import UrbanPlanningDepartmentSection from "./pages/urbanisme";
 import DigitalDepartmentSection from "./pages/numeriques";
+import TrainingDepartmentSection from "./pages/formations";
 import EconomicFinancialSection from "./pages/finances";
 import ResearchDevelopmentSection from "./pages/recherches";
 
@@ -26,6 +27,7 @@ const App = () => (
         <Route path="/urbanisme" element={<UrbanPlanningDepartmentSection />} />
         <Route path="/finances" element={<EconomicFinancialSection />} />
         <Route path="/numeriques" element={<DigitalDepartmentSection />} />
+        <Route path="/formations" element={<TrainingDepartmentSection />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="/r&d" element={<ResearchDevelopmentSection />} />
