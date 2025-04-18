@@ -8,17 +8,17 @@ import Navbar from '../components/Navbar';
 const UrbanPlanningDepartmentSection = () => {
   const missions = [
     {
-      icon: <Map className="w-8 h-8 text-[#8B6F47]" />, // Brownish tone for icons
+      icon: <Map className="w-8 h-8 text-[#556331]" />,
       title: "Planification Stratégique",
       description: "Conception de plans directeurs intégrant les spécificités climatiques et culturelles du Niger.",
     },
     {
-      icon: <Trees className="w-8 h-8 text-[#8B6F47]" />,
+      icon: <Trees className="w-8 h-8 text-[#556331]" />,
       title: "Espaces Verts Intégrés",
       description: "Développement de corridors verts et d'infrastructures végétales pour lutter contre les îlots de chaleur.",
     },
     {
-      icon: <Droplets className="w-8 h-8 text-[#8B6F47]" />,
+      icon: <Droplets className="w-8 h-8 text-[#556331]" />,
       title: "Gestion Hydraulique",
       description: "Systèmes de drainage durable adaptés aux pluies torrentielles du Sahel.",
     },
@@ -26,19 +26,19 @@ const UrbanPlanningDepartmentSection = () => {
 
   const stats = [
     {
-      icon: <LandPlot className="w-10 h-10 text-[#8B6F47]" />,
+      icon: <LandPlot className="w-10 h-10 text-[#556331]" />,
       value: "25+",
       label: "Plans Directeurs",
       description: "De villes et communes nigériennes",
     },
     {
-      icon: <Sun className="w-10 h-10 text-[#8B6F47]" />,
+      icon: <Sun className="w-10 h-10 text-[#556331]" />,
       value: "40%",
       label: "Réduction Chaleur",
       description: "Grâce à nos aménagements bioclimatiques",
     },
     {
-      icon: <LayoutGrid className="w-10 h-10 text-[#8B6F47]" />,
+      icon: <LayoutGrid className="w-10 h-10 text-[#556331]" />,
       value: "120ha",
       label: "Espaces Aménagés",
       description: "Dont 30% d'espaces verts en moyenne",
@@ -127,7 +127,7 @@ const UrbanPlanningDepartmentSection = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <div className="absolute inset-0 bg-[#2E5E4E]/70"></div>
+        <div className="absolute inset-0 bg-[#556331]/70"></div>
         
         <motion.div 
           className="relative z-10 text-center px-6 max-w-4xl mx-auto"
@@ -142,7 +142,7 @@ const UrbanPlanningDepartmentSection = () => {
             Planification architecturale et aménagement territorial pour des quartiers durables, intégrant espaces verts et infrastructures adaptées.
           </p>
           <Button
-            className="bg-[#A8C686] hover:bg-[#A8C686]/90 text-[#2E5E4E] font-semibold px-8 py-4 rounded-full transition-all hover:scale-105"
+            className="bg-[#be9838] hover:bg-[#be9838]/90 text-[#556331] font-semibold px-8 py-4 rounded-full transition-all hover:scale-105"
             aria-label="Découvrir nos plans"
           >
             Voir nos réalisations
@@ -152,7 +152,7 @@ const UrbanPlanningDepartmentSection = () => {
       </motion.section>
 
       {/* Main Content */}
-      <main className="flex-grow bg-gradient-to-b from-[#F0F7F4] to-[#E0ECE7] py-16">
+      <main className="flex-grow bg-gradient-to-b from-[#be9838]/20 to-[#E0ECE7] py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Department Introduction */}
           <motion.section
@@ -163,19 +163,19 @@ const UrbanPlanningDepartmentSection = () => {
             viewport={{ once: true, margin: "-100px" }}
           >
             <motion.span 
-              className="inline-block px-5 py-2 bg-[#2E5E4E]/10 text-[#2E5E4E] text-sm font-medium rounded-full mb-4"
+              className="inline-block px-5 py-2 bg-[#556331]/10 text-[#556331] text-sm font-medium rounded-full mb-4"
               variants={fadeIn}
             >
               DÉPARTEMENT D'URBANISME
             </motion.span>
             <motion.h2 
-              className="text-3xl md:text-5xl font-bold font-display text-[#2E5E4E] mb-6"
+              className="text-3xl md:text-5xl font-bold font-display text-[#556331] mb-6"
               variants={fadeIn}
             >
               Villes Résilientes et Inclusives
             </motion.h2>
             <motion.p 
-              className="text-lg text-[#2E5E4E]/80 max-w-3xl mx-auto leading-relaxed"
+              className="text-lg text-[#556331]/80 max-w-3xl mx-auto leading-relaxed"
               variants={fadeIn}
             >
               Nous concevons des espaces urbains qui concilient modernité, traditions locales et adaptation aux changements climatiques.
@@ -191,10 +191,10 @@ const UrbanPlanningDepartmentSection = () => {
             viewport={{ once: true, margin: "-100px" }}
           >
             <motion.h3 
-              className="text-2xl md:text-3xl font-semibold text-[#2E5E4E] text-center mb-12"
+              className="text-2xl md:text-3xl font-semibold text-[#556331] text-center mb-12"
               variants={fadeIn}
             >
-              Notre <span className="text-[#A8C686] bg-[#2E5E4E] px-3 py-1 rounded-md">Approche</span>
+              Notre <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Approche</span>
             </motion.h3>
             
             <motion.div 
@@ -204,19 +204,19 @@ const UrbanPlanningDepartmentSection = () => {
               {missions.map((mission, index) => (
                 <motion.div
                   key={index}
-                  className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all"
+                  className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all hover:border-[#be9838]/50"
                   variants={fadeInItem}
                   whileHover={{ y: -5 }}
                 >
                   <div className="flex justify-center mb-6">
-                    <div className="bg-[#2E5E4E]/10 p-4 rounded-full">
+                    <div className="bg-[#556331]/10 p-4 rounded-full">
                       {mission.icon}
                     </div>
                   </div>
-                  <h4 className="text-xl font-semibold text-[#2E5E4E] mb-3 text-center">
+                  <h4 className="text-xl font-semibold text-[#556331] mb-3 text-center">
                     {mission.title}
                   </h4>
-                  <p className="text-[#2E5E4E]/80 text-center">
+                  <p className="text-[#556331]/80 text-center">
                     {mission.description}
                   </p>
                 </motion.div>
@@ -233,10 +233,10 @@ const UrbanPlanningDepartmentSection = () => {
             viewport={{ once: true, margin: "-100px" }}
           >
             <motion.h3 
-              className="text-2xl md:text-3xl font-semibold text-[#2E5E4E] text-center mb-12"
+              className="text-2xl md:text-3xl font-semibold text-[#556331] text-center mb-12"
               variants={fadeIn}
             >
-              Chiffres <span className="text-[#A8C686] bg-[#2E5E4E] px-3 py-1 rounded-md">Clés</span>
+              Chiffres <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Clés</span>
             </motion.h3>
             
             <motion.div 
@@ -246,20 +246,20 @@ const UrbanPlanningDepartmentSection = () => {
               {stats.map((stat, index) => (
                 <motion.div
                   key={index}
-                  className="bg-white p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-all"
+                  className="bg-white p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-all hover:border-[#be9838]/50"
                   variants={fadeInItem}
                   whileHover={{ scale: 1.03 }}
                 >
                   <div className="flex justify-center mb-4">
-                    <div className="bg-[#2E5E4E]/10 p-3 rounded-full">
+                    <div className="bg-[#556331]/10 p-3 rounded-full">
                       {stat.icon}
                     </div>
                   </div>
                   <div className="mb-2">
-                    <span className="text-4xl font-bold text-[#2E5E4E]">{stat.value}</span>
-                    <span className="block text-lg font-medium text-[#2E5E4E] mt-2">{stat.label}</span>
+                    <span className="text-4xl font-bold text-[#556331]">{stat.value}</span>
+                    <span className="block text-lg font-medium text-[#556331] mt-2">{stat.label}</span>
                   </div>
-                  <p className="text-sm text-[#2E5E4E]/70">{stat.description}</p>
+                  <p className="text-sm text-[#556331]/70">{stat.description}</p>
                 </motion.div>
               ))}
             </motion.div>
@@ -274,10 +274,10 @@ const UrbanPlanningDepartmentSection = () => {
             viewport={{ once: true, margin: "-100px" }}
           >
             <motion.h3 
-              className="text-2xl md:text-3xl font-semibold text-[#2E5E4E] text-center mb-12"
+              className="text-2xl md:text-3xl font-semibold text-[#556331] text-center mb-12"
               variants={fadeIn}
             >
-              Études <span className="text-[#A8C686] bg-[#2E5E4E] px-3 py-1 rounded-md">Récentes</span>
+              Études <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Récentes</span>
             </motion.h3>
             
             <motion.div 
@@ -296,7 +296,7 @@ const UrbanPlanningDepartmentSection = () => {
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#2E5E4E]/80 via-[#2E5E4E]/30 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#556331]/80 via-[#556331]/30 to-transparent"></div>
                   <div className="absolute bottom-0 left-0 p-8">
                     <h4 className="text-2xl font-bold text-white mb-2">{project.title}</h4>
                     <p className="text-white/90">{project.description}</p>
@@ -315,10 +315,10 @@ const UrbanPlanningDepartmentSection = () => {
             viewport={{ once: true, margin: "-100px" }}
           >
             <motion.h3 
-              className="text-2xl md:text-3xl font-semibold text-[#2E5E4E] text-center mb-12"
+              className="text-2xl md:text-3xl font-semibold text-[#556331] text-center mb-12"
               variants={fadeIn}
             >
-              L'Équipe <span className="text-[#A8C686] bg-[#2E5E4E] px-3 py-1 rounded-md">Urbanisme</span>
+              L'Équipe <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Urbanisme</span>
             </motion.h3>
             
             <motion.div 
@@ -336,12 +336,12 @@ const UrbanPlanningDepartmentSection = () => {
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="w-32 h-32 rounded-full mx-auto object-cover border-4 border-[#2E5E4E]/10 group-hover:border-[#2E5E4E]/30 transition-all"
+                      className="w-32 h-32 rounded-full mx-auto object-cover border-4 border-[#556331]/10 group-hover:border-[#be9838]/30 transition-all"
                     />
                   </div>
-                  <h4 className="text-xl font-semibold text-[#2E5E4E] mb-1">{member.name}</h4>
-                  <p className="text-sm text-[#2E5E4E]/80 mb-3 font-medium">{member.role}</p>
-                  <p className="text-[#2E5E4E]/70 text-sm">{member.description}</p>
+                  <h4 className="text-xl font-semibold text-[#556331] mb-1">{member.name}</h4>
+                  <p className="text-sm text-[#556331]/80 mb-3 font-medium">{member.role}</p>
+                  <p className="text-[#556331]/70 text-sm">{member.description}</p>
                 </motion.div>
               ))}
             </motion.div>
@@ -349,7 +349,7 @@ const UrbanPlanningDepartmentSection = () => {
 
           {/* CTA Section */}
           <motion.section
-            className="bg-[#2E5E4E] rounded-2xl p-12 text-center"
+            className="bg-[#556331] rounded-2xl p-12 text-center"
             initial="hidden"
             whileInView="visible"
             variants={fadeIn}
@@ -369,7 +369,7 @@ const UrbanPlanningDepartmentSection = () => {
             </motion.p>
             <motion.div variants={fadeIn}>
               <Button
-                className="bg-[#A8C686] hover:bg-[#A8C686]/90 text-[#2E5E4E] font-semibold px-8 py-4 rounded-full transition-all hover:scale-105"
+                className="bg-[#be9838] hover:bg-[#be9838]/90 text-[#556331] font-semibold px-8 py-4 rounded-full transition-all hover:scale-105"
                 aria-label="Contacter le département Urbanisme"
               >
                 Planifier une consultation
