@@ -9,51 +9,51 @@ const ResearchDevelopmentSection = () => {
   const missions = [
     {
       icon: <FlaskConical className="w-8 h-8 text-[#556331]" />,
-      title: "Innovation Technologique",
-      description: "Développement de solutions scientifiques adaptées aux défis spécifiques du Niger.",
+      title: "Exploration des Ressources Locales",
+      description: "Analyse rigoureuse des matériaux locaux comme l'argile et les fibres végétales pour des solutions durables.",
     },
     {
       icon: <Microscope className="w-8 h-8 text-[#556331]" />,
-      title: "Recherche Appliquée",
-      description: "Études approfondies pour des applications concrètes dans divers secteurs.",
+      title: "Techniques Constructives",
+      description: "Transformation des connaissances théoriques en procédés constructifs adaptés au contexte local.",
     },
     {
       icon: <Leaf className="w-8 h-8 text-[#556331]" />,
-      title: "Développement Durable",
-      description: "Solutions écologiques et durables pour l'agriculture et l'environnement.",
+      title: "Collaboration Scientifique",
+      description: "Partenariats étroits avec l'équipe technique pour tester et valider des innovations sur le terrain.",
     },
   ];
 
   const stats = [
     {
       icon: <BrainCircuit className="w-10 h-10 text-[#556331]" />,
-      value: "15+",
-      label: "Projets Innovants",
-      description: "En cours de développement",
+      value: "10+",
+      label: "Matériaux Analysés",
+      description: "Ressources locales étudiées",
     },
     {
       icon: <TestTube2 className="w-10 h-10 text-[#556331]" />,
-      value: "8",
-      label: "Brevets Déposés",
-      description: "Technologies protégées",
+      value: "5",
+      label: "Prototypes Développés",
+      description: "Solutions testées",
     },
     {
       icon: <Rocket className="w-10 h-10 text-[#556331]" />,
-      value: "12",
-      label: "Pilotes Industriels",
-      description: "Solutions testées en conditions réelles",
+      value: "8",
+      label: "Partenariats Actifs",
+      description: "Collaborations scientifiques",
     },
   ];
 
   const projects = [
     {
-      title: "Agriculture Intelligente",
-      description: "Systèmes d'irrigation optimisés par IA pour les cultures sahéliennes.",
+      title: "Matériaux Écologiques",
+      description: "Développement de procédés à base d'argile et de fibres végétales pour des constructions économiques.",
       image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ce?q=80&w=2070&auto=format&fit=crop",
     },
     {
-      title: "Énergies Renouvelables",
-      description: "Stockage innovant pour systèmes solaires en milieu rural.",
+      title: "Techniques Adaptées",
+      description: "Solutions constructives viables et durables pour répondre aux besoins locaux.",
       image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=2072&auto=format&fit=crop",
     },
   ];
@@ -62,24 +62,24 @@ const ResearchDevelopmentSection = () => {
     {
       name: "Dr. Amina Bello",
       role: "Directrice de Recherche",
-      description: "PhD en Sciences de l'Environnement avec 15 ans d'expérience en R&D africaine.",
+      description: "Experte en analyse scientifique des matériaux locaux, avec 15 ans d'expérience en R&D.",
       image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1887&auto=format&fit=crop",
     },
     {
       name: "Prof. Ibrahim Kane",
       role: "Responsable Innovation",
-      description: "Expert en technologies adaptées aux climats arides.",
+      description: "Spécialiste des techniques constructives adaptées aux contextes locaux.",
       image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=2070&auto=format&fit=crop",
     },
     {
       name: "Dr. Fatouma Diop",
       role: "Chef de Projets",
-      description: "Spécialiste en transfert technologique et industrialisation.",
+      description: "Coordonne les partenariats avec l'équipe technique pour des solutions efficaces.",
       image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop",
     },
   ];
 
-  // Animations
+  // Animations (inchangées)
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { 
@@ -136,10 +136,10 @@ const ResearchDevelopmentSection = () => {
           transition={{ delay: 0.3, duration: 0.8 }}
         >
           <h1 className="text-4xl md:text-6xl font-bold font-display mb-6 text-white leading-tight">
-            Recherche & Développement Innovant
+            Recherche & Développement Durable
           </h1>
           <p className="text-xl text-white/90 mb-8 leading-relaxed">
-            Conception de solutions scientifiques et technologiques pour répondre aux défis du développement au Niger.
+            Transformer les ressources locales en solutions constructives économiques grâce à une approche scientifique rigoureuse.
           </p>
           <Button
             className="bg-[#be9838] hover:bg-[#be9838]/90 text-[#556331] font-semibold px-8 py-4 rounded-full transition-all hover:scale-105"
@@ -172,13 +172,13 @@ const ResearchDevelopmentSection = () => {
               className="text-3xl md:text-5xl font-bold font-display text-[#556331] mb-6"
               variants={fadeIn}
             >
-              Science au Service du Développement
+              Science et Innovation au Service du Local
             </motion.h2>
             <motion.p 
               className="text-lg text-[#556331]/80 max-w-3xl mx-auto leading-relaxed"
               variants={fadeIn}
             >
-              Notre équipe pluridisciplinaire développe des solutions innovantes pour l'agriculture, l'énergie, la santé et l'environnement.
+              Notre équipe R&D explore les matériaux locaux et développe des techniques constructives adaptées, en collaboration étroite avec les experts techniques.
             </motion.p>
           </motion.section>
 
@@ -194,7 +194,7 @@ const ResearchDevelopmentSection = () => {
               className="text-2xl md:text-3xl font-semibold text-[#556331] text-center mb-12"
               variants={fadeIn}
             >
-              Nos <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Domaines</span>
+              Nos <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Piliers</span>
             </motion.h3>
             
             <motion.div 
@@ -359,20 +359,20 @@ const ResearchDevelopmentSection = () => {
               className="text-2xl md:text-3xl font-bold text-white mb-4"
               variants={fadeIn}
             >
-              Un Projet de Recherche ?
+              Prêt à Innover Ensemble ?
             </motion.h3>
             <motion.p 
               className="text-white/80 mb-8 max-w-2xl mx-auto text-lg"
               variants={fadeIn}
             >
-              Collaborons pour développer des solutions innovantes adaptées à vos besoins.
+              Rejoignez-nous pour développer des solutions durables et adaptées à partir des ressources locales.
             </motion.p>
             <motion.div variants={fadeIn}>
               <Button
                 className="bg-[#be9838] hover:bg-[#be9838]/90 text-[#556331] font-semibold px-8 py-4 rounded-full transition-all hover:scale-105"
                 aria-label="Contacter le département R&D"
               >
-                Proposer un partenariat
+                Collaborer avec nous
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </motion.div>
