@@ -23,11 +23,11 @@ const App = () => (
       <Routes>
         <Route path="/" element={<Index />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-        <Route path="/techniques" element={<TechnicalDepartmentSection />} />
-        <Route path="/urbanisme" element={<UrbanPlanningDepartmentSection />} />
-        <Route path="/finances" element={<EconomicFinancialSection />} />
-        <Route path="/numeriques" element={<DigitalDepartmentSection />} />
-        <Route path="/formations" element={<TrainingDepartmentSection />} />
+        <Route path="/services/techniques" element={<TechnicalDepartmentSection />} />
+        <Route path="/services/urbanisme" element={<UrbanPlanningDepartmentSection />} />
+        <Route path="/services/finances" element={<EconomicFinancialSection />} />
+        <Route path="/services/numeriques" element={<DigitalDepartmentSection />} />
+        <Route path="/services/formations" element={<TrainingDepartmentSection />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="/r&d" element={<ResearchDevelopmentSection />} />
