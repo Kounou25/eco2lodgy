@@ -8,7 +8,9 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import TechnicalDepartmentSection from "./pages/Techniques";
 import UrbanPlanningDepartmentSection from "./pages/urbanisme";
+import EconomicFinancialSection from "./pages/finances";
 import ResearchDevelopmentSection from "./pages/recherches";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -21,6 +23,9 @@ const App = () => (
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="/techniques" element={<TechnicalDepartmentSection />} />
         <Route path="/urbanisme" element={<UrbanPlanningDepartmentSection />} />
+        <Route path="/finances" element={<EconomicFinancialSection />} />
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="/r&d" element={<ResearchDevelopmentSection />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         {/* Catch-all route for 404 Not Found */}
