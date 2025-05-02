@@ -9,13 +9,19 @@ import {
 
 export default function AdminDashboard() {
   // États pour la navigation et l'UI
-  const [activeTab, setActiveTab] = useState('partners');
+  const [activeTab, setActiveTab] = useState('projects');
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
   // États pour les données
   const [formData, setFormData] = useState({
+    projects: { 
+      id: '', 
+      title: '', 
+      description: '', 
+      image_url: '' 
+    },
     partners: { 
       id: '', 
       name: '', 
@@ -42,6 +48,7 @@ export default function AdminDashboard() {
 
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [projects, setProjects] = useState([]);
   const [partners, setPartners] = useState([]);
   const [members, setMembers] = useState([]);
   const [posts, setPosts] = useState([]);
@@ -51,6 +58,7 @@ export default function AdminDashboard() {
 
   // Configuration des API
   const API_ENDPOINTS = {
+    projects: 'https://alphatek.fr:3008/api/projects/', // À remplacer par le véritable endpoint
     partners: 'https://alphatek.fr:3008/api/partners/',
     members: 'https://alphatek.fr:3008/api/members/',
     posts: 'https://alphatek.fr:3008/api/posts/'
@@ -63,22 +71,26 @@ export default function AdminDashboard() {
       setError(null);
       
       try {
-        const [partnersRes, membersRes, postsRes] = await Promise.all([
+        const [projectsRes, partnersRes, membersRes, postsRes] = await Promise.all([
+          fetch(API_ENDPOINTS.projects),
           fetch(API_ENDPOINTS.partners),
           fetch(API_ENDPOINTS.members),
           fetch(API_ENDPOINTS.posts)
         ]);
 
+        const projectsData = await projectsRes.json();
         const partnersData = await partnersRes.json();
         const membersData = await membersRes.json();
         const postsData = await postsRes.json();
 
+        setProjects(projectsData.projects || []);
         setPartners(partnersData.partners || []);
         setMembers(membersData.members || []);
         setPosts(postsData.posts || []);
       } catch (err) {
         console.error('Erreur API:', err);
         setError('Erreur de chargement des données');
+        setProjects([]);
         setPartners([]);
         setMembers([]);
         setPosts([]);
@@ -92,6 +104,10 @@ export default function AdminDashboard() {
 
   // Filtrage et pagination
   const filteredItems = {
+    projects: (Array.isArray(projects) ? projects : []).filter(project => 
+      project?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project?.description?.toLowerCase().includes(searchTerm.toLowerCase())
+    ),
     partners: (Array.isArray(partners) ? partners : []).filter(partner =>
       partner?.name?.toLowerCase().includes(searchTerm.toLowerCase())
     ),
@@ -167,7 +183,13 @@ export default function AdminDashboard() {
 
       // Préparation des données selon l'entité
       let requestData;
-      if (entity === 'partners') {
+      if (entity === 'projects') {
+        requestData = {
+          title: formData.projects.title,
+          description: formData.projects.description,
+          image_url: formData.projects.image_url
+        };
+      } else if (entity === 'partners') {
         requestData = {
           name: formData.partners.name,
           description: formData.partners.description,
@@ -203,6 +225,7 @@ export default function AdminDashboard() {
 
       // Mise à jour du state
       const updateState = {
+        projects: setProjects,
         partners: setPartners,
         members: setMembers,
         posts: setPosts
@@ -215,7 +238,8 @@ export default function AdminDashboard() {
       );
 
       setSuccessMessage(
-        `${entity === 'members' ? 'Membre' : 
+        `${entity === 'projects' ? 'Projet' :
+         entity === 'members' ? 'Membre' : 
          entity === 'posts' ? 'Article' : 
          'Partenaire'} ${isEditing ? 'mis à jour' : 'ajouté'} avec succès`
       );
@@ -241,6 +265,7 @@ export default function AdminDashboard() {
 
       // Mise à jour du state
       const updateState = {
+        projects: setProjects,
         partners: setPartners,
         members: setMembers,
         posts: setPosts
@@ -264,6 +289,7 @@ export default function AdminDashboard() {
   // Composants d'affichage
   const renderForm = (entity, fields) => {
     const titles = {
+      projects: 'Projet',
       partners: 'Partenaire',
       members: 'Membre',
       posts: 'Article'
@@ -396,6 +422,7 @@ export default function AdminDashboard() {
 
   const renderList = (items, entity, columns) => {
     const titles = {
+      projects: 'Projets',
       partners: 'Partenaires',
       members: 'Membres',
       posts: 'Articles'
@@ -431,7 +458,7 @@ export default function AdminDashboard() {
               </div>
               <h4 className="mt-4 text-sm font-medium text-gray-700">Aucun élément trouvé</h4>
               <p className="mt-1 text-sm text-gray-500">
-                {searchTerm ? 'Essayez une autre recherche' : `Commencez par ajouter un ${entity === 'members' ? 'membre' : entity === 'posts' ? 'article' : 'partenaire'}`}
+                {searchTerm ? 'Essayez une autre recherche' : `Commencez par ajouter un ${entity === 'members' ? 'membre' : entity === 'posts' ? 'article' : entity === 'projects' ? 'projet' : 'partenaire'}`}
               </p>
             </div>
           ) : (
@@ -455,7 +482,7 @@ export default function AdminDashboard() {
                       <tr key={item.id} className="hover:bg-gray-50 transition-colors">
                         {columns.map(col => (
                           <td key={col.key} className="px-6 py-4 whitespace-nowrap">
-                            {col.key.endsWith('_url') || col.key === 'photo_url' || col.key === 'thumbnail_url' ? (
+                            {col.key.endsWith('_url') || col.key === 'photo_url' || col.key === 'thumbnail_url' || col.key === 'image_url' ? (
                               item[col.key] ? (
                                 <img 
                                   src={`https://alphatek.fr:3008${item[col.key]}`} 
@@ -584,13 +611,15 @@ export default function AdminDashboard() {
         {/* Navigation Tabs */}
         <div className="border-b border-gray-200 mb-6">
           <nav className="-mb-px flex space-x-8">
-            {['partners', 'members', 'posts'].map((tab) => {
+            {['projects', 'partners', 'members', 'posts'].map((tab) => {
               const icons = {
+                projects: <Briefcase className="inline mr-2" size={16} />,
                 partners: <Handshake className="inline mr-2" size={16} />,
                 members: <Users className="inline mr-2" size={16} />,
                 posts: <FileText className="inline mr-2" size={16} />
               };
               const labels = {
+                projects: 'Projets',
                 partners: 'Partenaires',
                 members: 'Équipe',
                 posts: 'Articles'
@@ -657,6 +686,21 @@ export default function AdminDashboard() {
           </div>
         ) : (
           <>
+            {activeTab === 'projects' && (
+              <>
+                {renderForm('projects', [
+                  { name: 'title', label: 'titre', type: 'text', required: true },
+                  { name: 'description', type: 'textarea', required: true },
+                  { name: 'image_url', label: 'image', type: 'file' }
+                ])}
+                {renderList(projects, 'projects', [
+                  { key: 'title', label: 'Titre' },
+                  { key: 'description', label: 'Description' },
+                  { key: 'image_url', label: 'Image' }
+                ])}
+              </>
+            )}
+
             {activeTab === 'partners' && (
               <>
                 {renderForm('partners', [
