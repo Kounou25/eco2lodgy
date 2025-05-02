@@ -1,37 +1,59 @@
-import React from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
 
 const PartnersSection = () => {
-  // Liste fictive de partenaires (à remplacer par vos données réelles)
-  const partners = [
-    {
-      name: "Ministere de l'urbanisme et de l'habitat",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Coat_of_arms_of_Niger.svg/langfr-1920px-Coat_of_arms_of_Niger.svg.png",
-      description: "Fournisseur de matériaux écologiques locaux",
-    },
-    {
-      name: "Ecotech",
-      logo: "https://www.iccoi.fr/images/00-Eco-tech/whatsapp-image-2024-09-20-a-06-53-08_7dc4dcc5.jpg",
-      description: "Ile de la reuinion",},
-    {
-      name: "Getec",
-      logo: "https://www.reunionnaisdumonde.com/IMG/jpg/getec-3.jpg",
-      description: "Innovateur en technologies durables",
-    },
-    {
-      name: "SETM",
-      logo: "https://optimus.re/wp-content/uploads/2023/09/ICON-LOGO-2.png",
-      description: "Soutien aux communautés locales",
-    },
-    {
-      name: "NGS",
-      logo: "https://i.pinimg.com/736x/68/3d/9a/683d9a1a8150ee8b29bfd25d46804605.jpg",
-      description: "Spécialiste en construction durable",
-    },
-  ];
+  const [partners, setPartners] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchPartners = async () => {
+      try {
+        const response = await fetch('https://alphatek.fr:3008/api/partners/');
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des partenaires');
+        }
+        const data = await response.json();
+        // Adaptation des données au format attendu par le composant
+        const formattedPartners = data.partners.map(partner => ({
+          name: partner.name,
+          description: partner.description,
+          logo: partner.logo_url.startsWith('http') 
+            ? partner.logo_url 
+            : `https://alphatek.fr:3008${partner.logo_url}` // Ajout du domaine si l'URL est relative
+        }));
+        setPartners(formattedPartners);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchPartners();
+  }, []);
 
   // Duplication de la liste pour un défilement infini visuel
   const carouselItems = [...partners, ...partners];
+
+  if (loading) {
+    return (
+      <section className="py-16 bg-[#F5F5F5]" id="partners">
+        <div className="container mx-auto px-4">
+          <p className="text-center">Chargement des partenaires...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="py-16 bg-[#F5F5F5]" id="partners">
+        <div className="container mx-auto px-4">
+          <p className="text-center text-red-600">Erreur : {error}</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-16 bg-[#F5F5F5]" id="partners">

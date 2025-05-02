@@ -19,6 +19,7 @@ import AdminDashboard from "./pages/dashboard";
 import PostsPage from './pages/PostsPage';
 import PartnersPage from './pages/PartnersPage';
 import LoginPage from "./pages/login";
+import BlogPost from "./pages/blogPost";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,11 @@ const App = () => (
         <Route path="/login" element={<LoginPage />} />
         {/* Route admin */}
         <Route path="/admin" element={<AdminDashboard />} />
+        {/* Route de blog */}
+        <Route path="/blog">
+          <Route path=":id" element={<BlogPost />} />
+          {/* Route de blog - page d'accueil */}
+        </Route>
 
         {/* Routes du dashboard - publiques */}
 
