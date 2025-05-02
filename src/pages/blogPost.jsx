@@ -34,7 +34,11 @@ const BlogPost = () => {
   if (isLoading) {
     return (
       <div className="loading-container">
-        <div className="loading-spinner"></div>
+        <div className="loading-dots">
+          <span className="dot"></span>
+          <span className="dot"></span>
+          <span className="dot"></span>
+        </div>
         <p>Loading...</p>
       </div>
     );
@@ -126,24 +130,53 @@ const BlogPost = () => {
           text-align: center;
         }
 
-        .loading-spinner {
-          border: 4px solid rgba(0, 0, 0, 0.1);
-          border-top: 4px solid #4299e1;
-          border-radius: 50%;
-          width: 40px;
-          height: 40px;
-          animation: spin 1s linear infinite;
-          margin-bottom: 16px;
+        .loading-container {
+          gap: 16px;
         }
 
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+        .loading-dots {
+          display: flex;
+          gap: 8px;
+        }
+
+        .loading-dots .dot {
+          width: 12px;
+          height: 12px;
+          background: #4299e1;
+          border-radius: 50%;
+          animation: bounce 0.6s infinite alternate;
+        }
+
+        .loading-dots .dot:nth-child(2) {
+          animation-delay: 0.2s;
+        }
+
+        .loading-dots .dot:nth-child(3) {
+          animation-delay: 0.4s;
+        }
+
+        @keyframes bounce {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-10px); }
+        }
+
+        nav {
+          height: 70px;
+          padding: 0 24px;
+          display: flex;
+          align-items: center;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+          font-size: 1rem;
+        }
+
+        nav * {
+          font-size: 1rem;
+          padding: 10px 14px;
         }
 
         .back-button {
           position: fixed;
-          top: 80px;
+          top: 78px;
           left: 20px;
           display: flex;
           align-items: center;
@@ -151,7 +184,7 @@ const BlogPost = () => {
           background: #fff;
           border: 1px solid #e2e8f0;
           color: #4299e1;
-          font-size: 1rem;
+          font-size: 0.95rem;
           padding: 8px 16px;
           border-radius: 8px;
           cursor: pointer;
@@ -171,7 +204,7 @@ const BlogPost = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-top: 80px;
+          margin-top: 70px;
           overflow: hidden;
         }
 
@@ -339,7 +372,7 @@ const BlogPost = () => {
           }
 
           .back-button {
-            top: 70px;
+            top: 74px;
             padding: 6px 12px;
             font-size: 0.9rem;
           }
