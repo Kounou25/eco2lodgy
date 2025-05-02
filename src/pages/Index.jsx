@@ -13,6 +13,7 @@ import ContactSection from '../components/ContactSection';
 import Eco2BoxSection from '../components/Eco2BoxSection';
 import PresentationSection from '../components/PresentationSection';
 import Footer from '../components/Footer';
+import PostSection from '../components/posts';
 
 const Index = () => {
   useEffect(() => {
@@ -32,6 +33,8 @@ const Index = () => {
         {/* <PresentationSection /> */}
         <TeamSection />
         <PartnersSection />
+        <PostSection />
+
         
         {/* <TestimonialSection /> */}
         <CtaSection />
