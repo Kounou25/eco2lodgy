@@ -1,58 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const TeamSection = () => {
   const [selectedDepartment, setSelectedDepartment] = useState('Tous');
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const teamMembers = [
-    {
-      name: "Youssoufou Mahaman",
-      role: "Coordinateur Général",
-      department: "Technique",
-      description: "Supervise les projets d’ingénierie et construction durable au Niger (Page 18).",
-      image: "https://img.freepik.com/free-photo/serious-executive-sitting-his-office_1098-1380.jpg?ga=GA1.1.1850963107.1741607734&semt=ais_hybrid&w=740",
-    },
-    {
-      name: "Aminata Souley",
-      role: "Architecte Urbaniste",
-      department: "Urbanisme",
-      description: "Conçoit des plans bioclimatiques pour des quartiers résilients (Page 12).",
-      image: "https://plus.unsplash.com/premium_photo-1707155466034-d061c751ba63?q=80&w=2070&auto=format&fit=crop",
-    },
-    {
-      name: "Ibrahim Issoufou",
-      role: "Chercheur R&D",
-      department: "R&D",
-      description: "Développe des matériaux écologiques comme la terre stabilisée (Page 13).",
-      image: "https://img.freepik.com/free-photo/handsome-young-businessman-suit_273609-6513.jpg?ga=GA1.1.1850963107.1741607734&semt=ais_hybrid&w=740",
-    },
-    {
-      name: "Fatima Zara",
-      role: "Analyste Financière",
-      department: "Économie",
-      description: "Optimise les modèles économiques pour des logements abordables (Page 14).",
-      image: "https://img.freepik.com/free-photo/young-woman-holding-tablet-work_23-2149116576.jpg?ga=GA1.1.1850963107.1741607734&semt=ais_hybrid&w=740",
-    },
-    {
-      name: "Moussa Adamou",
-      role: "Spécialiste Numérique",
-      department: "Numérique",
-      description: "Gère les levés LiDAR et systèmes SIG pour le cadastre (Page 15).",
-      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-      name: "Hadiza Saley",
-      role: "Formatrice",
-      department: "Formation",
-      description: "Transfère des compétences aux artisans locaux (Page 16).",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d877993ecb?q=80&w=800&auto=format&fit=crop",
-    },
-  ];
+  useEffect(() => {
+    const fetchTeamMembers = async () => {
+      try {
+        const response = await fetch('https://alphatek.fr:3008/api/members/');
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des membres');
+        }
+        const data = await response.json();
+        // Adaptation des données au format attendu par le composant
+        const formattedMembers = data.members.map(member => ({
+          name: member.name.trim(), // Suppression des retours à la ligne ou espaces inutiles
+          role: member.role,
+          department: member.departement.charAt(0).toUpperCase() + member.departement.slice(1), // Capitalisation du département
+          description: member.description,
+          image: member.photo_url.startsWith('http') 
+            ? member.photo_url 
+            : `https://alphatek.fr:3008${member.photo_url}` // Ajout du domaine si l'URL est relative
+        }));
+        setTeamMembers(formattedMembers);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchTeamMembers();
+  }, []);
 
   const departments = ['Tous', ...new Set(teamMembers.map((member) => member.department))];
 
   const filteredMembers = selectedDepartment === 'Tous'
     ? teamMembers
     : teamMembers.filter((member) => member.department === selectedDepartment);
+
+  if (loading) {
+    return (
+      <section className="py-16 bg-[#F5F5F5]" id="team">
+        <div className="container mx-auto px-4">
+          <p className="text-center">Chargement des membres...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="py-16 bg-[#F5F5F5]" id="team">
+        <div className="container mx-auto px-4">
+          <p className="text-center text-red-600">Erreur : {error}</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-16 bg-[#F5F5F5]" id="team">
