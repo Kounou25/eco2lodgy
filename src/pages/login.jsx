@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Lock, Mail, Eye, EyeOff } from 'lucide-react';
+import { Lock, Mail, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // Pour la redirection
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -7,28 +8,71 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null); // Nouvel état pour les erreurs
+  const navigate = useNavigate(); // Hook pour la redirection
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    // Simuler une requête API
-    setTimeout(() => {
-      console.log('Login attempt with:', { email, password, rememberMe });
+    setError(null); // Réinitialiser les erreurs
+
+    try {
+      const response = await fetch('https://alphatek.fr:3008/api/users/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        // Gérer les erreurs 400, 401, 500
+        throw new Error(data.error || 'Erreur inconnue lors de la connexion');
+      }
+
+      // Connexion réussie (status 200)
+      const { user } = data;
+      console.log('Connexion réussie:', user);
+
+      // Stocker les informations de l'utilisateur (facultatif)
+      if (rememberMe) {
+        localStorage.setItem('user', JSON.stringify(user));
+      } else {
+        sessionStorage.setItem('user', JSON.stringify(user));
+      }
+
+      // Rediriger vers le tableau de bord (ou une autre page)
+      navigate('/admin'); // Remplacez par la route souhaitée
+
+    } catch (err) {
+      // Afficher l'erreur à l'utilisateur
+      setError(err.message);
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-white rounded-xl shadow-lg overflow-hidden">
-        {/* En-tête avec le logo (à remplacer par votre propre logo) */}
+        {/* En-tête avec le logo */}
         <div className="bg-blue-600 py-6 px-8 text-center">
-          <h1 className="text-2xl font-bold text-white">ALPHATEK</h1>
+          <h1 className="text-2xl font-bold text-white">ECO2LODGY</h1>
           <p className="text-blue-100 mt-1">Connectez-vous à votre espace</p>
         </div>
 
         {/* Formulaire de login */}
         <form onSubmit={handleSubmit} className="p-8 space-y-6">
+          {/* Affichage des erreurs */}
+          {error && (
+            <div className="flex items-center bg-red-50 border-l-4 border-red-500 p-4 rounded-md">
+              <AlertCircle className="h-5 w-5 text-red-500 mr-3" />
+              <p className="text-sm text-red-700">{error}</p>
+            </div>
+          )}
+
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
               Adresse email
