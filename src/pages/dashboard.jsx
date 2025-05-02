@@ -51,6 +51,7 @@ export default function AdminDashboard() {
   const [projects, setProjects] = useState([]);
   const [partners, setPartners] = useState([]);
   const [members, setMembers] = useState([]);
+  const [userData, setUserData] = useState([]);
   const [posts, setPosts] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const [error, setError] = useState(null);
@@ -69,6 +70,7 @@ export default function AdminDashboard() {
     const fetchData = async () => {
       setIsFetching(true);
       setError(null);
+      setUserData(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null);
       
       try {
         const [projectsRes, partnersRes, membersRes, postsRes] = await Promise.all([
@@ -592,14 +594,14 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <h1 className="text-xl font-bold text-gray-900 flex items-center">
             <span className="bg-blue-600 text-white px-3 py-1 rounded-lg mr-3">AT</span>
-            <span>Administration Alphatek</span>
+            <span>Administration Eco2lodgy</span>
           </h1>
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
                 <span className="text-sm font-medium text-blue-800">AD</span>
               </div>
-              <span className="hidden md:inline text-sm font-medium">Admin</span>
+              <span className="hidden md:inline text-sm font-medium">{userData.username}</span>
               <ChevronDown className="text-gray-500" size={16} />
             </div>
           </div>
