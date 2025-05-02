@@ -2,64 +2,43 @@ import { useState, useEffect } from 'react';
 import { 
   Briefcase, Handshake, Users, FileText, 
   Plus, Edit, Trash2, Image as ImageIcon, 
-  Link as LinkIcon, ChevronDown, Search,
-  ArrowLeft, ArrowRight, Loader2,
-  AlertCircle, CheckCircle
+  ChevronDown, Search, ArrowLeft, ArrowRight, 
+  Loader2, AlertCircle, CheckCircle 
 } from 'lucide-react';
 
 export default function AdminDashboard() {
-  // États pour la navigation et l'UI
+  // États
   const [activeTab, setActiveTab] = useState('projects');
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  // États pour les données
+  // États des données
   const [formData, setFormData] = useState({
-    projects: { 
-      id: '', 
-      title: '', 
-      description: '', 
-      image_url: '' 
-    },
-    partners: { 
-      id: '', 
-      name: '', 
-      description: '', 
-      logo_url: '', 
-      website_url: '' 
-    },
-    members: { 
-      id: '', 
-      name: '', 
-      role: '', 
-      departement: '', 
-      photo_url: '', 
-      description: '' 
-    },
-    posts: { 
-      id: '', 
-      title: '', 
-      content: '', 
-      thumbnail_url: '', 
-      author: '' 
-    }
+    projects: { title: '', description: '', projectType: '', image_file: null },
+    partners: { name: '', description: '', website: '', image_file: null },
+    members: { name: '', role: '', departement: '', description: '', image_file: null },
+    posts: { title: '', content: '', author: '', image_file: null }
   });
 
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [projects, setProjects] = useState([]);
-  const [partners, setPartners] = useState([]);
-  const [members, setMembers] = useState([]);
-  const [userData, setUserData] = useState([]);
-  const [posts, setPosts] = useState([]);
-  const [isFetching, setIsFetching] = useState(true);
-  const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);
+  const [data, setData] = useState({
+    projects: [],
+    partners: [],
+    members: [],
+    posts: []
+  });
+  const [userData, setUserData] = useState(null);
+  const [status, setStatus] = useState({
+    isFetching: true,
+    error: null,
+    success: null
+  });
 
-  // Configuration des API
+  // Endpoints API
   const API_ENDPOINTS = {
-    projects: 'https://alphatek.fr:3008/api/projects/', // À remplacer par le véritable endpoint
+    projects: 'https://alphatek.fr:3008/api/projects/',
     partners: 'https://alphatek.fr:3008/api/partners/',
     members: 'https://alphatek.fr:3008/api/members/',
     posts: 'https://alphatek.fr:3008/api/posts/'
@@ -68,36 +47,34 @@ export default function AdminDashboard() {
   // Récupération des données initiales
   useEffect(() => {
     const fetchData = async () => {
-      setIsFetching(true);
-      setError(null);
-      setUserData(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null);
-      
       try {
-        const [projectsRes, partnersRes, membersRes, postsRes] = await Promise.all([
-          fetch(API_ENDPOINTS.projects),
-          fetch(API_ENDPOINTS.partners),
-          fetch(API_ENDPOINTS.members),
-          fetch(API_ENDPOINTS.posts)
-        ]);
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user?.id) throw new Error('Authentification requise');
+        setUserData(user);
 
-        const projectsData = await projectsRes.json();
-        const partnersData = await partnersRes.json();
-        const membersData = await membersRes.json();
-        const postsData = await postsRes.json();
+        const responses = await Promise.all(
+          Object.values(API_ENDPOINTS).map(url => fetch(url))
+        );
+        
+        const [projects, partners, members, posts] = await Promise.all(
+          responses.map(res => res.json())
+        );
 
-        setProjects(projectsData.projects || []);
-        setPartners(partnersData.partners || []);
-        setMembers(membersData.members || []);
-        setPosts(postsData.posts || []);
+        setData({
+          projects: projects.projects || [],
+          partners: partners.partners || [],
+          members: members.members || [],
+          posts: posts.posts || []
+        });
+        
+        setStatus({ isFetching: false, error: null, success: null });
       } catch (err) {
-        console.error('Erreur API:', err);
-        setError('Erreur de chargement des données');
-        setProjects([]);
-        setPartners([]);
-        setMembers([]);
-        setPosts([]);
-      } finally {
-        setIsFetching(false);
+        console.error('Erreur:', err);
+        setStatus({ 
+          isFetching: false, 
+          error: err.message || 'Erreur de chargement', 
+          success: null 
+        });
       }
     };
 
@@ -105,24 +82,17 @@ export default function AdminDashboard() {
   }, []);
 
   // Filtrage et pagination
-  const filteredItems = {
-    projects: (Array.isArray(projects) ? projects : []).filter(project => 
-      project?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      project?.description?.toLowerCase().includes(searchTerm.toLowerCase())
-    ),
-    partners: (Array.isArray(partners) ? partners : []).filter(partner =>
-      partner?.name?.toLowerCase().includes(searchTerm.toLowerCase())
-    ),
-    members: (Array.isArray(members) ? members : []).filter(member =>
-      member?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      member?.departement?.toLowerCase().includes(searchTerm.toLowerCase())
-    ),
-    posts: (Array.isArray(posts) ? posts : []).filter(post =>
-      post?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post?.author?.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  }[activeTab];
+  const getFilteredItems = () => {
+    const items = data[activeTab] || [];
+    return items.filter(item => 
+      Object.values(item).some(
+        val => typeof val === 'string' && 
+        val.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  };
 
+  const filteredItems = getFilteredItems();
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
   const currentItems = filteredItems.slice(
     (currentPage - 1) * itemsPerPage,
@@ -138,17 +108,17 @@ export default function AdminDashboard() {
     }));
   };
 
-  const handleFileChange = (e, entity, field) => {
+  const handleFileChange = (e, entity) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData(prev => ({
-          ...prev,
-          [entity]: { ...prev[entity], [field]: reader.result }
-        }));
-      };
-      reader.readAsDataURL(file);
+      setFormData(prev => ({
+        ...prev,
+        [entity]: { 
+          ...prev[entity], 
+          image_file: file,
+          image_preview: URL.createObjectURL(file) 
+        }
+      }));
     }
   };
 
@@ -156,103 +126,82 @@ export default function AdminDashboard() {
     setFormData(prev => ({
       ...prev,
       [entity]: Object.fromEntries(
-        Object.keys(prev[entity]).map(key => [key, key === 'id' ? '' : ''])
+        Object.keys(prev[entity]).map(key => 
+          [key, key.endsWith('_file') ? null : '']
+        )
       )
     }));
     setIsEditing(false);
   };
 
-  const handleEdit = (item, entity) => {
-    setFormData(prev => ({
-      ...prev,
-      [entity]: item
-    }));
-    setIsEditing(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  // Opérations CRUD
   const handleSubmit = async (e, entity) => {
     e.preventDefault();
     setIsLoading(true);
-    setError(null);
-    
+    setStatus({ ...status, error: null, success: null });
+
     try {
-      const method = isEditing ? 'PUT' : 'POST';
-      const url = isEditing 
-        ? `${API_ENDPOINTS[entity]}${formData[entity].id}`
-        : API_ENDPOINTS[entity];
+      const formDataToSend = new FormData();
+      const entityData = formData[entity];
 
-      // Préparation des données selon l'entité
-      let requestData;
-      if (entity === 'projects') {
-        requestData = {
-          title: formData.projects.title,
-          description: formData.projects.description,
-          image_url: formData.projects.image_url
-        };
-      } else if (entity === 'partners') {
-        requestData = {
-          name: formData.partners.name,
-          description: formData.partners.description,
-          website_url: formData.partners.website_url,
-          logo_url: formData.partners.logo_url
-        };
-      } else if (entity === 'members') {
-        requestData = {
-          name: formData.members.name,
-          role: formData.members.role,
-          departement: formData.members.departement,
-          photo_url: formData.members.photo_url,
-          description: formData.members.description
-        };
-      } else if (entity === 'posts') {
-        requestData = {
-          title: formData.posts.title,
-          content: formData.posts.content,
-          thumbnail_url: formData.posts.thumbnail_url,
-          author: formData.posts.author
-        };
-      }
-
-      const response = await fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestData)
+      // Ajout des champs texte
+      Object.entries(entityData).forEach(([key, value]) => {
+        if (key.endsWith('_file') || key === 'image_preview') return;
+        if (value) formDataToSend.append(key, value);
       });
 
-      if (!response.ok) throw new Error('Erreur de sauvegarde');
+      // Ajout de l'image
+      if (entityData.image_file) {
+        formDataToSend.append('image', entityData.image_file);
+      }
 
-      const data = await response.json();
+      // Ajout de l'ID utilisateur
+      formDataToSend.append('user_id', userData.id);
 
+      const response = await fetch(API_ENDPOINTS[entity], {
+        method: isEditing ? 'PUT' : 'POST',
+        body: formDataToSend
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Erreur serveur');
+      }
+
+      const result = await response.json();
+      
       // Mise à jour du state
-      const updateState = {
-        projects: setProjects,
-        partners: setPartners,
-        members: setMembers,
-        posts: setPosts
-      }[entity];
+      setData(prev => ({
+        ...prev,
+        [entity]: isEditing
+          ? prev[entity].map(item => item.id === result.id ? result : item)
+          : [...prev[entity], result]
+      }));
 
-      updateState(prev => 
-        isEditing 
-          ? prev.map(item => item.id === data.id ? data : item)
-          : [...prev, data]
-      );
-
-      setSuccessMessage(
-        `${entity === 'projects' ? 'Projet' :
-         entity === 'members' ? 'Membre' : 
-         entity === 'posts' ? 'Article' : 
-         'Partenaire'} ${isEditing ? 'mis à jour' : 'ajouté'} avec succès`
-      );
-      setTimeout(() => setSuccessMessage(null), 3000);
+      setStatus({ 
+        ...status, 
+        success: `${entity} ${isEditing ? 'modifié' : 'ajouté'} avec succès` 
+      });
       resetForm(entity);
     } catch (err) {
       console.error('Erreur:', err);
-      setError(`Échec de l'opération: ${err.message}`);
+      setStatus({ ...status, error: err.message });
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleEdit = (item, entity) => {
+    setIsEditing(true);
+    setFormData(prev => ({
+      ...prev,
+      [entity]: {
+        ...item,
+        image_file: null,
+        image_preview: item.image_url 
+          ? `https://alphatek.fr:3008${item.image_url}` 
+          : null
+      }
+    }));
   };
 
   const handleDelete = async (id, entity) => {
@@ -263,45 +212,72 @@ export default function AdminDashboard() {
         method: 'DELETE'
       });
 
-      if (!response.ok) throw new Error('Erreur de suppression');
+      if (!response.ok) throw new Error('Échec de la suppression');
 
-      // Mise à jour du state
-      const updateState = {
-        projects: setProjects,
-        partners: setPartners,
-        members: setMembers,
-        posts: setPosts
-      }[entity];
-      
-      updateState(prev => prev.filter(item => item.id !== id));
+      setData(prev => ({
+        ...prev,
+        [entity]: prev[entity].filter(item => item.id !== id)
+      }));
+
+      setStatus({ ...status, success: 'Suppression réussie' });
       
       // Ajustement pagination
       if (currentPage > 1 && currentItems.length === 1) {
-        setCurrentPage(currentPage - 1);
+        setCurrentPage(prev => prev - 1);
       }
-
-      setSuccessMessage('Suppression réussie');
-      setTimeout(() => setSuccessMessage(null), 3000);
     } catch (err) {
       console.error('Erreur:', err);
-      setError('Échec de la suppression');
+      setStatus({ ...status, error: err.message });
     }
   };
 
-  // Composants d'affichage
-  const renderForm = (entity, fields) => {
-    const titles = {
-      projects: 'Projet',
-      partners: 'Partenaire',
-      members: 'Membre',
-      posts: 'Article'
-    };
+  // Configuration des formulaires
+  const FORM_CONFIG = {
+    projects: [
+      { name: 'title', label: 'Titre', type: 'text', required: true },
+      { name: 'description', type: 'textarea', required: true },
+      { name: 'projectType', label: 'Type de projet', type: 'text' },
+      { name: 'image', type: 'file', required: !isEditing }
+    ],
+    partners: [
+      { name: 'name', label: 'Nom', type: 'text', required: true },
+      { name: 'description', type: 'textarea' },
+      { name: 'website', label: 'Site web', type: 'url' },
+      { name: 'image', label: 'Logo', type: 'file', required: !isEditing }
+    ],
+    members: [
+      { name: 'name', label: 'Nom', type: 'text', required: true },
+      { name: 'role', label: 'Rôle', type: 'text', required: true },
+      { name: 'departement', label: 'Département', type: 'text' },
+      { name: 'description', type: 'textarea' },
+      { name: 'image', label: 'Photo', type: 'file', required: !isEditing }
+    ],
+    posts: [
+      { name: 'title', label: 'Titre', type: 'text', required: true },
+      { name: 'content', label: 'Contenu', type: 'textarea', required: true },
+      { name: 'author', label: 'Auteur', type: 'text', required: true },
+      { name: 'image', label: 'Image', type: 'file', required: !isEditing }
+    ]
+  };
+
+  const LABELS = {
+    projects: { singular: 'Projet', plural: 'Projets' },
+    partners: { singular: 'Partenaire', plural: 'Partenaires' },
+    members: { singular: 'Membre', plural: 'Membres' },
+    posts: { singular: 'Article', plural: 'Articles' }
+  };
+
+  // Composant Form
+  const renderForm = (entity) => {
+    const fields = FORM_CONFIG[entity];
+    const { singular } = LABELS[entity];
+    const entityData = formData[entity];
 
     return (
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-6">
-        <div className="bg-gradient-to-r from-blue-50 to-gray-50 px-6 py-4 border-b border-gray-200">
+      <div className="bg-white rounded-lg shadow border border-gray-200 mb-6">
+        <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
           <h3 className="text-lg font-semibold text-gray-800">
-            {isEditing ? 'Modifier' : 'Ajouter'} {titles[entity]}
+            {isEditing ? 'Modifier' : 'Ajouter'} {singular}
           </h3>
         </div>
         
@@ -309,38 +285,21 @@ export default function AdminDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {fields.map(field => (
               <div key={field.name} className={field.type === 'textarea' ? 'md:col-span-2' : ''}>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5 capitalize">
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
                   {field.label || field.name}
                   {field.required && <span className="text-red-500 ml-1">*</span>}
                 </label>
                 
-                {field.type === 'select' ? (
-                  <select
-                    name={field.name}
-                    value={formData[entity][field.name] || ''}
-                    onChange={(e) => handleInputChange(e, entity)}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 transition-all"
-                    required={field.required}
-                  >
-                    <option value="">Sélectionner...</option>
-                    {field.options?.map(option => (
-                      <option key={option} value={option}>{option}</option>
-                    ))}
-                  </select>
-                ) : field.type === 'file' ? (
+                {field.type === 'file' ? (
                   <div className="space-y-2">
-                    <label className="flex flex-col items-center justify-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-blue-50/50 hover:border-blue-200 transition-all">
+                    <label className="flex flex-col items-center justify-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition">
                       <div className="flex flex-col items-center">
-                        {formData[entity][field.name] ? (
+                        {entityData.image_preview ? (
                           <>
                             <img 
-                              src={
-                                typeof formData[entity][field.name] === 'string' && formData[entity][field.name].startsWith('/uploads')
-                                  ? `https://alphatek.fr:3008${formData[entity][field.name]}`
-                                  : formData[entity][field.name]
-                              } 
+                              src={entityData.image_preview} 
                               alt="Preview" 
-                              className="h-16 w-16 object-contain mb-2 rounded"
+                              className="h-24 w-24 object-contain mb-2 rounded"
                             />
                             <span className="text-sm text-blue-600 font-medium">Changer</span>
                           </>
@@ -357,29 +316,29 @@ export default function AdminDashboard() {
                       <input
                         type="file"
                         name={field.name}
-                        onChange={(e) => handleFileChange(e, entity, field.name)}
+                        onChange={(e) => handleFileChange(e, entity)}
                         className="hidden"
                         accept="image/*"
-                        required={!isEditing && field.required}
+                        required={field.required}
                       />
                     </label>
                   </div>
                 ) : field.type === 'textarea' ? (
                   <textarea
                     name={field.name}
-                    value={formData[entity][field.name] || ''}
+                    value={entityData[field.name] || ''}
                     onChange={(e) => handleInputChange(e, entity)}
                     rows={5}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 transition-all"
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 transition"
                     required={field.required}
                   />
                 ) : (
                   <input
                     type={field.type || 'text'}
                     name={field.name}
-                    value={formData[entity][field.name] || ''}
+                    value={entityData[field.name] || ''}
                     onChange={(e) => handleInputChange(e, entity)}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 transition-all"
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 transition"
                     required={field.required}
                   />
                 )}
@@ -392,7 +351,7 @@ export default function AdminDashboard() {
               <button
                 type="button"
                 onClick={() => resetForm(entity)}
-                className="px-5 py-2.5 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                className="px-5 py-2.5 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
               >
                 Annuler
               </button>
@@ -400,7 +359,7 @@ export default function AdminDashboard() {
             <button
               type="submit"
               disabled={isLoading}
-              className={`px-5 py-2.5 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors flex items-center ${isLoading ? 'opacity-75' : ''}`}
+              className={`px-5 py-2.5 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition flex items-center ${isLoading ? 'opacity-75' : ''}`}
             >
               {isLoading ? (
                 <>
@@ -422,20 +381,22 @@ export default function AdminDashboard() {
     );
   };
 
-  const renderList = (items, entity, columns) => {
-    const titles = {
-      projects: 'Projets',
-      partners: 'Partenaires',
-      members: 'Membres',
-      posts: 'Articles'
-    };
+  // Composant List
+  const renderList = (entity) => {
+    const { plural } = LABELS[entity];
+    const columns = FORM_CONFIG[entity]
+      .filter(field => field.type !== 'textarea' && field.type !== 'file')
+      .map(field => ({
+        key: field.name,
+        label: field.label || field.name
+      }));
 
     return (
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <div className="bg-gradient-to-r from-blue-50 to-gray-50 px-6 py-4 border-b border-gray-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <h3 className="text-lg font-semibold text-gray-800">{titles[entity]}</h3>
+      <div className="bg-white rounded-lg shadow border border-gray-200">
+        <div className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <h3 className="text-lg font-semibold text-gray-800">{plural}</h3>
           
-          <div className="relative w-full md:w-auto">
+          <div className="relative w-full md:w-64">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <Search className="h-4 w-4 text-gray-400" />
             </div>
@@ -447,20 +408,20 @@ export default function AdminDashboard() {
                 setSearchTerm(e.target.value);
                 setCurrentPage(1);
               }}
-              className="pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 w-full md:w-64 transition-all"
+              className="pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 w-full transition"
             />
           </div>
         </div>
         
         <div className="p-6">
-          {items.length === 0 ? (
+          {filteredItems.length === 0 ? (
             <div className="text-center py-12">
               <div className="mx-auto h-24 w-24 text-gray-400">
                 <FileText className="w-full h-full opacity-50" />
               </div>
               <h4 className="mt-4 text-sm font-medium text-gray-700">Aucun élément trouvé</h4>
               <p className="mt-1 text-sm text-gray-500">
-                {searchTerm ? 'Essayez une autre recherche' : `Commencez par ajouter un ${entity === 'members' ? 'membre' : entity === 'posts' ? 'article' : entity === 'projects' ? 'projet' : 'partenaire'}`}
+                {searchTerm ? 'Essayez une autre recherche' : `Commencez par ajouter un ${LABELS[entity].singular.toLowerCase()}`}
               </p>
             </div>
           ) : (
@@ -481,48 +442,25 @@ export default function AdminDashboard() {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {currentItems.map(item => (
-                      <tr key={item.id} className="hover:bg-gray-50 transition-colors">
+                      <tr key={item.id} className="hover:bg-gray-50 transition">
                         {columns.map(col => (
                           <td key={col.key} className="px-6 py-4 whitespace-nowrap">
-                            {col.key.endsWith('_url') || col.key === 'photo_url' || col.key === 'thumbnail_url' || col.key === 'image_url' ? (
-                              item[col.key] ? (
-                                <img 
-                                  src={`https://alphatek.fr:3008${item[col.key]}`} 
-                                  alt={col.label} 
-                                  className="h-10 w-10 rounded-full object-cover"
-                                />
-                              ) : (
-                                <div className="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center">
-                                  <ImageIcon size={16} className="text-gray-400" />
-                                </div>
-                              )
-                            ) : col.key === 'website_url' ? (
-                              <a 
-                                href={item.website_url} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="text-blue-600 hover:underline"
-                              >
-                                {item.website_url}
-                              </a>
-                            ) : (
-                              <div className={`text-sm ${col.key === 'title' || col.key === 'name' ? 'font-medium text-gray-900' : 'text-gray-500'}`}>
-                                {item[col.key]}
-                              </div>
-                            )}
+                            <div className={`text-sm ${col.key === 'title' || col.key === 'name' ? 'font-medium text-gray-900' : 'text-gray-500'}`}>
+                              {item[col.key]}
+                            </div>
                           </td>
                         ))}
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm space-x-2">
                           <button
                             onClick={() => handleEdit(item, entity)}
-                            className="text-blue-600 hover:text-blue-800 p-1.5 rounded-md hover:bg-blue-50 transition-colors"
+                            className="text-blue-600 hover:text-blue-800 p-1.5 rounded-md hover:bg-blue-50 transition"
                             title="Modifier"
                           >
                             <Edit size={16} />
                           </button>
                           <button
                             onClick={() => handleDelete(item.id, entity)}
-                            className="text-red-600 hover:text-red-800 p-1.5 rounded-md hover:bg-red-50 transition-colors"
+                            className="text-red-600 hover:text-red-800 p-1.5 rounded-md hover:bg-red-50 transition"
                             title="Supprimer"
                           >
                             <Trash2 size={16} />
@@ -545,7 +483,7 @@ export default function AdminDashboard() {
                     <button
                       onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
                       disabled={currentPage === 1}
-                      className="p-2 border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+                      className="p-2 border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition"
                     >
                       <ArrowLeft size={16} />
                     </button>
@@ -564,7 +502,7 @@ export default function AdminDashboard() {
                         <button
                           key={pageNum}
                           onClick={() => setCurrentPage(pageNum)}
-                          className={`w-10 h-10 rounded-md ${currentPage === pageNum ? 'bg-blue-600 text-white' : 'border border-gray-300 hover:bg-gray-50'} transition-colors`}
+                          className={`w-10 h-10 rounded-md ${currentPage === pageNum ? 'bg-blue-600 text-white' : 'border border-gray-300 hover:bg-gray-50'} transition`}
                         >
                           {pageNum}
                         </button>
@@ -573,7 +511,7 @@ export default function AdminDashboard() {
                     <button
                       onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
                       disabled={currentPage === totalPages}
-                      className="p-2 border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+                      className="p-2 border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition"
                     >
                       <ArrowRight size={16} />
                     </button>
@@ -587,6 +525,7 @@ export default function AdminDashboard() {
     );
   };
 
+  // Render principal
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -599,9 +538,13 @@ export default function AdminDashboard() {
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
-                <span className="text-sm font-medium text-blue-800">AD</span>
+                <span className="text-sm font-medium text-blue-800">
+                  {userData?.username?.charAt(0).toUpperCase() || 'A'}
+                </span>
               </div>
-              <span className="hidden md:inline text-sm font-medium">{userData.username}</span>
+              <span className="hidden md:inline text-sm font-medium">
+                {userData?.username || 'Admin'}
+              </span>
               <ChevronDown className="text-gray-500" size={16} />
             </div>
           </div>
@@ -610,21 +553,15 @@ export default function AdminDashboard() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Navigation Tabs */}
+        {/* Navigation */}
         <div className="border-b border-gray-200 mb-6">
           <nav className="-mb-px flex space-x-8">
-            {['projects', 'partners', 'members', 'posts'].map((tab) => {
+            {Object.keys(LABELS).map((tab) => {
               const icons = {
                 projects: <Briefcase className="inline mr-2" size={16} />,
                 partners: <Handshake className="inline mr-2" size={16} />,
                 members: <Users className="inline mr-2" size={16} />,
                 posts: <FileText className="inline mr-2" size={16} />
-              };
-              const labels = {
-                projects: 'Projets',
-                partners: 'Partenaires',
-                members: 'Équipe',
-                posts: 'Articles'
               };
               
               return (
@@ -642,7 +579,7 @@ export default function AdminDashboard() {
                   }`}
                 >
                   {icons[tab]}
-                  {labels[tab]}
+                  {LABELS[tab].plural}
                 </button>
               );
             })}
@@ -650,35 +587,35 @@ export default function AdminDashboard() {
         </div>
 
         {/* Messages d'état */}
-        {error && (
+        {status.error && (
           <div className="mb-6 bg-red-50 border-l-4 border-red-500 p-4">
             <div className="flex items-center">
               <AlertCircle className="h-5 w-5 text-red-500 mr-3" />
-              <div className="text-sm text-red-700">{error}</div>
+              <div className="text-sm text-red-700">{status.error}</div>
             </div>
           </div>
         )}
 
-        {successMessage && (
+        {status.success && (
           <div className="mb-6 bg-green-50 border-l-4 border-green-500 p-4">
             <div className="flex items-center">
               <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-              <div className="text-sm text-green-700">{successMessage}</div>
+              <div className="text-sm text-green-700">{status.success}</div>
             </div>
           </div>
         )}
 
-        {/* Contenu principal */}
-        {isFetching ? (
+        {/* Contenu */}
+        {status.isFetching ? (
           <div className="flex justify-center items-center py-12">
             <Loader2 className="animate-spin h-12 w-12 text-blue-500" />
             <span className="ml-3 text-gray-600">Chargement des données...</span>
           </div>
-        ) : error ? (
+        ) : status.error ? (
           <div className="text-center py-12">
             <AlertCircle className="mx-auto h-12 w-12 text-red-500" />
             <h3 className="mt-2 text-sm font-medium text-gray-900">Erreur de chargement</h3>
-            <p className="mt-1 text-sm text-gray-500">{error}</p>
+            <p className="mt-1 text-sm text-gray-500">{status.error}</p>
             <button
               onClick={() => window.location.reload()}
               className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
@@ -688,70 +625,8 @@ export default function AdminDashboard() {
           </div>
         ) : (
           <>
-            {activeTab === 'projects' && (
-              <>
-                {renderForm('projects', [
-                  { name: 'title', label: 'titre', type: 'text', required: true },
-                  { name: 'description', type: 'textarea', required: true },
-                  { name: 'image_url', label: 'image', type: 'file' }
-                ])}
-                {renderList(projects, 'projects', [
-                  { key: 'title', label: 'Titre' },
-                  { key: 'description', label: 'Description' },
-                  { key: 'image_url', label: 'Image' }
-                ])}
-              </>
-            )}
-
-            {activeTab === 'partners' && (
-              <>
-                {renderForm('partners', [
-                  { name: 'name', label: 'nom', type: 'text', required: true },
-                  { name: 'description', type: 'textarea' },
-                  { name: 'logo_url', label: 'logo', type: 'file' },
-                  { name: 'website_url', label: 'site web', type: 'url', required: true }
-                ])}
-                {renderList(partners, 'partners', [
-                  { key: 'name', label: 'Nom' },
-                  { key: 'website_url', label: 'Site web' },
-                  { key: 'logo_url', label: 'Logo' }
-                ])}
-              </>
-            )}
-
-            {activeTab === 'members' && (
-              <>
-                {renderForm('members', [
-                  { name: 'name', label: 'nom', type: 'text', required: true },
-                  { name: 'role', label: 'poste', type: 'text', required: true },
-                  { name: 'departement', label: 'département', type: 'text', required: true },
-                  { name: 'photo_url', label: 'photo', type: 'file' },
-                  { name: 'description', type: 'textarea', required: true }
-                ])}
-                {renderList(members, 'members', [
-                  { key: 'name', label: 'Nom' },
-                  { key: 'role', label: 'Poste' },
-                  { key: 'departement', label: 'Département' },
-                  { key: 'photo_url', label: 'Photo' }
-                ])}
-              </>
-            )}
-
-            {activeTab === 'posts' && (
-              <>
-                {renderForm('posts', [
-                  { name: 'title', label: 'titre', type: 'text', required: true },
-                  { name: 'content', label: 'contenu', type: 'textarea', required: true },
-                  { name: 'thumbnail_url', label: 'bannière', type: 'file' },
-                  { name: 'author', label: 'auteur', type: 'text', required: true }
-                ])}
-                {renderList(posts, 'posts', [
-                  { key: 'title', label: 'Titre' },
-                  { key: 'author', label: 'Auteur' },
-                  { key: 'thumbnail_url', label: 'Bannière' }
-                ])}
-              </>
-            )}
+            {renderForm(activeTab)}
+            {renderList(activeTab)}
           </>
         )}
       </main>
