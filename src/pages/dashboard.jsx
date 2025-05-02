@@ -12,6 +12,7 @@ export default function AdminDashboard() {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+  const [users, setUsers] = useState([]);
 
   // États des données
   const [formData, setFormData] = useState({
@@ -22,6 +23,7 @@ export default function AdminDashboard() {
   });
 
   const [isEditing, setIsEditing] = useState(false);
+  const [editingId, setEditingId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({
     projects: [],
@@ -41,7 +43,15 @@ export default function AdminDashboard() {
     projects: 'https://alphatek.fr:3008/api/projects/',
     partners: 'https://alphatek.fr:3008/api/partners/',
     members: 'https://alphatek.fr:3008/api/members/',
-    posts: 'https://alphatek.fr:3008/api/posts/'
+    posts: 'https://alphatek.fr:3008/api/posts/',
+    users: 'https://alphatek.fr:3008/api/users/users'
+  };
+
+  // Options pour les listes déroulantes
+  const DROPDOWN_OPTIONS = {
+    projectType: ['Développement', 'Recherche', 'Innovation', 'Infrastructure'],
+    departement: ['IT', 'R&D', 'Marketing', 'RH', 'Finance'],
+    role: ['Développeur', 'Chercheur', 'Manager', 'Analyste', 'Consultant']
   };
 
   // Récupération des données initiales
@@ -52,11 +62,11 @@ export default function AdminDashboard() {
         if (!user?.id) throw new Error('Authentification requise');
         setUserData(user);
 
-        const responses = await Promise.all(
-          Object.values(API_ENDPOINTS).map(url => fetch(url))
-        );
+        const responses = await Promise.all([
+          ...Object.values(API_ENDPOINTS).map(url => fetch(url))
+        ]);
         
-        const [projects, partners, members, posts] = await Promise.all(
+        const [projects, partners, members, posts, usersData] = await Promise.all(
           responses.map(res => res.json())
         );
 
@@ -67,6 +77,7 @@ export default function AdminDashboard() {
           posts: posts.posts || []
         });
         
+        setUsers(usersData.users || []);
         setStatus({ isFetching: false, error: null, success: null });
       } catch (err) {
         console.error('Erreur:', err);
@@ -132,6 +143,7 @@ export default function AdminDashboard() {
       )
     }));
     setIsEditing(false);
+    setEditingId(null);
   };
 
   const handleSubmit = async (e, entity) => {
@@ -157,7 +169,8 @@ export default function AdminDashboard() {
       // Ajout de l'ID utilisateur
       formDataToSend.append('user_id', userData.id);
 
-      const response = await fetch(API_ENDPOINTS[entity], {
+      const url = isEditing ? `${API_ENDPOINTS[entity]}${editingId}` : API_ENDPOINTS[entity];
+      const response = await fetch(url, {
         method: isEditing ? 'PUT' : 'POST',
         body: formDataToSend
       });
@@ -167,14 +180,13 @@ export default function AdminDashboard() {
         throw new Error(errorData.message || 'Erreur serveur');
       }
 
-      const result = await response.json();
+      // Rafraîchir les données après ajout/modification
+      const refreshedData = await fetch(API_ENDPOINTS[entity]);
+      const updatedData = await refreshedData.json();
       
-      // Mise à jour du state
       setData(prev => ({
         ...prev,
-        [entity]: isEditing
-          ? prev[entity].map(item => item.id === result.id ? result : item)
-          : [...prev[entity], result]
+        [entity]: updatedData[entity] || []
       }));
 
       setStatus({ 
@@ -192,6 +204,7 @@ export default function AdminDashboard() {
 
   const handleEdit = (item, entity) => {
     setIsEditing(true);
+    setEditingId(item.id);
     setFormData(prev => ({
       ...prev,
       [entity]: {
@@ -208,15 +221,19 @@ export default function AdminDashboard() {
     if (!window.confirm('Confirmer la suppression ?')) return;
 
     try {
-      const response = await fetch(`${API_ENDPOINTS[entity]}${id}`, {
-        method: 'DELETE'
+      const response = await fetch(`${API_ENDPOINTS[entity]}${id}`,{
+         method: 'DELETE'
       });
 
       if (!response.ok) throw new Error('Échec de la suppression');
 
+      // Rafraîchir les données après suppression
+      const refreshedData = await fetch(API_ENDPOINTS[entity]);
+      const updatedData = await refreshedData.json();
+      
       setData(prev => ({
         ...prev,
-        [entity]: prev[entity].filter(item => item.id !== id)
+        [entity]: updatedData[entity] || []
       }));
 
       setStatus({ ...status, success: 'Suppression réussie' });
@@ -236,7 +253,12 @@ export default function AdminDashboard() {
     projects: [
       { name: 'title', label: 'Titre', type: 'text', required: true },
       { name: 'description', type: 'textarea', required: true },
-      { name: 'projectType', label: 'Type de projet', type: 'text' },
+      { 
+        name: 'projectType', 
+        label: 'Type de projet', 
+        type: 'select', 
+        options: DROPDOWN_OPTIONS.projectType 
+      },
       { name: 'image', type: 'file', required: !isEditing }
     ],
     partners: [
@@ -247,15 +269,32 @@ export default function AdminDashboard() {
     ],
     members: [
       { name: 'name', label: 'Nom', type: 'text', required: true },
-      { name: 'role', label: 'Rôle', type: 'text', required: true },
-      { name: 'departement', label: 'Département', type: 'text' },
+      { 
+        name: 'role', 
+        label: 'Rôle', 
+        type: 'select', 
+        options: DROPDOWN_OPTIONS.role, 
+        required: true 
+      },
+      { 
+        name: 'departement', 
+        label: 'Département', 
+        type: 'select', 
+        options: DROPDOWN_OPTIONS.departement 
+      },
       { name: 'description', type: 'textarea' },
       { name: 'image', label: 'Photo', type: 'file', required: !isEditing }
     ],
     posts: [
       { name: 'title', label: 'Titre', type: 'text', required: true },
       { name: 'content', label: 'Contenu', type: 'textarea', required: true },
-      { name: 'author', label: 'Auteur', type: 'text', required: true },
+      { 
+        name: 'author', 
+        label: 'Auteur', 
+        type: 'select', 
+        options: users.map(user => ({ value: user.id, label: user.username })), 
+        required: true 
+      },
       { name: 'image', label: 'Image', type: 'file', required: !isEditing }
     ]
   };
@@ -332,6 +371,23 @@ export default function AdminDashboard() {
                     className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 transition"
                     required={field.required}
                   />
+                ) : field.type === 'select' ? (
+                  <select
+                    name={field.name}
+                    value={entityData[field.name] || ''}
+                    onChange={(e) => handleInputChange(e, entity)}
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 transition"
+                    required={field.required}
+                  >
+                    <option value="">Sélectionner...</option>
+                    {field.options.map(option => (
+                      typeof option === 'string' ? (
+                        <option key={option} value={option}>{option}</option>
+                      ) : (
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                      )
+                    ))}
+                  </select>
                 ) : (
                   <input
                     type={field.type || 'text'}
