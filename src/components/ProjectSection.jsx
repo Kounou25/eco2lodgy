@@ -1,56 +1,43 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const ProjectSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState('Tous');
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const sliderRef = useRef(null);
 
-  const projects = [
-    {
-      id: 1,
-      title: "Cadastre Numérisé",
-      category: "Numérique",
-      description: "Levés cadastraux précis avec drones et LiDAR pour une gestion foncière efficace au Niger (Page 20).",
-      image: "https://images.unsplash.com/photo-1628595350929-1816db9bf9f2?q=80&w=800&auto=format&fit=crop", // Drone aerial view
-    },
-    {
-      id: 2,
-      title: "Logements Résilients",
-      category: "Technique",
-      description: "Construction de logements adaptés aux inondations et à la chaleur extrême avec matériaux locaux (Page 21).",
-      image: "https://images.unsplash.com/photo-1590074072786-a66914d668f1?q=80&w=800&auto=format&fit=crop", // Sustainable housing in arid area
-    },
-    {
-      id: 3,
-      title: "Projet Pilote Niamey",
-      category: "Urbanisme",
-      description: "Quartier Francophonie : développement de logements durables et bioclimatiques à Niamey (Page 25).",
-      image: "https://images.unsplash.com/photo-1560184611-5b5749138c3c?q=80&w=800&auto=format&fit=crop", // Modern eco-friendly residential area
-    },
-    {
-      id: 4,
-      title: "Matériaux Écologiques",
-      category: "R&D",
-      description: "Production de blocs de terre stabilisée et bétons biosourcés pour un habitat abordable (Page 13).",
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop", // Construction with natural materials
-    },
-    {
-      id: 5,
-      title: "Formation Artisans",
-      category: "Formation",
-      description: "Transfert de compétences aux artisans locaux pour des techniques de construction durable (Page 16).",
-      image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=800&auto=format&fit=crop", // Workers training on-site
-    },
-    {
-      id: 6,
-      title: "Plan Économique",
-      category: "Économie",
-      description: "Modèle financier pour logements abordables, visant +15% d’offre en 5 ans (Page 22).",
-      image: "https://images.unsplash.com/photo-1459257831348-f51f207c9e39?q=80&w=800&auto=format&fit=crop", // Financial planning or community development
-    },
-  ];
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch('https://alphatek.fr:3008/api/projects/');
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des projets');
+        }
+        const data = await response.json();
+        // Adaptation des données au format attendu par le composant
+        const formattedProjects = data.projects.map(project => ({
+          id: project.id,
+          title: project.title,
+          category: project.project_type.charAt(0).toUpperCase() + project.project_type.slice(1), // Capitalisation du type
+          description: project.description,
+          image: project.image_url.startsWith('http') 
+            ? project.image_url 
+            : `https://alphatek.fr:3008${project.image_url}` // Ajout du domaine si l'URL est relative
+        }));
+        setProjects(formattedProjects);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   const categories = ['Tous', ...new Set(projects.map((project) => project.category))];
 
@@ -72,13 +59,35 @@ const ProjectSection = () => {
 
   const scrollToIndex = (index) => {
     if (sliderRef.current) {
-      const itemWidth = sliderRef.current.querySelector('.project-item').offsetWidth;
-      sliderRef.current.scrollTo({
-        left: index * itemWidth,
-        behavior: 'smooth',
-      });
+      const itemWidth = sliderRef.current.querySelector('.project-item')?.offsetWidth;
+      if (itemWidth) {
+        sliderRef.current.scrollTo({
+          left: index * itemWidth,
+          behavior: 'smooth',
+        });
+      }
     }
   };
+
+  if (loading) {
+    return (
+      <section className="py-20 bg-[#D4A017]/10" id="projects">
+        <div className="container mx-auto px-4">
+          <p className="text-center">Chargement des projets...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="py-20 bg-[#D4A017]/10" id="projects">
+        <div className="container mx-auto px-4">
+          <p className="text-center text-red-600">Erreur : {error}</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 bg-[#D4A017]/10" id="projects">
@@ -159,12 +168,6 @@ const ProjectSection = () => {
                   </div>
                   <div className="p-4">
                     <p className="text-foreground/80 text-sm mb-4">{project.description}</p>
-                    {/* <Button
-                      variant="outline"
-                      className="border-[#D4A017] text-[#D4A017] hover:bg-[#D4A017] hover:text-black transition-colors text-sm"
-                    >
-                      En savoir plus
-                    </Button> */}
                   </div>
                 </div>
               </div>
