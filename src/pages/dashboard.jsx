@@ -5,6 +5,9 @@ import {
   ChevronDown, Search, ArrowLeft, ArrowRight, 
   Loader2, AlertCircle, CheckCircle 
 } from 'lucide-react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function AdminDashboard() {
   // États
@@ -37,6 +40,17 @@ export default function AdminDashboard() {
     error: null,
     success: null
   });
+
+  // Navigation
+  const navigate = useNavigate();
+
+  // Vérification de l'utilisateur dans localStorage
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user?.username) {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   // Endpoints API
   const API_ENDPOINTS = {
@@ -221,8 +235,8 @@ export default function AdminDashboard() {
     if (!window.confirm('Confirmer la suppression ?')) return;
 
     try {
-      const response = await fetch(`${API_ENDPOINTS[entity]}${id}`,{
-         method: 'DELETE'
+      const response = await fetch(`${API_ENDPOINTS[entity]}${id}`, {
+        method: 'DELETE'
       });
 
       if (!response.ok) throw new Error('Échec de la suppression');
@@ -363,14 +377,37 @@ export default function AdminDashboard() {
                     </label>
                   </div>
                 ) : field.type === 'textarea' ? (
-                  <textarea
-                    name={field.name}
-                    value={entityData[field.name] || ''}
-                    onChange={(e) => handleInputChange(e, entity)}
-                    rows={5}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 transition"
-                    required={field.required}
-                  />
+                  field.name === 'content' && entity === 'posts' ? (
+                    <ReactQuill
+                      value={entityData[field.name] || ''}
+                      onChange={(value) => {
+                        setFormData(prev => ({
+                          ...prev,
+                          [entity]: { ...prev[entity], [field.name]: value }
+                        }));
+                      }}
+                      className="w-full rounded-lg border-gray-300"
+                      theme="snow"
+                      modules={{
+                        toolbar: [
+                          [{ 'header': [1, 2, 3, false] }],
+                          ['bold', 'italic', 'underline', 'strike'],
+                          [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                          ['link'],
+                          ['clean']
+                        ]
+                      }}
+                    />
+                  ) : (
+                    <textarea
+                      name={field.name}
+                      value={entityData[field.name] || ''}
+                      onChange={(e) => handleInputChange(e, entity)}
+                      rows={5}
+                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 transition"
+                      required={field.required}
+                    />
+                  )
                 ) : field.type === 'select' ? (
                   <select
                     name={field.name}

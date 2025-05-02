@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
+import DOMPurify from 'dompurify';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -84,7 +85,10 @@ const BlogPost = () => {
       <main className="container">
         <div className="content-grid">
           <article className="post-content">
-            <div className="post-body">{post.content}</div>
+            <div
+              className="post-body"
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
+            />
           </article>
           <aside className="sidebar">
             <div className="sidebar-card">

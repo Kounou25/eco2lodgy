@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import DOMPurify from 'dompurify';
 
 const PostSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -22,7 +23,14 @@ const PostSection = () => {
         const formattedPosts = data.posts.map(post => ({
           id: post.id,
           title: post.title,
-          excerpt: post.content.length > 100 ? post.content.substring(0, 100) + '...' : post.content,
+          excerpt: post.content.length > 100 
+            ? post.content.substring(0, 100) + '...' 
+            : post.content,
+          cleanExcerpt: DOMPurify.sanitize(
+            post.content.length > 100 
+              ? post.content.substring(0, 100) + '...' 
+              : post.content
+          ),
           image: post.thumbnail_url.startsWith('http') 
             ? post.thumbnail_url 
             : `https://alphatek.fr:3008${post.thumbnail_url}`,
@@ -140,7 +148,10 @@ const PostSection = () => {
                       </div>
                     </div>
                     <div className="p-4">
-                      <p className="text-gray-600 text-sm mb-2">{post.excerpt}</p>
+                      <div 
+                        className="text-gray-600 text-sm mb-2" 
+                        dangerouslySetInnerHTML={{ __html: post.cleanExcerpt }} 
+                      />
                       <p className="text-gray-500 text-xs">
                         By {post.author} • {new Date(post.created_at).toLocaleDateString('en-US', {
                           month: 'short',
