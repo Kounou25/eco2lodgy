@@ -292,7 +292,7 @@ export default function AdminDashboard() {
         name: 'author', 
         label: 'Auteur', 
         type: 'select', 
-        options: users.map(user => ({ value: user.id, label: user.username })), 
+        options: users.map(user => ({ value: user.username, label: user.username })), 
         required: true 
       },
       { name: 'image', label: 'Image', type: 'file', required: !isEditing }
