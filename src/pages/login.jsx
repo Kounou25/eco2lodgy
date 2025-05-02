@@ -36,12 +36,11 @@ export default function LoginPage() {
       const { user } = data;
       console.log('Connexion réussie:', user);
 
-      // Stocker les informations de l'utilisateur (facultatif)
-      if (rememberMe) {
-        localStorage.setItem('user', JSON.stringify(user));
-      } else {
-        sessionStorage.setItem('user', JSON.stringify(user));
-      }
+      // Stocker uniquement id et username dans localStorage
+      localStorage.setItem('user', JSON.stringify({
+        id: user.id,
+        username: user.username || user.email // Utilise email si username n'existe pas
+      }));
 
       // Rediriger vers le tableau de bord (ou une autre page)
       navigate('/admin'); // Remplacez par la route souhaitée
