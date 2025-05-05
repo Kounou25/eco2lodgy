@@ -8,7 +8,7 @@ const Footer = () => {
   const services = [
     { name: "Techniques", link: "/services/techniques" },
     { name: "Urbanisme", link: "/services/urbanisme" },
-    { name: "R&D", link: "/services/r&d" },
+    { name: "R&D", link: "/services/recherches" },
     { name: "Economie", link: "/services/finances" },
     { name: "Numerique", link: "/services/numeriques" },
     { name: "Formations", link: "/services/formations" },

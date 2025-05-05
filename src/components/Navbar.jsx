@@ -38,7 +38,7 @@ const Navbar = () => {
       dropdown: [
         { name: 'Technique', href: '/services/techniques' },
         { name: 'Urbanisme', href: '/services/urbanisme' },
-        { name: 'R&D', href: '/services/r&d' },
+        { name: 'R&D', href: '/services/recherches' },
         { name: 'Économie', href: '/services/finances' },
         { name: 'Numérique', href: '/services/numeriques' },
         { name: 'Formation', href: '/services/formations' },
