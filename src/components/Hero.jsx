@@ -68,13 +68,13 @@ const Hero = () => {
               className="bg-[#D4A017] text-black text-lg font-semibold px-10 py-4 rounded-full hover:bg-[#D4A017]/80 transition-all duration-300 group"
               aria-label="Découvrir notre vision"
             >
-              Découvrir notre vision
+              Découvrir qui nous sommes
               <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
         </div>
 
-        {/* Impact Card */}
+        {/* Impact Card
         <div className="absolute bottom-20 right-6 max-w-xs md:max-w-sm md:block">
           <div className="glass-card p-6 rounded-2xl shadow-xl backdrop-blur-md bg-white/15 border border-white/25 transform transition-all duration-500 hover:scale-105">
             <div className="flex items-start gap-4">
@@ -104,6 +104,7 @@ const Hero = () => {
             </div>
           </div>
         </div>
+      </div> */}
       </div>
 
       {/* Scrolldown Indicator */}
