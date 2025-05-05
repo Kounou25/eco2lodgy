@@ -6,22 +6,22 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   const services = [
-    { name: "Architecture", link: "/services/architecture" },
-    { name: "Promotion Immobilière", link: "/services/promotion" },
-    { name: "Ingénierie Civile", link: "/services/ingenierie" },
-    { name: "Infographie", link: "/services/infographie" },
-    { name: "Développement Web", link: "/services/developpement-web" },
+    { name: "Techniques", link: "/services/techniques" },
+    { name: "Urbanisme", link: "/services/urbanisme" },
+    { name: "R&D", link: "/services/r&d" },
+    { name: "Economie", link: "/services/finances" },
+    { name: "Numerique", link: "/services/numeriques" },
     { name: "Applications Mobiles", link: "/services/applications-mobiles" },
   ];
   
-  const quickLinks = [
-    { name: "Accueil", link: "/" },
-    { name: "À Propos", link: "/a-propos" },
-    { name: "Projets", link: "/projets" },
-    { name: "Contact", link: "/contact" },
-    { name: "Carrières", link: "/carrieres" },
-    { name: "FAQ", link: "/faq" },
-  ];
+  // const quickLinks = [
+  //   { name: "Accueil", link: "/" },
+  //   { name: "À Propos", link: "/a-propos" },
+  //   { name: "Projets", link: "/projets" },
+  //   { name: "Contact", link: "/contact" },
+  //   { name: "Carrières", link: "/carrieres" },
+  //   { name: "FAQ", link: "/faq" },
+  // ];
 
   return (
     <footer className="bg-[#F5F5F5]/90 text-gray-800">
@@ -69,7 +69,7 @@ const Footer = () => {
             </ul>
           </div>
           
-          {/* Quick Links */}
+          {/* Quick Links
           <div>
             <h3 className="text-xl font-semibold mb-6 font-display text-gray-900">Liens Rapides</h3>
             <ul className="space-y-3">
@@ -85,7 +85,7 @@ const Footer = () => {
               ))}
             </ul>
           </div>
-          
+           */}
           {/* Newsletter */}
           <div>
             <h3 className="text-xl font-semibold mb-6 font-display text-gray-900">Restez Informé</h3>

@@ -90,7 +90,7 @@ const AboutSection = () => {
           <div>
             <div className="relative rounded-xl overflow-hidden shadow-lg h-64 lg:h-80 mb-6">
               <img 
-                src="https://images.unsplash.com/photo-1593952873517-1c7bd65eadaf?q=80&w=2000&auto=format&fit=crop" 
+                src="/images/niamey.webp" 
                 alt="Logements durables au Niger" 
                 className="w-full h-full object-cover"
               />
