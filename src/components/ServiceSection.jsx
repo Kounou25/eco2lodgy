@@ -114,12 +114,12 @@ const ServiceSection = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        {/* <div className="text-center mt-12">
           <Button className="bg-[#2E5A27] hover:bg-[#2E5A27]/80 text-white transition-colors">
             Explorer nos solutions
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
-        </div>
+        </div> */}
       </div>
     </section>
   );
