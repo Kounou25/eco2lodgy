@@ -5,18 +5,8 @@ import { Button } from '@/components/ui/button';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activeSection, setActiveSection] = useState('/');
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -47,7 +37,7 @@ const Navbar = () => {
       sectionId: null,
       dropdown: [
         { name: 'Technique', href: '/services/techniques' },
-        { name: 'Urbanisme', href: '/services/urbanisme'},
+        { name: 'Urbanisme', href: '/services/urbanisme' },
         { name: 'R&D', href: '/services/r&d' },
         { name: 'Économie', href: '/services/finances' },
         { name: 'Numérique', href: '/services/numeriques' },
@@ -57,30 +47,23 @@ const Navbar = () => {
     { name: 'Projets', href: '#projects', sectionId: 'projects' },
     { name: 'Présentation', href: '#presentation', sectionId: 'presentation' },
     { name: 'Équipe', href: '#team', sectionId: 'team' },
-    { name: 'Contact', href: '/techniques', sectionId: 'contact' },
+    { name: 'Contact', href: '#contact', sectionId: 'contact' },
   ];
 
   return (
-    <nav
-      className={cn(
-        'fixed top-0 left-0 w-full z-50 transition-all duration-300',
-        isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-xs py-2'
-          : 'bg-[#2E5A27]/85 backdrop-blur-md py-3'
-      )}
-    >
-      <div className="container mx-auto px-4 md:px-6">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-white shadow-sm transition-all duration-300 py-3">
+      <div className="container mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between">
-          <a href="/" className="flex items-center space-x-2">
+          <a href="/" className="flex items-center space-x-3">
             <img
               src="/images/eco2lodgy.png"
               alt="Eco2lodgy"
-              className="h-12 w-auto md:h-14"
+              className="h-16 w-auto md:h-20"
             />
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-10">
             {navItems.map((item, index) => (
               <div key={index} className="relative group">
                 {item.dropdown ? (
@@ -89,13 +72,12 @@ const Navbar = () => {
                     aria-expanded={activeDropdown === index}
                     aria-label={`Toggle ${item.name} dropdown`}
                     className={cn(
-                      'flex items-center space-x-1 text-sm font-medium transition-colors duration-200',
-                      isScrolled ? 'text-gray-800' : 'text-white',
-                      activeDropdown === index && 'text-[#D4A017]'
+                      'flex items-center space-x-1 text-base font-semibold transition-colors duration-300',
+                      activeDropdown === index ? 'text-[#D4A017]' : 'text-gray-900 hover:text-[#D4A017]'
                     )}
                   >
                     <span>{item.name}</span>
-                    <ChevronDown className="h-3 w-3 transition-transform duration-200 group-hover:rotate-180" />
+                    <ChevronDown className="h-4 w-4 transition-transform duration-300 group-hover:rotate-180" />
                   </button>
                 ) : (
                   <a
@@ -108,12 +90,12 @@ const Navbar = () => {
                         setActiveSection(item.href);
                       }
                     }}
+                    aria-current={activeSection === item.href ? 'page' : undefined}
                     className={cn(
-                      'text-sm font-medium transition-colors duration-200 relative',
-                      isScrolled ? 'text-gray-800' : 'text-white',
+                      'text-base font-semibold transition-colors duration-300 relative',
                       activeSection === item.href
-                        ? 'text-[#D4A017] after:absolute after:bottom-[-2px] after:left-0 after:w-full after:h-[1px] after:bg-[#D4A017]'
-                        : 'hover:text-[#D4A017]'
+                        ? 'text-[#D4A017] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-[#D4A017]'
+                        : 'text-gray-900 hover:text-[#D4A017] hover:after:absolute hover:after:bottom-[-4px] hover:after:left-0 hover:after:w-full hover:after:h-[2px] hover:after:bg-[#D4A017]'
                     )}
                   >
                     {item.name}
@@ -124,13 +106,13 @@ const Navbar = () => {
                 {item.dropdown && (
                   <div
                     className={cn(
-                      'absolute left-0 mt-2 w-56 opacity-0 invisible transition-all duration-200 transform scale-95',
+                      'absolute left-0 mt-3 w-60 opacity-0 invisible transition-all duration-300 transform translate-y-2',
                       activeDropdown === index
-                        ? 'opacity-100 visible scale-100'
-                        : 'group-hover:opacity-100 group-hover:visible group-hover:scale-100'
+                        ? 'opacity-100 visible translate-y-0'
+                        : 'group-hover:opacity-100 group-hover:visible group-hover:translate-y-0'
                     )}
                   >
-                    <div className="bg-white rounded-md shadow-md border border-gray-100 py-1">
+                    <div className="bg-white rounded-lg shadow-lg border border-gray-200 py-2">
                       {item.dropdown.map((subItem, subIndex) => (
                         <a
                           key={subIndex}
@@ -142,8 +124,8 @@ const Navbar = () => {
                             }
                           }}
                           className={cn(
-                            'block px-4 py-2 text-xs text-gray-700 hover:bg-[#D4A017]/10 hover:text-[#D4A017] transition-colors duration-200',
-                            activeSection === subItem.href && 'text-[#D4A017] font-medium'
+                            'block px-5 py-3 text-sm font-medium text-gray-700 hover:bg-[#D4A017]/10 hover:text-[#D4A017] transition-colors duration-200',
+                            activeSection === subItem.href && 'text-[#D4A017]'
                           )}
                         >
                           {subItem.name}
@@ -156,7 +138,7 @@ const Navbar = () => {
             ))}
 
             <Button
-              className="bg-gradient-to-r from-[#D4A017] to-[#E8B923] hover:from-[#D4A017]/90 hover:to-[#E8B923]/90 text-gray-900 text-sm font-semibold rounded-full px-5 py-2 shadow-xs transition-all duration-200"
+              className="bg-[#D4A017] hover:bg-[#D4A017]/90 text-gray-900 text-base font-semibold rounded-full px-6 py-2.5 shadow-md transition-all duration-300"
               onClick={() => scrollToSection('contact', '#contact')}
             >
               Nous Contacter
@@ -166,20 +148,17 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
-            className={cn(
-              'md:hidden transition-colors',
-              isScrolled ? 'text-gray-800' : 'text-white'
-            )}
+            className="md:hidden text-gray-900 hover:text-[#D4A017] transition-colors"
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden mt-3 py-4 bg-white rounded-lg shadow-md animate-slide-in">
-            <div className="flex flex-col space-y-2 px-4">
+          <div className="md:hidden mt-4 py-6 bg-white rounded-xl shadow-lg animate-slide-down">
+            <div className="flex flex-col space-y-3 px-5">
               {navItems.map((item, index) => (
                 <div key={index}>
                   {item.dropdown ? (
@@ -188,18 +167,18 @@ const Navbar = () => {
                         onClick={() => toggleDropdown(index)}
                         aria-expanded={activeDropdown === index}
                         aria-label={`Toggle ${item.name} dropdown`}
-                        className="flex items-center justify-between w-full py-2 text-sm font-semibold text-gray-800 hover:text-[#D4A017]"
+                        className="flex items-center justify-between w-full py-3 text-base font-semibold text-gray-900 hover:text-[#D4A017]"
                       >
                         <span>{item.name}</span>
                         <ChevronDown
                           className={cn(
-                            'h-4 w-4 transition-transform duration-200',
+                            'h-5 w-5 transition-transform duration-300',
                             activeDropdown === index && 'rotate-180'
                           )}
                         />
                       </button>
                       {activeDropdown === index && (
-                        <div className="mt-1 ml-4 space-y-1 border-l-2 border-[#D4A017] pl-3">
+                        <div className="mt-2 ml-4 space-y-2 border-l-2 border-[#D4A017] pl-4">
                           {item.dropdown.map((subItem, subIndex) => (
                             <a
                               key={subIndex}
@@ -211,8 +190,8 @@ const Navbar = () => {
                                 }
                               }}
                               className={cn(
-                                'block py-1.5 text-xs text-gray-700 hover:text-[#D4A017]',
-                                activeSection === subItem.href && 'text-[#D4A017] font-medium'
+                                'block py-2 text-sm font-medium text-gray-700 hover:text-[#D4A017]',
+                                activeSection === subItem.href && 'text-[#D4A017]'
                               )}
                             >
                               {subItem.name}
@@ -233,8 +212,9 @@ const Navbar = () => {
                           setIsMenuOpen(false);
                         }
                       }}
+                      aria-current={activeSection === item.href ? 'page' : undefined}
                       className={cn(
-                        'block py-2 text-sm font-semibold text-gray-800 hover:text-[#D4A017]',
+                        'block py-3 text-base font-semibold text-gray-900 hover:text-[#D4A017]',
                         activeSection === item.href && 'text-[#D4A017]'
                       )}
                     >
@@ -244,7 +224,7 @@ const Navbar = () => {
                 </div>
               ))}
               <Button
-                className="w-full bg-gradient-to-r from-[#D4A017] to-[#E8B923] hover:from-[#D4A017]/90 hover:to-[#E8B923]/90 text-gray-900 text-sm font-semibold rounded-full py-5 shadow-xs"
+                className="w-full bg-[#D4A017] hover:bg-[#D4A017]/90 text-gray-900 text-base font-semibold rounded-full py-3 shadow-md transition-all duration-300"
                 onClick={() => scrollToSection('contact', '#contact')}
               >
                 Nous Contacter
@@ -253,6 +233,23 @@ const Navbar = () => {
           </div>
         )}
       </div>
+
+      {/* Custom Animation Styles */}
+      <style jsx>{`
+        @keyframes slideDown {
+          from {
+            transform: translateY(-10px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+        .animate-slide-down {
+          animation: slideDown 0.3s ease-out forwards;
+        }
+      `}</style>
     </nav>
   );
 };
