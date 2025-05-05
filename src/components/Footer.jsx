@@ -11,7 +11,7 @@ const Footer = () => {
     { name: "R&D", link: "/services/r&d" },
     { name: "Economie", link: "/services/finances" },
     { name: "Numerique", link: "/services/numeriques" },
-    { name: "Applications Mobiles", link: "/services/applications-mobiles" },
+    { name: "Formations", link: "/services/formations" },
   ];
   
   // const quickLinks = [
