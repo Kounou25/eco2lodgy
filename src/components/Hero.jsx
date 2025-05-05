@@ -64,13 +64,17 @@ const Hero = () => {
             ref={ctaRef}
             className="flex flex-wrap gap-6 justify-center opacity-0 transition-all duration-700"
           >
-            <Button
+            <a href="#about">
+
+              <Button
               className="bg-[#D4A017] text-black text-lg font-semibold px-10 py-4 rounded-full hover:bg-[#D4A017]/80 transition-all duration-300 group"
               aria-label="Découvrir notre vision"
             >
               Découvrir qui nous sommes
               <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
+            </a>
+            
           </div>
         </div>
 

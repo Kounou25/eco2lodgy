@@ -27,10 +27,12 @@ const CtaSection = () => {
             notre approche intégrée peut vous aider à atteindre vos objectifs.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
+            <a href="#contact">
             <Button className="bg-white text-[#2E5A27] hover:bg-[#D4A017] transition-colors px-6 py-6 text-base font-medium rounded-full group">
               Demander un devis
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
+            </a>
             {/* <Button variant="outline" className="border-white text-white hover:bg-white/20 px-6 py-6 text-base font-medium rounded-full">
               En savoir plus
             </Button> */}
