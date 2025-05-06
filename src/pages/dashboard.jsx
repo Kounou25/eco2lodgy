@@ -317,7 +317,8 @@ export default function AdminDashboard() {
     projects: { singular: 'Projet', plural: 'Projets' },
     partners: { singular: 'Partenaire', plural: 'Partenaires' },
     members: { singular: 'Membre', plural: 'Membres' },
-    posts: { singular: 'Article', plural: 'Articles' }
+    posts: { singular              
+      : 'Article', plural: 'Articles' }
   };
 
   // Composant Form
@@ -621,37 +622,38 @@ export default function AdminDashboard() {
   // Render principal
   return (
     <div className="min-h-screen bg-gray-50">
-     {/* Header */}
-<header className="bg-white shadow-sm">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-    <h1 className="text-xl font-bold text-gray-900 flex items-center">
-      <span className="bg-blue-600 text-white px-3 py-1 rounded-lg mr-3">AT</span>
-      <span>Administration Eco2lodgy</span>
-    </h1>
-    <div className="flex items-center space-x-4">
-      <div className="flex items-center space-x-2">
-        <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
-          <span className="text-sm font-medium text-blue-800">
-            {userData?.username?.charAt(0).toUpperCase() || 'A'}
-          </span>
+      {/* Header */}
+      <header className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+          <h1 className="text-xl font-bold text-gray-900 flex items-center">
+            <span className="bg-blue-600 text-white px-3 py-1 rounded-lg mr-3">AT</span>
+            <span>Administration Eco2lodgy</span>
+          </h1>
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
+                <span className="text-sm font-medium text-blue-800">
+                  {userData?.username?.charAt(0).toUpperCase() || 'A'}
+                </span>
+              </div>
+              <span className="hidden md:inline text-sm font-medium">
+                {userData?.username || 'Admin'}
+              </span>
+              <ChevronDown className="text-gray-500" size={16} />
+            </div>
+            <button
+              onClick={() => {
+                localStorage.clear();
+                window.location.href = '/login';
+              }}
+              className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors text-sm font-medium"
+            >
+              Déconnexion
+            </button>
+          </div>
         </div>
-        <span className="hidden md:inline text-sm font-medium">
-          {userData?.username || 'Admin'}
-        </span>
-        <ChevronDown className="text-gray-500" size={16} />
-      </div>
-      <button
-        onClick={() => {
-          localStorage.clear();
-          window.location.href = '/login';
-        }}
-        className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors text-sm font-medium"
-      >
-        Déconnexion
-      </button>
-    </div>
-  </div>
-</header>
+      </header>
+      
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Navigation */}
