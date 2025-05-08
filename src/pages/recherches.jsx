@@ -141,6 +141,8 @@ const ResearchDevelopmentSection = () => {
           <p className="text-xl text-white/90 mb-8 leading-relaxed">
             Transformer les ressources locales en solutions constructives économiques grâce à une approche scientifique rigoureuse.
           </p>
+          <a href="#projets">
+
           <Button
             className="bg-[#be9838] hover:bg-[#be9838]/90 text-[#556331] font-semibold px-8 py-4 rounded-full transition-all hover:scale-105"
             aria-label="Découvrir nos projets"
@@ -148,6 +150,7 @@ const ResearchDevelopmentSection = () => {
             Explorer nos recherches
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
+          </a>
         </motion.div>
       </motion.section>
 
@@ -267,6 +270,7 @@ const ResearchDevelopmentSection = () => {
 
           {/* Projects Section */}
           <motion.section
+          id='projets'
             className="mb-24"
             initial="hidden"
             whileInView="visible"
@@ -347,7 +351,7 @@ const ResearchDevelopmentSection = () => {
             </motion.div>
           </motion.section>
 
-          {/* CTA Section */}
+          {/* CTA Section
           <motion.section
             className="bg-[#556331] rounded-2xl p-12 text-center"
             initial="hidden"
@@ -376,7 +380,7 @@ const ResearchDevelopmentSection = () => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </motion.div>
-          </motion.section>
+          </motion.section> */}
         </div>
       </main>
 

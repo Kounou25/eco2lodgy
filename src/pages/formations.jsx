@@ -141,6 +141,7 @@ const TrainingDepartmentSection = () => {
           <p className="text-xl text-white/90 mb-8 leading-relaxed">
             Vulgariser les innovations Eco2lody et former les artisans pour un développement durable local.
           </p>
+          <a href="#formations">
           <Button
             className="bg-[#be9838] hover:bg-[#be9838]/90 text-[#556331] font-semibold px-8 py-4 rounded-full transition-all hover:scale-105"
             aria-label="Découvrir nos programmes"
@@ -148,6 +149,7 @@ const TrainingDepartmentSection = () => {
             Explorer nos formations
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
+          </a>
         </motion.div>
       </motion.section>
 
@@ -184,6 +186,7 @@ const TrainingDepartmentSection = () => {
 
           {/* Missions Section */}
           <motion.section
+          id='mission'
             className="mb-24"
             initial="hidden"
             whileInView="visible"
@@ -267,6 +270,7 @@ const TrainingDepartmentSection = () => {
 
           {/* Projects Section */}
           <motion.section
+          id='formations'
             className="mb-24"
             initial="hidden"
             whileInView="visible"
@@ -277,7 +281,7 @@ const TrainingDepartmentSection = () => {
               className="text-2xl md:text-3xl font-semibold text-[#556331] text-center mb-12"
               variants={fadeIn}
             >
-              Projets <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Phares</span>
+              Formations <span className="text-[#556331] bg-[#be9838] px-3 py-1 rounded-md">Phares</span>
             </motion.h3>
             
             <motion.div 
@@ -347,7 +351,7 @@ const TrainingDepartmentSection = () => {
             </motion.div>
           </motion.section>
 
-          {/* CTA Section */}
+          {/* CTA Section
           <motion.section
             className="bg-[#556331] rounded-2xl p-12 text-center"
             initial="hidden"
@@ -376,7 +380,7 @@ const TrainingDepartmentSection = () => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </motion.div>
-          </motion.section>
+          </motion.section> */}
         </div>
       </main>
 

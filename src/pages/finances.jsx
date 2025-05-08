@@ -141,6 +141,8 @@ const EconomicFinancialSection = () => {
           <p className="text-xl text-white/90 mb-8 leading-relaxed">
             Analyse du marché immobilier et solutions financières pour des projets accessibles et durables au Niger.
           </p>
+          <a href="#mission">
+
           <Button
             className="bg-[#be9838] hover:bg-[#be9838]/90 text-[#556331] font-semibold px-8 py-4 rounded-full transition-all hover:scale-105"
             aria-label="Découvrir nos projets"
@@ -148,6 +150,7 @@ const EconomicFinancialSection = () => {
             Explorer nos solutions
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
+          </a>
         </motion.div>
       </motion.section>
 
@@ -185,6 +188,7 @@ const EconomicFinancialSection = () => {
           {/* Missions Section */}
           <motion.section
             className="mb-24"
+            id='mission'
             initial="hidden"
             whileInView="visible"
             variants={staggerContainer}
@@ -347,7 +351,7 @@ const EconomicFinancialSection = () => {
             </motion.div>
           </motion.section>
 
-          {/* CTA Section */}
+          {/* CTA Section
           <motion.section
             className="bg-[#556331] rounded-2xl p-12 text-center"
             initial="hidden"
@@ -376,7 +380,7 @@ const EconomicFinancialSection = () => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </motion.div>
-          </motion.section>
+          </motion.section> */}
         </div>
       </main>
 

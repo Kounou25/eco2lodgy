@@ -347,7 +347,7 @@ const DigitalDepartmentSection = () => {
             </motion.div>
           </motion.section>
 
-          {/* CTA Section */}
+          {/* CTA Section
           <motion.section
             className="bg-[#556331] rounded-2xl p-12 text-center"
             initial="hidden"
@@ -376,7 +376,7 @@ const DigitalDepartmentSection = () => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </motion.div>
-          </motion.section>
+          </motion.section> */}
         </div>
       </main>
 
