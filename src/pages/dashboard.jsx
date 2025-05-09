@@ -64,8 +64,8 @@ export default function AdminDashboard() {
   // Options pour les listes déroulantes
   const DROPDOWN_OPTIONS = {
     projectType: ['Développement', 'Recherche', 'Innovation', 'Infrastructure'],
-    departement: ['IT', 'R&D', 'Marketing', 'RH', 'Finance'],
-    role: ['Développeur', 'Chercheur', 'Manager', 'Analyste', 'Consultant']
+    departement: ['Recherches', 'Technique', 'R&D', 'Economie', 'Numerique','Formation'],
+    role: ['Développeur', 'Chercheur', 'Ingenieur', 'Analyste', 'Consultant']
   };
 
   // Récupération des données initiales

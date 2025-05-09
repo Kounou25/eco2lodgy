@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import TeamRecherches from '../components/teamRecherches';
+import SpecialTeamSection from '../components/memberTeam';
 
 const ResearchDevelopmentSection = () => {
   const ref = useRef();
@@ -186,14 +187,15 @@ const ResearchDevelopmentSection = () => {
             transition={{ delay: 1, duration: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <a href="#projets">
+            {/* <a href="#projets">
               <Button
                 className="bg-[#be9838] hover:bg-[#be9838]/90 text-white font-semibold px-8 py-6 rounded-full transition-all hover:scale-105 text-lg shadow-lg hover:shadow-xl group"
               >
                 Explorer nos recherches
                 <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
-            </a>
+            </a> */}
+            <a href="#team">
             <Button
               variant="outline"
               className="bg-transparent border-white text-white hover:bg-white/10 font-semibold px-8 py-6 rounded-full transition-all hover:scale-105 text-lg shadow-lg hover:shadow-xl group"
@@ -201,6 +203,7 @@ const ResearchDevelopmentSection = () => {
               Rencontrer l'équipe
               <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
+            </a>
           </motion.div>
         </div>
 
@@ -367,74 +370,10 @@ const ResearchDevelopmentSection = () => {
             </div>
           </motion.section>
 
-          {/* Projects Section */}
-          <motion.section
-            id="projets"
-            className="mb-32"
-            initial="hidden"
-            whileInView="visible"
-            variants={staggerContainer}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <motion.div className="text-center mb-20" variants={fadeIn}>
-              <motion.span 
-                className="inline-block text-[#be9838] font-medium mb-4 tracking-wider"
-                variants={fadeIn}
-              >
-                NOS RÉALISATIONS
-              </motion.span>
-              <motion.h3 
-                className="text-3xl md:text-5xl font-bold text-[#556331] mb-6"
-                variants={fadeIn}
-              >
-                Projets <span className="text-[#be9838]">phares</span>
-              </motion.h3>
-              <motion.p 
-                className="text-gray-600 max-w-2xl mx-auto text-lg"
-                variants={fadeIn}
-              >
-                Des solutions innovantes testées et validées sur le terrain
-              </motion.p>
-            </motion.div>
-            
-            <motion.div 
-              className="grid grid-cols-1 md:grid-cols-2 gap-8"
-              variants={staggerContainer}
-            >
-              {projects.map((project, index) => (
-                <motion.div
-                  key={index}
-                  className="relative rounded-2xl overflow-hidden shadow-xl h-[450px] group"
-                  variants={cardAnimation}
-                >
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#556331]/90 via-[#556331]/40 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 p-8 w-full">
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tags.map((tag, i) => (
-                        <span key={i} className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-sm rounded-full border border-white/30">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <h4 className="text-3xl font-bold text-white mb-3">{project.title}</h4>
-                    <p className="text-white/90 mb-6 text-lg">{project.description}</p>
-                    <button className="flex items-center text-white group-hover:text-[#be9838] transition-colors">
-                      <span className="mr-3 font-medium">Découvrir le projet</span>
-                      <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-2" />
-                    </button>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.section>
-
-          {/* Team Section
-          <TeamRecherches /> */}
+          
+                <div id='team'>  
+                  <SpecialTeamSection department="R&D" /></div>
+        
 
           {/* CTA Section */}
           <motion.section

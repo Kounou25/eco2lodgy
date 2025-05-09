@@ -4,6 +4,7 @@ import { ArrowRight, Code, Map, Database } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
+import SpecialTeamSection from '../components/memberTeam';
 
 const DigitalDepartmentSection = () => {
   const ref = useRef();
@@ -59,41 +60,7 @@ const DigitalDepartmentSection = () => {
     },
   ];
 
-  const projects = [
-    {
-      title: "Cartographie Intelligente",
-      description: "Systèmes SIG pour visualiser et gérer les projets urbains et fonciers.",
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop",
-      tags: ["SIG", "Urbanisme", "Visualisation"]
-    },
-    {
-      title: "Base de Données Foncière",
-      description: "Numérisation des données cadastrales pour une gestion efficace des terrains.",
-      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop",
-      tags: ["Cadastre", "Numérisation", "Gestion"]
-    },
-  ];
-
-  const teamMembers = [
-    {
-      name: "Dr. Amina Bello",
-      role: "Directrice Numérique",
-      description: "Experte en développement d'outils numériques, avec 15 ans d'expérience en informatique.",
-      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1887&auto=format&fit=crop",
-    },
-    {
-      name: "Prof. Ibrahim Kane",
-      role: "Responsable SIG",
-      description: "Spécialiste des systèmes d'information géographique pour l'urbanisme.",
-      image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=2070&auto=format&fit=crop",
-    },
-    {
-      name: "Dr. Fatouma Diop",
-      role: "Chef de Projets",
-      description: "Coordonne l'intégration des bases de données avec les équipes interdisciplinaires.",
-      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop",
-    },
-  ];
+  
 
   // Animations premium
   const fadeIn = {
@@ -389,122 +356,9 @@ const DigitalDepartmentSection = () => {
             </div>
           </motion.section>
 
-          {/* Projects Section */}
-          <motion.section
-            id="projets"
-            className="mb-32"
-            initial="hidden"
-            whileInView="visible"
-            variants={staggerContainer}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <motion.div className="text-center mb-20" variants={fadeIn}>
-              <motion.span 
-                className="inline-block text-[#be9838] font-medium mb-4 tracking-wider"
-                variants={fadeIn}
-              >
-                NOS RÉALISATIONS
-              </motion.span>
-              <motion.h3 
-                className="text-3xl md:text-5xl font-bold text-[#556331] mb-6"
-                variants={fadeIn}
-              >
-                Projets <span className="text-[#be9838]">phares</span>
-              </motion.h3>
-              <motion.p 
-                className="text-gray-600 max-w-2xl mx-auto text-lg"
-                variants={fadeIn}
-              >
-                Des solutions numériques testées et validées pour une gestion optimisée
-              </motion.p>
-            </motion.div>
-            
-            <motion.div 
-              className="grid grid-cols-1 md:grid-cols-2 gap-8"
-              variants={staggerContainer}
-            >
-              {projects.map((project, index) => (
-                <motion.div
-                  key={index}
-                  className="relative rounded-2xl overflow-hidden shadow-xl h-[450px] group"
-                  variants={cardAnimation}
-                >
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#556331]/90 via-[#556331]/40 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 p-8 w-full">
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tags.map((tag, i) => (
-                        <span key={i} className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-sm rounded-full border border-white/30">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <h4 className="text-3xl font-bold text-white mb-3">{project.title}</h4>
-                    <p className="text-white/90 mb-6 text-lg">{project.description}</p>
-                    <button className="flex items-center text-white group-hover:text-[#be9838] transition-colors">
-                      <span className="mr-3 font-medium">Découvrir le projet</span>
-                      <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-2" />
-                    </button>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.section>
+         
 
-          {/* Team Section
-          <motion.section
-            className="mb-32"
-            initial="hidden"
-            whileInView="visible"
-            variants={staggerContainer}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <motion.div className="text-center mb-20" variants={fadeIn}>
-              <motion.span 
-                className="inline-block text-[#be9838] font-medium mb-4 tracking-wider"
-                variants={fadeIn}
-              >
-                NOTRE ÉQUIPE
-              </motion.span>
-              <motion.h3 
-                className="text-3xl md:text-5xl font-bold text-[#556331] mb-6"
-                variants={fadeIn}
-              >
-                Rencontrez nos <span className="text-[#be9838]">experts</span>
-              </motion.h3>
-            </motion.div>
-            
-            <motion.div 
-              className="grid grid-cols-1 sm:grid-cols-3 gap-8"
-              variants={staggerContainer}
-            >
-              {teamMembers.map((member, index) => (
-                <motion.div
-                  key={index}
-                  className="bg-gradient-to-br from-[#556331] to-[#3a472c] p-0.5 rounded-2xl shadow-xl"
-                  variants={cardAnimation}
-                  whileHover="hover"
-                >
-                  <div className="bg-white h-full p-6 rounded-2xl text-center">
-                    <div className="relative mb-6">
-                      <img
-                        src={member.image}
-                        alt={member.name}
-                        className="w-32 h-32 rounded-full mx-auto object-cover border-4 border-[#556331]/10"
-                      />
-                    </div>
-                    <h4 className="text-xl font-semibold text-[#556331] mb-1">{member.name}</h4>
-                    <p className="text-sm text-[#556331]/80 mb-3 font-medium">{member.role}</p>
-                    <p className="text-gray-600 text-sm">{member.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.section> */}
+          <SpecialTeamSection department="Numerique" />
 
           {/* CTA Section */}
           <motion.section
