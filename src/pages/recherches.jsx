@@ -401,12 +401,15 @@ const ResearchDevelopmentSection = () => {
                 className="flex flex-col sm:flex-row gap-4 justify-center"
                 variants={fadeIn}
               >
+                <a href="/#contact">
                 <Button
                   className="bg-[#be9838] hover:bg-[#be9838]/90 text-white font-semibold px-10 py-7 rounded-full transition-all hover:scale-105 text-lg shadow-xl hover:shadow-2xl group"
                 >
                   Nous contacter
                   <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                </Button>
+                </Button></a>
+                <a href="/#posts">
+
                 <Button
                   variant="outline"
                   className="bg-transparent border-white text-white hover:bg-white/10 font-semibold px-10 py-7 rounded-full transition-all hover:scale-105 text-lg shadow-xl hover:shadow-2xl group"
@@ -414,6 +417,7 @@ const ResearchDevelopmentSection = () => {
                   Voir nos publications
                   <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
+                </a>
               </motion.div>
             </div>
           </motion.section>

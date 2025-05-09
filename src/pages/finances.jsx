@@ -207,23 +207,16 @@ const EconomicFinancialSection = () => {
             transition={{ delay: 1, duration: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <a href="#mission">
+            <a href="#team">
               <Button
                 className="bg-[#be9838] hover:bg-[#be9838]/90 text-white font-semibold px-8 py-6 rounded-full transition-all hover:scale-105 text-lg shadow-lg hover:shadow-xl group"
                 aria-label="Découvrir nos solutions"
               >
-                Explorer nos solutions
+                 Rencontrer l'équipe
                 <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </a>
-            <Button
-              variant="outline"
-              className="bg-transparent border-white text-white hover:bg-white/10 font-semibold px-8 py-6 rounded-full transition-all hover:scale-105 text-lg shadow-lg hover:shadow-xl group"
-              aria-label="Rencontrer l'équipe"
-            >
-              Rencontrer l'équipe
-              <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </Button>
+           
           </motion.div>
         </div>
 
@@ -392,9 +385,9 @@ const EconomicFinancialSection = () => {
           </motion.section>
 
           
-
+                <div id='team'><SpecialTeamSection department="Economie" />
+                </div>
           
-          <SpecialTeamSection department="Economie" />
 
           {/* CTA Section */}
           <motion.section
@@ -422,6 +415,8 @@ const EconomicFinancialSection = () => {
                 className="flex flex-col sm:flex-row gap-4 justify-center"
                 variants={fadeIn}
               >
+
+                <a href="/#contact">
                 <Button
                   className="bg-[#be9838] hover:bg-[#be9838]/90 text-white font-semibold px-10 py-7 rounded-full transition-all hover:scale-105 text-lg shadow-xl hover:shadow-2xl group"
                   aria-label="Contacter le département Économie/Financier"
@@ -429,14 +424,18 @@ const EconomicFinancialSection = () => {
                   Proposer un partenariat
                   <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
+                </a>
+                
+                <a href="/#posts">
                 <Button
                   variant="outline"
                   className="bg-transparent border-white text-white hover:bg-white/10 font-semibold px-10 py-7 rounded-full transition-all hover:scale-105 text-lg shadow-xl hover:shadow-2xl group"
                   aria-label="Voir nos solutions"
                 >
-                  Voir nos solutions
+                  Voir nos publications
                   <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
+                </a>
               </motion.div>
             </div>
           </motion.section>
