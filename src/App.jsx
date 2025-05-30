@@ -13,6 +13,7 @@ import EconomicFinancialSection from "./pages/finances";
 import ResearchDevelopmentSection from "./pages/recherches";
 import DashboardLayout from './components/DashboardLayout';
 import DashboardHome from './pages/DashboardHome';
+import RealEstatePromotionServices from "./pages/gestionImmo";
 import ProjectsPage from './pages/ProjectsPage';
 import TeamPage from './pages/TeamPage';
 import AdminDashboard from "./pages/dashboard";
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="numeriques" element={<DigitalDepartmentSection />} />
           <Route path="formations" element={<TrainingDepartmentSection />} />
           <Route path="recherches" element={<ResearchDevelopmentSection />} />
+          <Route path="gestionImmo" element={<RealEstatePromotionServices />} />
         </Route>
 
        

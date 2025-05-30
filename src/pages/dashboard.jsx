@@ -3,7 +3,7 @@ import {
   Briefcase, Handshake, Users, FileText, 
   Plus, Edit, Trash2, Image as ImageIcon, 
   ChevronDown, Search, ArrowLeft, ArrowRight, 
-  Loader2, AlertCircle, CheckCircle 
+  Loader2, AlertCircle, CheckCircle, X
 } from 'lucide-react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -19,7 +19,7 @@ export default function AdminDashboard() {
 
   // États des données
   const [formData, setFormData] = useState({
-    projects: { title: '', description: '', projectType: '', image_file: null },
+    projects: { title: '', description: '', projectType: '', images: [] },
     partners: { name: '', description: '', website: '', image_file: null },
     members: { name: '', role: '', departement: '', description: '', image_file: null },
     posts: { title: '', content: '', author: '', image_file: null }
@@ -46,8 +46,28 @@ export default function AdminDashboard() {
 
   // Vérification de l'utilisateur dans localStorage
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user?.username) {
+    const userString = localStorage.getItem('user');
+    console.log('Valeur brute de localStorage.user:', userString); // Ajoutez ceci
+    console.log('Type de userString:', typeof userString); // Vérifiez le type
+  
+    if (!userString) {
+      console.warn('Aucune donnée utilisateur trouvée dans localStorage');
+      navigate('/login');
+      return;
+    }
+  
+    try {
+      const user = JSON.parse(userString);
+      if (!user?.username) {
+        console.warn('Données utilisateur invalides ou manquantes:', user);
+        navigate('/login');
+      } else {
+        setUserData(user);
+      }
+    } catch (error) {
+      console.error('Erreur lors du parsing de localStorage.user:', error);
+      console.log('Contenu problématique:', userString);
+      localStorage.removeItem('user'); // Supprime les données corrompues
       navigate('/login');
     }
   }, [navigate]);
@@ -134,27 +154,45 @@ export default function AdminDashboard() {
   };
 
   const handleFileChange = (e, entity) => {
-    const file = e.target.files[0];
-    if (file) {
+    if (entity === 'projects') {
+      const files = Array.from(e.target.files);
+      const newImages = files.map(file => ({
+        file,
+        preview: URL.createObjectURL(file)
+      }));
+      
       setFormData(prev => ({
         ...prev,
         [entity]: { 
           ...prev[entity], 
-          image_file: file,
-          image_preview: URL.createObjectURL(file) 
+          images: [...prev[entity].images, ...newImages]
         }
       }));
+    } else {
+      const file = e.target.files[0];
+      if (file) {
+        setFormData(prev => ({
+          ...prev,
+          [entity]: { 
+            ...prev[entity], 
+            image_file: file,
+            image_preview: URL.createObjectURL(file) 
+          }
+        }));
+      }
     }
   };
 
   const resetForm = (entity) => {
     setFormData(prev => ({
       ...prev,
-      [entity]: Object.fromEntries(
-        Object.keys(prev[entity]).map(key => 
-          [key, key.endsWith('_file') ? null : '']
+      [entity]: entity === 'projects' 
+        ? { title: '', description: '', projectType: '', images: [] }
+        : Object.fromEntries(
+            Object.keys(prev[entity]).map(key => 
+              [key, key.endsWith('_file') ? null : '']
+            )
         )
-      )
     }));
     setIsEditing(false);
     setEditingId(null);
@@ -171,12 +209,16 @@ export default function AdminDashboard() {
 
       // Ajout des champs texte
       Object.entries(entityData).forEach(([key, value]) => {
-        if (key.endsWith('_file') || key === 'image_preview') return;
+        if (key === 'images' || key === 'image_preview') return;
         if (value) formDataToSend.append(key, value);
       });
 
-      // Ajout de l'image
-      if (entityData.image_file) {
+      // Gestion spéciale pour les images des projets
+      if (entity === 'projects') {
+        entityData.images.forEach((image, index) => {
+          formDataToSend.append(`images`, image.file);
+        });
+      } else if (entityData.image_file) {
         formDataToSend.append('image', entityData.image_file);
       }
 
@@ -223,10 +265,15 @@ export default function AdminDashboard() {
       ...prev,
       [entity]: {
         ...item,
-        image_file: null,
-        image_preview: item.image_url 
-          ? `https://alphatek.fr:3008${item.image_url}` 
-          : null
+        ...(entity === 'projects' 
+          ? { images: [] } 
+          : { 
+              image_file: null,
+              image_preview: item.image_url 
+                ? `https://alphatek.fr:3008${item.image_url}` 
+                : null
+            }
+        )
       }
     }));
   };
@@ -273,7 +320,7 @@ export default function AdminDashboard() {
         type: 'select', 
         options: DROPDOWN_OPTIONS.projectType 
       },
-      { name: 'image', type: 'file', required: !isEditing }
+      { name: 'images', label: 'Images', type: 'multiple-file', required: !isEditing }
     ],
     partners: [
       { name: 'name', label: 'Nom', type: 'text', required: true },
@@ -317,8 +364,7 @@ export default function AdminDashboard() {
     projects: { singular: 'Projet', plural: 'Projets' },
     partners: { singular: 'Partenaire', plural: 'Partenaires' },
     members: { singular: 'Membre', plural: 'Membres' },
-    posts: { singular              
-      : 'Article', plural: 'Articles' }
+    posts: { singular: 'Article', plural: 'Articles' }
   };
 
   // Composant Form
@@ -344,11 +390,39 @@ export default function AdminDashboard() {
                   {field.required && <span className="text-red-500 ml-1">*</span>}
                 </label>
                 
-                {field.type === 'file' ? (
+                {field.type === 'file' || field.type === 'multiple-file' ? (
                   <div className="space-y-2">
                     <label className="flex flex-col items-center justify-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition">
                       <div className="flex flex-col items-center">
-                        {entityData.image_preview ? (
+                        {entity === 'projects' && entityData.images?.length > 0 ? (
+                          <div className="flex flex-wrap gap-2 mb-2">
+                            {entityData.images.map((img, index) => (
+                              <div key={index} className="relative">
+                                <img 
+                                  src={img.preview} 
+                                  alt={`Preview ${index}`} 
+                                  className="h-24 w-24 object-cover rounded"
+                                />
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setFormData(prev => ({
+                                      ...prev,
+                                      [entity]: {
+                                        ...prev[entity],
+                                        images: prev[entity].images.filter((_, i) => i !== index)
+                                      }
+                                    }));
+                                  }}
+                                  className="absolute -top-2 -right-2 bg-red-500 rounded-full p-1"
+                                >
+                                  <X className="text-white" size={12} />
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        ) : entity !== 'projects' && entityData.image_preview ? (
                           <>
                             <img 
                               src={entityData.image_preview} 
@@ -373,7 +447,8 @@ export default function AdminDashboard() {
                         onChange={(e) => handleFileChange(e, entity)}
                         className="hidden"
                         accept="image/*"
-                        required={field.required}
+                        required={field.required && (entity === 'projects' ? entityData.images.length === 0 : !entityData.image_preview)}
+                        multiple={field.type === 'multiple-file'}
                       />
                     </label>
                   </div>
@@ -479,7 +554,7 @@ export default function AdminDashboard() {
   const renderList = (entity) => {
     const { plural } = LABELS[entity];
     const columns = FORM_CONFIG[entity]
-      .filter(field => field.type !== 'textarea' && field.type !== 'file')
+      .filter(field => field.type !== 'textarea' && field.type !== 'file' && field.type !== 'multiple-file')
       .map(field => ({
         key: field.name,
         label: field.label || field.name

@@ -25,11 +25,12 @@ const Index = () => {
       <Navbar />
       
       <main className="flex-grow">
-        <Hero />
+        <Hero />        
+        <ProjectSection />
+
         <ServiceSection />
         {/* <Eco2BoxSection /> */}
         <AboutSection />
-        <ProjectSection />
         {/* <PresentationSection /> */}
         <TeamSection />
         <PartnersSection />
