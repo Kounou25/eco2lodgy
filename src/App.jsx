@@ -18,6 +18,7 @@ import ProjectsPage from './pages/ProjectsPage';
 import TeamPage from './pages/TeamPage';
 import AdminDashboard from "./pages/dashboard";
 import PostsPage from './pages/PostsPage';
+import EngineeringConsulting from "./pages/Ingenierie&consulting";
 import PartnersPage from './pages/PartnersPage';
 import LoginPage from "./pages/login";
 import BlogPost from "./pages/blogPost";
@@ -42,6 +43,7 @@ const App = () => (
           <Route path="formations" element={<TrainingDepartmentSection />} />
           <Route path="recherches" element={<ResearchDevelopmentSection />} />
           <Route path="gestionImmo" element={<RealEstatePromotionServices />} />
+          <Route path="ingenierie&consulting" element={<EngineeringConsulting />} />
         </Route>
 
        
