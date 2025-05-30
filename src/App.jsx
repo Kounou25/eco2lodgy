@@ -9,6 +9,8 @@ import TechnicalDepartmentSection from "./pages/Techniques";
 import UrbanPlanningDepartmentSection from "./pages/urbanisme";
 import DigitalDepartmentSection from "./pages/numeriques";
 import TrainingDepartmentSection from "./pages/formations";
+import Architecture from "./pages/architecture";
+import Construction from "./pages/construction";
 import EconomicFinancialSection from "./pages/finances";
 import ResearchDevelopmentSection from "./pages/recherches";
 import DashboardLayout from './components/DashboardLayout';
@@ -44,6 +46,8 @@ const App = () => (
           <Route path="recherches" element={<ResearchDevelopmentSection />} />
           <Route path="gestionImmo" element={<RealEstatePromotionServices />} />
           <Route path="ingenierie&consulting" element={<EngineeringConsulting />} />
+          <Route path="construction" element={<Construction />} />
+          <Route path="architecture" element={<Architecture />} />
         </Route>
 
        
