@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
 // Assuming the image is in your public/images folder
-const backgroundImage = '/images/archi.jpg';
+const backgroundImage = '/images/2a.jpg';
 
 const Hero = () => {
   const titleRef = useRef(null);
@@ -30,7 +30,7 @@ const Hero = () => {
 
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat animate-bg-zoom"
       style={{ backgroundImage: `url(${backgroundImage})` }}
       aria-labelledby="hero-title"
     >
@@ -65,50 +65,16 @@ const Hero = () => {
             className="flex flex-wrap gap-6 justify-center opacity-0 transition-all duration-700"
           >
             <a href="#about">
-
               <Button
-              className="bg-[#D4A017] text-black text-lg font-semibold px-10 py-4 rounded-full hover:bg-[#D4A017]/80 transition-all duration-300 group"
-              aria-label="Découvrir notre vision"
-            >
-              Découvrir qui nous sommes
-              <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
+                className="bg-[#D4A017] text-black text-lg font-semibold px-10 py-4 rounded-full hover:bg-[#D4A017]/80 transition-all duration-300 group"
+                aria-label="Découvrir notre vision"
+              >
+                Découvrir qui nous sommes
+                <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
             </a>
-            
           </div>
         </div>
-
-        {/* Impact Card
-        <div className="absolute bottom-20 right-6 max-w-xs md:max-w-sm md:block">
-          <div className="glass-card p-6 rounded-2xl shadow-xl backdrop-blur-md bg-white/15 border border-white/25 transform transition-all duration-500 hover:scale-105">
-            <div className="flex items-start gap-4">
-              <div className="bg-[#2E5A27] text-white p-3 rounded-lg">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
-                  />
-                </svg>
-              </div>
-              <div>
-                <h3 className="font-semibold text-xl text-white">Résilience Climatique</h3>
-                <p className="text-base text-gray-100 mt-2">
-                  Réduction de 7€ de dégâts par euro investi dans la prévention des inondations.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
       </div>
 
       {/* Scrolldown Indicator */}
@@ -131,8 +97,22 @@ const Hero = () => {
             opacity: 1;
           }
         }
+        @keyframes zoomInOut {
+          0% {
+            background-size: 100% 100%;
+          }
+          50% {
+            background-size: 110% 110%;
+          }
+          100% {
+            background-size: 100% 100%;
+          }
+        }
         .animate-slide-up {
           animation: slideUp 0.7s ease-out forwards;
+        }
+        .animate-bg-zoom {
+          animation: zoomInOut 10s ease-in-out infinite;
         }
       `}</style>
     </section>

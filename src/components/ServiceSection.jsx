@@ -94,7 +94,7 @@ const ServiceSection = () => {
     <section className="py-20 bg-[#D4A017]/10" id="services">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-display text-[#2E5A27]">Nos Départements</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-display text-[#2E5A27]">Nos Services</h2>
           <div className="h-1 w-20 bg-[#2E5A27] mx-auto mb-6"></div>
           <p className="text-lg text-foreground/80">
             Une expertise pluridisciplinaire pour des solutions de logement durables et adaptées aux défis du Niger.
