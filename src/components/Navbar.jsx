@@ -36,18 +36,18 @@ const Navbar = () => {
       href: '#',
       sectionId: null,
       dropdown: [
-        { name: 'Technique', href: '/services/techniques' },
-        { name: 'Urbanisme', href: '/services/urbanisme' },
-        { name: 'R&D', href: '/services/recherches' },
+        { name: 'Ingénierie et Construction', href: '/services/techniques' },
+        { name: 'Urbanisme et Architecture', href: '/services/urbanisme' },
+        { name: 'Recherche et Développement', href: '/services/recherches' },
         { name: 'Économie', href: '/services/finances' },
         { name: 'Numérique', href: '/services/numeriques' },
         { name: 'Formation', href: '/services/formations' },
       ],
     },
-    { name: 'Projets', href: '#projects', sectionId: 'projects' },
-    { name: 'Présentation', href: '#about', sectionId: 'about' },
-    { name: 'Équipe', href: '#team', sectionId: 'team' },
-    { name: 'Contact', href: '#contact', sectionId: 'contact' },
+    // { name: 'Projets', href: '/index/#projects', sectionId: 'projects' },
+    { name: 'Présentation', href: '/index', sectionId: 'about' },
+    // { name: 'Équipe', href: '/#team', sectionId: 'team' },
+    { name: 'Contact', href: '/index/#contact', sectionId: 'contact' },
   ];
 
   return (

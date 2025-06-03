@@ -35,6 +35,8 @@ const App = () => (
       <Routes>
         {/* Page d'accueil publique */}
         <Route path="/" element={<Index />} />
+        <Route path="index" element={<Index />} />
+
         
         {/* Routes des services */}
         <Route path="/services">

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Wrench, Building2, ShieldCheck, Leaf, Recycle, Home, Ruler, HardHat, DraftingCompass, Cpu } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowRight, Wrench, Building2, ShieldCheck, Leaf, Recycle, Home, Ruler, HardHat, DraftingCompass, Cpu, CircuitBoard, CpuIcon, Binary, Network } from 'lucide-react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import SpecialTeamSection from '../components/memberTeam';
@@ -17,21 +17,21 @@ const TechnicalDepartmentSection = () => {
 
   const missions = [
     {
-      icon: <Wrench className="w-8 h-8" />,
+      icon: <CircuitBoard className="w-8 h-8" />,
       title: "Conception Innovante",
       description: "Développement de solutions d'ingénierie adaptées aux défis climatiques du Niger, comme les inondations et les températures extrêmes.",
       color: "from-[#be9838] to-[#d4b152]"
     },
     {
-      icon: <Building2 className="w-8 h-8" />,
-      title: "Construction Durable",
-      description: "Utilisation de matériaux locaux (terre crue, pierre, fibres végétales) pour des bâtiments écologiques et résilients.",
+      icon: <Network className="w-8 h-8" />,
+      title: "Construction Connectée",
+      description: "Utilisation de matériaux intelligents et locaux pour des bâtiments écologiques et résilients.",
       color: "from-[#556331] to-[#6a7a4a]"
     },
     {
-      icon: <ShieldCheck className="w-8 h-8" />,
-      title: "Qualité & Sécurité",
-      description: "Respect des normes de construction internationales avec un accent sur la sécurité et la durabilité.",
+      icon: <Binary className="w-8 h-8" />,
+      title: "Qualité Algorithmique",
+      description: "Respect des normes de construction internationales avec des processus optimisés par IA.",
       color: "from-[#8a9e5b] to-[#a3b775]"
     },
   ];
@@ -104,26 +104,26 @@ const TechnicalDepartmentSection = () => {
       color: "from-[#be9838] to-[#d4b152]"
     },
     {
-      icon: <HardHat className="w-8 h-8" />,
+      icon: <CpuIcon className="w-8 h-8" />,
       title: "Ingénieurs en structure",
       description: "Experts en calculs et dimensionnement qui définissent les caractéristiques structurelles des bâtiments, travaillant avec les spécialistes du bâtiment et l'équipe R&D pour garantir solidité et innovation.",
       color: "from-[#556331] to-[#6a7a4a]",
       subItems: [
         {
-          icon: <Cpu className="w-6 h-6" />,
+          icon: <CircuitBoard className="w-6 h-6" />,
           title: "Experts VRD",
-          description: "Conçoivent et intègrent les réseaux (eau, assainissement, électricité) essentiels à la viabilisation des sites, en s'appuyant sur les données topographiques et en coordination avec les autres spécialistes.",
+          description: "Conçoivent et intègrent les réseaux intelligents (eau, assainissement, électricité) essentiels à la viabilisation des sites.",
         },
         {
           icon: <Ruler className="w-6 h-6" />,
           title: "Experts en calculs",
-          description: "Transforment les calculs théoriques en solutions constructives concrètes, assurant la mise en œuvre sur le terrain en coordination avec ingénieurs et experts VRD, tout en respectant la vision architecturale.",
+          description: "Transforment les calculs théoriques en solutions constructives concrètes grâce à des algorithmes avancés.",
         }
       ]
     }
   ];
 
-  // Animations premium
+  // Animations futuristes
   const fadeIn = {
     hidden: { opacity: 0, y: 60 },
     visible: { 
@@ -185,18 +185,50 @@ const TechnicalDepartmentSection = () => {
     }
   };
 
+  const floatingGrid = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 0.3,
+      transition: {
+        staggerChildren: 0.1,
+        staggerDirection: -1
+      }
+    }
+  };
+
+  const gridItem = {
+    hidden: { opacity: 0, scale: 0.5 },
+    visible: { opacity: 0.3, scale: 1 }
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 overflow-hidden" ref={ref}>
       <Navbar />
       
-      {/* Hero Section - Parallax Effect */}
+      {/* Hero Section - Futuristic Parallax */}
       <motion.section 
         className="relative h-screen max-h-[1000px] bg-cover bg-center flex items-center justify-center overflow-hidden"
         style={{
-          backgroundImage: `url('https://plus.unsplash.com/premium_photo-1661335257817-4552acab9656?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW5nZW5pZXJpZXxlbnwwfHwwfHx8MA%3D%3D')`,
+          backgroundImage: `url('https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
           y: yBg
         }}
       >
+        {/* Floating grid background */}
+        <motion.div 
+          className="absolute inset-0 grid grid-cols-12 grid-rows-6 gap-1 pointer-events-none"
+          variants={floatingGrid}
+          initial="hidden"
+          animate="visible"
+        >
+          {Array.from({ length: 72 }).map((_, i) => (
+            <motion.div 
+              key={i} 
+              className="bg-white/10 border border-white/5 rounded-sm"
+              variants={gridItem}
+            />
+          ))}
+        </motion.div>
+        
         <div className="absolute inset-0 bg-gradient-to-b from-[#556331]/90 via-[#556331]/70 to-[#556331]/90"></div>
         
         <div className="relative z-10 text-center px-6 max-w-6xl mx-auto">
@@ -205,8 +237,9 @@ const TechnicalDepartmentSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
           >
-            <span className="inline-block px-6 py-2 bg-white/10 backdrop-blur-sm text-white text-sm font-medium rounded-full mb-6 tracking-wider border border-white/20">
-              INGÉNIERIE DURABLE
+            <span className="inline-block px-6 py-2 bg-white/10 backdrop-blur-sm text-white text-sm font-medium rounded-full mb-6 tracking-wider border border-white/20 flex items-center justify-center gap-2">
+              <CircuitBoard className="w-4 h-4" />
+              INGÉNIERIE FUTURISTE
             </span>
           </motion.div>
           
@@ -216,7 +249,7 @@ const TechnicalDepartmentSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
           >
-            Construisons un <br className="md:hidden"/> <span className="text-[#be9838]">avenir durable</span>
+            <span className="text-[#be9838]">Ingénierie</span> & Construction <br className="md:hidden"/> <span className="text-white">de demain</span>
           </motion.h1>
           
           <motion.p 
@@ -225,7 +258,7 @@ const TechnicalDepartmentSection = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 1 }}
           >
-            Eco2lodgy transforme les défis climatiques du Niger en opportunités grâce à des solutions d'ingénierie innovantes et écologiques.
+            Eco2lodgy fusionne technologie avancée et écologie pour créer des solutions de construction révolutionnaires au Niger.
           </motion.p>
           
           <motion.div
@@ -234,89 +267,107 @@ const TechnicalDepartmentSection = () => {
             transition={{ delay: 1, duration: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-           
             <a href="#team">
-            <Button
-              variant="outline"
-              className="bg-transparent border-white text-white hover:bg-white/10 font-semibold px-8 py-6 rounded-full transition-all hover:scale-105 text-lg shadow-lg hover:shadow-xl group"
-              aria-label="Rencontrer l'équipe"
-            >
-              Rencontrer l'équipe
-              <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </Button>
+              <Button
+                variant="outline"
+                className="bg-transparent border-white text-white hover:bg-white/10 font-semibold px-8 py-6 rounded-full transition-all hover:scale-105 text-lg shadow-lg hover:shadow-xl group"
+                aria-label="Rencontrer l'équipe"
+              >
+                Explorer nos technologies
+                <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </Button>
             </a>
           </motion.div>
         </div>
 
-        <motion.div 
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-          animate={{
-            y: [0, 20, 0],
-          }}
-          transition={{
-            duration: 2.5,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
+        {/* Animated circuit lines */}
+        <motion.svg 
+          className="absolute bottom-0 left-0 w-full h-20 text-[#be9838]/30"
+          viewBox="0 0 1440 100"
+          preserveAspectRatio="none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
         >
-          <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-          </svg>
-        </motion.div>
+          <path 
+            d="M0,50 Q360,100 720,50 Q1080,0 1440,50" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            fill="none"
+            strokeDasharray="10 5"
+          />
+        </motion.svg>
       </motion.section>
 
       {/* Main Content */}
       <main className="flex-grow bg-white relative z-10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          {/* Department Introduction */}
+          {/* Department Introduction - Futuristic */}
           <motion.section
-            className="text-center mb-28"
+            className="text-center mb-28 relative"
             initial="hidden"
             whileInView="visible"
             variants={fadeIn}
             viewport={{ once: true, margin: "-100px" }}
           >
+            <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 w-64 h-64 bg-[#be9838]/10 rounded-full blur-3xl -z-10"></div>
+            
             <motion.div 
-              className="inline-block px-6 py-3 bg-[#be9838]/10 text-[#be9838] text-sm font-medium rounded-full mb-8 tracking-wider border border-[#be9838]/20"
+              className="inline-flex items-center px-6 py-3 bg-[#be9838]/10 text-[#be9838] text-sm font-medium rounded-full mb-8 tracking-wider border border-[#be9838]/20"
               variants={fadeIn}
             >
+              <Cpu className="w-4 h-4 mr-2" />
               DÉPARTEMENT TECHNIQUE
             </motion.div>
             <motion.h2 
               className="text-4xl md:text-6xl font-bold font-display text-[#556331] mb-8 leading-tight"
               variants={fadeIn}
             >
-              Ingénierie <span className="text-[#be9838]">durable</span> <br className="hidden md:block" />au service du Niger
+              <span className="relative">
+                Ingénierie <span className="text-[#be9838]">3.0</span>
+                <motion.span 
+                  className="absolute -bottom-2 left-0 w-full h-1 bg-[#be9838]"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1.5, delay: 0.5 }}
+                  viewport={{ once: true }}
+                />
+              </span>
+              <br className="hidden md:block" /> 
+              Construire avec intelligence
             </motion.h2>
             <motion.p 
               className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed"
               variants={fadeIn}
             >
-              Notre département conçoit et construit des habitats résilients, écologiques et parfaitement adaptés au contexte nigérien.
+              Notre département utilise les dernières technologies pour concevoir des habitats résilients, intelligents et parfaitement adaptés au contexte nigérien.
             </motion.p>
           </motion.section>
 
-          {/* Public Works Section */}
+          {/* Public Works Section - Futuristic */}
           <motion.section
-            className="mb-32"
+            className="mb-32 relative"
             initial="hidden"
             whileInView="visible"
             variants={staggerContainer}
             viewport={{ once: true, margin: "-100px" }}
           >
+            <div className="absolute -top-32 right-0 w-64 h-64 bg-[#556331]/10 rounded-full blur-3xl -z-10"></div>
+            
             <motion.div className="text-center mb-20" variants={fadeIn}>
               <motion.span 
-                className="inline-block text-[#be9838] font-medium mb-4 tracking-wider"
+                className="inline-flex items-center text-[#be9838] font-medium mb-4 tracking-wider"
                 variants={fadeIn}
               >
-                NOTRE EXPERTISE
+                <CircuitBoard className="w-4 h-4 mr-2" />
+                NOTRE EXPERTISE TECHNIQUE
               </motion.span>
               <motion.h3 
                 className="text-3xl md:text-5xl font-bold text-[#556331] mb-6"
                 variants={fadeIn}
               >
-                Travaux publics & <span className="relative whitespace-nowrap">
-                  ingénierie
+                Solutions <span className="relative whitespace-nowrap">
+                  high-tech
                   <svg className="absolute left-0 bottom-0 w-full h-3 -z-10" viewBox="0 0 200 20">
                     <path 
                       d="M0 10 Q 100 20 200 10" 
@@ -338,11 +389,12 @@ const TechnicalDepartmentSection = () => {
               {publicWorks.map((item, index) => (
                 <motion.div
                   key={index}
-                  className={`bg-gradient-to-br ${item.color} p-0.5 rounded-2xl shadow-xl`}
+                  className={`bg-gradient-to-br ${item.color} p-0.5 rounded-2xl shadow-xl relative overflow-hidden`}
                   variants={cardAnimation}
                   whileHover="hover"
                 >
-                  <div className="bg-white h-full p-8 rounded-2xl">
+                  <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+                  <div className="bg-white/95 backdrop-blur-sm h-full p-8 rounded-2xl relative z-10">
                     <div className={`bg-gradient-to-br ${item.color} p-3 rounded-xl inline-flex mb-6 text-white`}>
                       {item.icon}
                     </div>
@@ -373,27 +425,30 @@ const TechnicalDepartmentSection = () => {
             </motion.div>
           </motion.section>
 
-          {/* Missions Section */}
+          {/* Missions Section - Futuristic */}
           <motion.section
-            className="mb-32"
+            className="mb-32 relative"
             initial="hidden"
             whileInView="visible"
             variants={staggerContainer}
             viewport={{ once: true, margin: "-100px" }}
           >
+            <div className="absolute -bottom-20 left-0 w-64 h-64 bg-[#be9838]/10 rounded-full blur-3xl -z-10"></div>
+            
             <motion.div className="text-center mb-20" variants={fadeIn}>
               <motion.span 
-                className="inline-block text-[#be9838] font-medium mb-4 tracking-wider"
+                className="inline-flex items-center text-[#be9838] font-medium mb-4 tracking-wider"
                 variants={fadeIn}
               >
-                NOTRE MÉTHODOLOGIE
+                <Binary className="w-4 h-4 mr-2" />
+                NOTRE PROCESSUS INNOVANT
               </motion.span>
               <motion.h3 
                 className="text-3xl md:text-5xl font-bold text-[#556331] mb-6"
                 variants={fadeIn}
               >
-                Approche <span className="relative whitespace-nowrap">
-                  technique
+                Méthodologie <span className="relative whitespace-nowrap">
+                  technologique
                   <svg className="absolute left-0 bottom-0 w-full h-3 -z-10" viewBox="0 0 200 20">
                     <path 
                       d="M0 10 Q 100 20 200 10" 
@@ -415,11 +470,12 @@ const TechnicalDepartmentSection = () => {
               {missions.map((mission, index) => (
                 <motion.div
                   key={index}
-                  className={`bg-gradient-to-br ${mission.color} p-0.5 rounded-2xl shadow-xl`}
+                  className={`bg-gradient-to-br ${mission.color} p-0.5 rounded-2xl shadow-xl relative overflow-hidden`}
                   variants={cardAnimation}
                   whileHover="hover"
                 >
-                  <div className="bg-white h-full p-8 rounded-2xl">
+                  <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+                  <div className="bg-white/95 backdrop-blur-sm h-full p-8 rounded-2xl relative z-10">
                     <div className={`bg-gradient-to-br ${mission.color} p-3 rounded-xl inline-flex mb-6 text-white`}>
                       {mission.icon}
                     </div>
@@ -435,7 +491,7 @@ const TechnicalDepartmentSection = () => {
             </motion.div>
           </motion.section>
 
-          {/* Stats Section */}
+          {/* Stats Section - Futuristic */}
           <motion.section
             className="mb-32 py-20 px-8 bg-[#556331] rounded-3xl relative overflow-hidden"
             initial="hidden"
@@ -444,19 +500,21 @@ const TechnicalDepartmentSection = () => {
             viewport={{ once: true, margin: "-100px" }}
           >
             <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+            <div className="absolute inset-0 opacity-5 bg-[url('https://assets.website-files.com/5f8f6d…/5f9088a…_noise.png')]"></div>
             <div className="relative z-10">
               <motion.div className="text-center mb-20" variants={fadeIn}>
                 <motion.span 
-                  className="inline-block text-[#be9838] font-medium mb-4 tracking-wider"
+                  className="inline-flex items-center text-[#be9838] font-medium mb-4 tracking-wider"
                   variants={fadeIn}
                 >
-                  NOTRE IMPACT EN CHIFFRES
+                  <Cpu className="w-4 h-4 mr-2" />
+                  NOTRE IMPACT NUMÉRIQUE
                 </motion.span>
                 <motion.h3 
                   className="text-3xl md:text-5xl font-bold text-white mb-6"
                   variants={fadeIn}
                 >
-                  Résultats <span className="text-[#be9838]">tangibles</span>
+                  Chiffres <span className="text-[#be9838]">clés</span>
                 </motion.h3>
               </motion.div>
               
@@ -467,32 +525,34 @@ const TechnicalDepartmentSection = () => {
                 {stats.map((stat, index) => (
                   <motion.div
                     key={index}
-                    className="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 text-center hover:bg-white/10 transition-all"
+                    className="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 text-center hover:bg-white/10 transition-all relative overflow-hidden"
                     variants={statItem}
                     custom={stat.delay}
                     whileHover="hover"
                   >
-                    <div className="flex justify-center mb-6">
-                      <div className="bg-[#be9838]/20 p-4 rounded-xl text-[#be9838]">
-                        {stat.icon}
+                    <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+                    <div className="relative z-10">
+                      <div className="flex justify-center mb-6">
+                        <div className="bg-[#be9838]/20 p-4 rounded-xl text-[#be9838]">
+                          {stat.icon}
+                        </div>
                       </div>
+                      <div className="mb-3">
+                        <span className="text-5xl font-bold text-white">{stat.value}</span>
+                        <span className="block text-xl font-semibold text-white mt-3">{stat.label}</span>
+                      </div>
+                      <p className="text-white/70">{stat.description}</p>
                     </div>
-                    <div className="mb-3">
-                      <span className="text-5xl font-bold text-white">{stat.value}</span>
-                      <span className="block text-xl font-semibold text-white mt-3">{stat.label}</span>
-                    </div>
-                    <p className="text-white/70">{stat.description}</p>
                   </motion.div>
                 ))}
               </motion.div>
             </div>
           </motion.section>
 
-          
+          {/* Team Section */}
           <div id='team'><SpecialTeamSection department="Technique" /></div>
 
-         
-          {/* CTA Section */}
+          {/* CTA Section - Futuristic */}
           <motion.section
             className="mt-32 bg-gradient-to-r from-[#556331] to-[#3a472c] rounded-3xl overflow-hidden relative"
             initial="hidden"
@@ -501,43 +561,44 @@ const TechnicalDepartmentSection = () => {
             viewport={{ once: true, margin: "-100px" }}
           >
             <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+            <div className="absolute inset-0 opacity-5 bg-[url('https://assets.website-files.com/5f8f6d…/5f9088a…_noise.png')]"></div>
             <div className="relative z-10 py-20 px-8 md:px-16 text-center">
               <motion.h3 
                 className="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight"
                 variants={fadeIn}
               >
-                Prêt à <span className="text-[#be9838]">construire</span> <br className="hidden md:block" />l'avenir durable ?
+                Prêt pour la <span className="text-[#be9838]">construction</span> <br className="hidden md:block" />du futur ?
               </motion.h3>
               <motion.p 
                 className="text-white/80 mb-12 max-w-2xl mx-auto text-xl"
                 variants={fadeIn}
               >
-                Rejoignez notre réseau de partenaires pour développer des solutions d'habitat durable et résilient au Niger.
+                Rejoignez notre réseau de partenaires technologiques pour développer des solutions d'habitat intelligent et durable au Niger.
               </motion.p>
               <motion.div 
                 className="flex flex-col sm:flex-row gap-4 justify-center"
                 variants={fadeIn}
               >
-
                 <a href="/#contact">
-                
-                <Button
-                  className="bg-[#be9838] hover:bg-[#be9838]/90 text-white font-semibold px-10 py-7 rounded-full transition-all hover:scale-105 text-lg shadow-xl hover:shadow-2xl group"
-                  aria-label="Contacter le département Technique"
-                >
-                  Nous contacter
-                  <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                </Button></a>
+                  <Button
+                    className="bg-[#be9838] hover:bg-[#be9838]/90 text-white font-semibold px-10 py-7 rounded-full transition-all hover:scale-105 text-lg shadow-xl hover:shadow-2xl group"
+                    aria-label="Contacter le département Technique"
+                  >
+                    Nous contacter
+                    <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </a>
                 
                 <a href="/#posts">
-                <Button
-                  variant="outline"
-                  className="bg-transparent border-white text-white hover:bg-white/10 font-semibold px-10 py-7 rounded-full transition-all hover:scale-105 text-lg shadow-xl hover:shadow-2xl group"
-                  aria-label="Voir nos réalisations"
-                >
-                  Voir nos publications
-                  <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                </Button></a>
+                  <Button
+                    variant="outline"
+                    className="bg-transparent border-white text-white hover:bg-white/10 font-semibold px-10 py-7 rounded-full transition-all hover:scale-105 text-lg shadow-xl hover:shadow-2xl group"
+                    aria-label="Voir nos réalisations"
+                  >
+                    Voir nos technologies
+                    <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </a>
               </motion.div>
             </div>
           </motion.section>

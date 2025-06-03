@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
 // Assuming the image is in your public/images folder
-const backgroundImage = '/images/2a.jpg';
+const backgroundImage = '/images/2j.jpg';
 
 const Hero = () => {
   const titleRef = useRef(null);

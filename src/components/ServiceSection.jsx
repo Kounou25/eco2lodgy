@@ -71,7 +71,7 @@ const ServiceSection = () => {
           <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5l-1.5-.5M6.75 7.364V3h-3v18m3-13.636l10.5-3.819" />
         </svg>
       ),
-      title: "Urbanisme",
+      title: "Urbanisme et Architecture",
       description: "Planification architecturale bioclimatique et aménagement territorial pour des quartiers durables, intégrant espaces verts et infrastructures adaptées au Niger.",
       href: "/services/urbanisme",
     },
@@ -84,6 +84,16 @@ const ServiceSection = () => {
       title: "Recherche & Développement (R&D)",
       description: "Innovation en matériaux locaux (argile, latérite) et techniques de construction durables pour des logements abordables et climatiquement adaptés.",
       href: "/services/r&d",
+    },
+    {
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659l-.879-.659M15 9H9m6 0a3 3 0 01-3 3m3-3a3 3 0 00-3-3m-3 6h6" />
+        </svg>
+      ),
+      title: "Promotion & Gestion Immobilière",
+      description: "Nous assurons la promotion, la gestion et la valorisation de projets immobiliers durables, en intégrant des techniques modernes et des matériaux écologiques pour offrir un habitat accessible et adapté aux besoins locaux.",
+      href: "/services/gestionImmo",
     },
     {
       icon: (
