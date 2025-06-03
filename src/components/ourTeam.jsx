@@ -1,125 +1,114 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaLinkedin, FaTwitter } from 'react-icons/fa';
 
-const TeamSection = () => {
-  const [selectedDepartment, setSelectedDepartment] = useState('Tous');
+const SpecialTeamSection = ({ department }) => {
   const [teamMembers, setTeamMembers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchTeamMembers = async () => {
+    const fetchMembers = async () => {
       try {
         const response = await fetch('https://alphatek.fr:3008/api/members/');
-        if (!response.ok) {
-          throw new Error('Erreur lors de la récupération des membres');
-        }
         const data = await response.json();
-        // Adaptation des données au format attendu par le composant
-        const formattedMembers = data.members.map(member => ({
-          name: member.name.trim(), // Suppression des retours à la ligne ou espaces inutiles
-          role: member.role,
-          department: member.departement.charAt(0).toUpperCase() + member.departement.slice(1), // Capitalisation du département
-          description: member.description,
-          image: member.photo_url.startsWith('http') 
-            ? member.photo_url 
-            : `https://alphatek.fr:3008${member.photo_url}` // Ajout du domaine si l'URL est relative
-        }));
-        setTeamMembers(formattedMembers);
+        const formatted = data.members
+          .filter(m => department ? m.departement.toLowerCase() === department.toLowerCase() : true)
+          .map(m => ({
+            id: m.id,
+            name: m.name,
+            role: m.role,
+            description: m.description,
+            image: `https://alphatek.fr:3008${m.photo_url}`,
+            social: m.social || { linkedin: '#', twitter: '#' },
+          }));
+        setTeamMembers(formatted);
         setLoading(false);
       } catch (err) {
-        setError(err.message);
+        setError('Erreur lors du chargement des membres.');
         setLoading(false);
       }
     };
+    fetchMembers();
+  }, [department]);
 
-    fetchTeamMembers();
-  }, []);
-
-  const departments = ['Tous', ...new Set(teamMembers.map((member) => member.department))];
-
-  const filteredMembers = selectedDepartment === 'Tous'
-    ? teamMembers
-    : teamMembers.filter((member) => member.department === selectedDepartment);
-
-  if (loading) {
-    return (
-      <section className="py-16 bg-[#F5F5F5]" id="team">
-        <div className="container mx-auto px-4">
-          <p className="text-center">Chargement des membres...</p>
-        </div>
-      </section>
-    );
-  }
-
-  if (error) {
-    return (
-      <section className="py-16 bg-[#F5F5F5]" id="team">
-        <div className="container mx-auto px-4">
-          <p className="text-center text-red-600">Erreur : {error}</p>
-        </div>
-      </section>
-    );
-  }
+  if (loading) return <div className="py-20 text-center text-gray-600">Chargement...</div>;
+  if (error) return <div className="py-20 text-center text-red-500">{error}</div>;
 
   return (
-    <section className="py-16 bg-[#F5F5F5]" id="team">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <span className="inline-block px-4 py-2 bg-[#2E5A27]/10 text-[#2E5A27] text-sm rounded-full">
-            NOTRE ÉQUIPE
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-4 font-display text-[#2E5A27]">
-            L’Équipe Eco2lodgy
-          </h2>
-          <p className="text-foreground/70 mt-2 max-w-2xl mx-auto">
-            Rencontrez nos experts dédiés à un Niger durable, organisés par département.
-          </p>
-        </div>
+    <section className="relative py-28 px-6 sm:px-12 bg-white dark:bg-[#0f0f0f]">
+      <div className="max-w-6xl mx-auto text-center mb-20">
+        <motion.h2
+          className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          L'équipe <span className="text-primary">qui fait la différence</span>
+        </motion.h2>
+        <motion.p
+          className="mt-4 text-lg text-gray-600 dark:text-gray-400"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          Rencontrez nos experts passionnés qui donnent vie à nos projets.
+        </motion.p>
+      </div>
 
-        <div className="flex flex-wrap gap-2 mb-8 justify-center">
-          {departments.map((department) => (
-            <button
-              key={department}
-              onClick={() => setSelectedDepartment(department)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                selectedDepartment === department
-                  ? 'bg-[#2E5A27] text-white'
-                  : 'bg-gray-100 text-[#2E5A27] hover:bg-[#2E5A27]/20'
-              }`}
+      <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+        <AnimatePresence>
+          {teamMembers.map((member, index) => (
+            <motion.div
+              key={member.id}
+              className="group bg-gradient-to-tr from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-3xl p-6 border border-gray-200 dark:border-gray-700 shadow-xl hover:shadow-2xl transition duration-300"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              {department}
-            </button>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredMembers.map((member, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-300 hover:scale-[1.03]"
-            >
-              <div className="relative h-64">
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 p-4">
-                  <h3 className="text-lg font-semibold text-white">{member.name}</h3>
-                  <p className="text-sm text-white/80">{member.role}</p>
+              <div className="flex flex-col items-center">
+                <div className="relative w-24 h-24">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full rounded-full object-cover border-4 border-primary/50 shadow-md"
+                  />
+                  <div className="absolute inset-0 rounded-full bg-primary/10 group-hover:bg-primary/20 transition" />
+                </div>
+                <h3 className="mt-4 text-xl font-semibold text-gray-900 dark:text-white">{member.name}</h3>
+                <p className="text-sm text-primary font-medium mb-2">{member.role}</p>
+                <p className="text-sm text-center text-gray-600 dark:text-gray-400 mb-4">
+                  {member.description}
+                </p>
+                <div className="flex gap-4">
+                  {member.social.linkedin && (
+                    <a
+                      href={member.social.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-600 hover:text-[#0a66c2] dark:text-gray-300 dark:hover:text-white"
+                    >
+                      <FaLinkedin className="w-5 h-5" />
+                    </a>
+                  )}
+                  {member.social.twitter && (
+                    <a
+                      href={member.social.twitter}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-600 hover:text-[#1da1f2] dark:text-gray-300 dark:hover:text-white"
+                    >
+                      <FaTwitter className="w-5 h-5" />
+                    </a>
+                  )}
                 </div>
               </div>
-              <div className="p-4 text-center">
-                <p className="text-sm text-foreground/70">{member.description}</p>
-                <p className="text-xs text-[#D4A017] mt-2 font-medium">{member.department}</p>
-              </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </AnimatePresence>
       </div>
     </section>
   );
 };
 
-export default TeamSection;
+export default SpecialTeamSection;

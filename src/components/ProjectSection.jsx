@@ -53,7 +53,7 @@ const ProjectHeroCarousel3D = () => {
         secondary_image2: "https://images.unsplash.com/photo-1600585152915-18cffe6b0060?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
         secondary_image3: null,
         technologies: ["Construction durable", "Matériaux biosourcés", "Architecture moderne"],
-        links: [{ type: "website", url: "/brochure/immobilier-premium.pdf" }],
+        links: [{ type: "website", url: "/images/brochure.pdf" }],
         stats: [
           { label: "Investissement", value: "500 M CFA" },
           { label: "ROI Année 4", value: "27%" },
@@ -87,7 +87,7 @@ const ProjectHeroCarousel3D = () => {
         secondary_image10: "/images/2k.jpg",
 
         technologies: ["Briques en terre compressée", "Matériaux biosourcés", "R&D écologique"],
-        links: [{ type: "website", url: "/brochure/construction-ecologique.pdf" }],
+        links: [{ type: "website", url: "/images/brochure.pdf" }],
         stats: [
           { label: "Investissement", value: "200 M CFA" },
           { label: "ROI Année 5", value: "90%" },
@@ -111,7 +111,7 @@ const ProjectHeroCarousel3D = () => {
         secondary_image2: "https://www.colibri.solar/wp-content/uploads/2021/04/Ce-quil-faut-savoir-sur-les-champs-solaires-1.jpg",
         secondary_image3: "https://www.boralex.com/sites/default/files/styles/project_technical_image/public/2024-10/13.jpg.webp?itok=70A2LpN8",
         technologies: ["Panneaux solaires", "Stockage d'énergie", "Réseau intelligent"],
-        links: [{ type: "website", url: "/brochure/projet-solaire.pdf" }],
+        links: [{ type: "website", url: "/images/brochure.pdf" }],
         stats: [
           { label: "Investissement", value: "300 M CFA" },
           { label: "ROI Année 5", value: "49.2%" },
@@ -138,7 +138,7 @@ const ProjectHeroCarousel3D = () => {
         secondary_image2: "https://img.20mn.fr/xcwtrhQvRCyYsaERsfpoxyk/1444x920_vue-aerienne-d-un-systeme-d-irrigation-d-un-champs-d-un-champs-de-ble-dans-l-est-de-la-france-le-26-juin-2023",
         secondary_image3: "https://novagric.com/wp-content/uploads/Novagric-Project-desert-13.jpg",
         technologies: ["Irrigation moderne", "Agriculture intensive", "Ressources hydriques"],
-        links: [{ type: "website", url: "/brochure/agriculture-intensive.pdf" }],
+        links: [{ type: "website", url: "/images/brochure.pdf" }],
         stats: [
           { label: "Investissement", value: "147.6 M CFA" },
           { label: "ROI Année 5", value: "56.7%" },
