@@ -629,7 +629,7 @@ const UrbanPlanningDepartmentSection = () => {
               >
                 Collaborons pour concevoir des écosystèmes urbains intelligents et résilients, parfaitement adaptés au contexte nigérien du futur.
               </motion.p>
-              <motion.div 
+              {/* <motion.div 
                 className="flex flex-col sm:flex-row gap-6 justify-center"
                 variants={fadeIn}
               >
@@ -651,7 +651,7 @@ const UrbanPlanningDepartmentSection = () => {
                   Nos réalisations
                   <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
-              </motion.div>
+              </motion.div> */}
             </div>
           </motion.section>
         </div>

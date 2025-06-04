@@ -39,6 +39,7 @@ const Navbar = () => {
         { name: 'Ingénierie et Construction', href: '/services/techniques' },
         { name: 'Urbanisme et Architecture', href: '/services/urbanisme' },
         { name: 'Recherche et Développement', href: '/services/recherches' },
+        { name: 'Promotion et Gestion Immobilliere', href: '/services/gestionImmo' },
         { name: 'Économie', href: '/services/finances' },
         { name: 'Numérique', href: '/services/numeriques' },
         { name: 'Formation', href: '/services/formations' },

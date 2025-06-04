@@ -261,7 +261,7 @@ const ResearchDevelopmentSection = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center"
             variants={staggerContainer}
           >
-            <motion.div variants={fadeIn} transition={{ delay: 0.8 }}>
+            {/* <motion.div variants={fadeIn} transition={{ delay: 0.8 }}>
               <Button
                 className="bg-[#8BC34A] hover:bg-[#8BC34A]/80 text-black px-8 py-6 rounded-full text-lg font-semibold flex items-center gap-2 font-orbitron"
                 whileHover="hover"
@@ -271,8 +271,8 @@ const ResearchDevelopmentSection = () => {
               >
                 Explorer nos travaux <ArrowRight className="h-5 w-5" />
               </Button>
-            </motion.div>
-            <motion.div variants={fadeIn} transition={{ delay: 1.0 }}>
+            </motion.div> */}
+            {/* <motion.div variants={fadeIn} transition={{ delay: 1.0 }}>
               <Button
                 variant="outline"
                 className="border-[#FFC107] text-[#FFC107] hover:bg-[#FFC107]/10 px-8 py-6 rounded-full text-lg font-semibold flex items-center gap-2 font-orbitron"
@@ -282,8 +282,8 @@ const ResearchDevelopmentSection = () => {
                 animate={{ boxShadow: ['0 0 10px rgba(255,193,7,0.5)', '0 0 20px rgba(255,193,7,0.8)', '0 0 10px rgba(255,193,7,0.5)'], transition: { duration: 1.5, repeat: Infinity, delay: 0.2 } }}
               >
                 Nos publications <ArrowRight className="h-5 w-5" />
-              </Button>
-            </motion.div>
+              </Button> */}
+            {/* </motion.div> */}
           </motion.div>
         </div>
         <motion.div
@@ -528,7 +528,7 @@ const ResearchDevelopmentSection = () => {
         </div>
       </motion.section>
 
-      {/* CTA Section */}
+      {/* CTA Section
       <motion.section
         className="py-20 bg-gradient-to-r from-[#355E3B] to-[#4A704D] relative overflow-hidden circuit-bg"
         initial="hidden"
@@ -569,7 +569,7 @@ const ResearchDevelopmentSection = () => {
             </motion.div>
           </motion.div>
         </div>
-      </motion.section>
+      </motion.section> */}
 
       <Footer />
     </div>
