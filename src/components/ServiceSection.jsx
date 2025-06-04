@@ -83,7 +83,7 @@ const ServiceSection = () => {
       ),
       title: "Recherche & Développement (R&D)",
       description: "Innovation en matériaux locaux (argile, latérite) et techniques de construction durables pour des logements abordables et climatiquement adaptés.",
-      href: "/services/r&d",
+      href: "/services/recherches",
     },
     {
       icon: (

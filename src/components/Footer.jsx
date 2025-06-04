@@ -6,9 +6,9 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   const services = [
-    { name: "Techniques", link: "/services/techniques" },
-    { name: "Urbanisme", link: "/services/urbanisme" },
-    { name: "R&D", link: "/services/recherches" },
+    { name: " Ingenierie et Construction", link: "/services/techniques" },
+    { name: "Urbanisme et Architecture", link: "/services/urbanisme" },
+    { name: "Rescherche et Developpement", link: "/services/recherches" },
     { name: "Economie", link: "/services/finances" },
     { name: "Numerique", link: "/services/numeriques" },
     { name: "Formations", link: "/services/formations" },
