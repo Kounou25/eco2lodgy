@@ -294,7 +294,7 @@ const RealEstatePromotionServices = () => {
       </motion.section>
 
     
-      {/* CTA Section */}
+      {/* CTA Section
       <motion.section
         className="py-20 bg-gradient-to-r from-[#556331] to-[#3a472c] text-white"
         initial="hidden"
@@ -335,7 +335,7 @@ const RealEstatePromotionServices = () => {
             </motion.div>
           </motion.div>
         </div>
-      </motion.section>
+      </motion.section> */}
 
       <Footer />
     </div>
