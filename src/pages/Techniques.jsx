@@ -31,7 +31,7 @@ const TechnicalDepartmentSection = () => {
     {
       icon: <Binary className="w-8 h-8" />,
       title: "Qualité Algorithmique",
-      description: "Respect des normes de construction internationales avec des processus optimisés par IA.",
+      description: "Respect des normes de construction internationales .",
       color: "from-[#8a9e5b] to-[#a3b775]"
     },
   ];
@@ -491,7 +491,7 @@ const TechnicalDepartmentSection = () => {
             </motion.div>
           </motion.section>
 
-          {/* Stats Section - Futuristic */}
+          {/* Stats Section - Futuristic
           <motion.section
             className="mb-32 py-20 px-8 bg-[#556331] rounded-3xl relative overflow-hidden"
             initial="hidden"
@@ -547,7 +547,7 @@ const TechnicalDepartmentSection = () => {
                 ))}
               </motion.div>
             </div>
-          </motion.section>
+          </motion.section> */}
 
           {/* Team Section */}
           <div id='team'><SpecialTeamSection department="Technique" /></div>

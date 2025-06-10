@@ -358,7 +358,7 @@ const ResearchDevelopmentSection = () => {
       </motion.section>
 
       {/* Research Impact */}
-      <motion.section
+      {/* <motion.section
         className="py-20 bg-gradient-to-b from-[#355E3B] to-[#4A704D] relative overflow-hidden circuit-bg"
         initial="hidden"
         whileInView="visible"
@@ -402,9 +402,9 @@ const ResearchDevelopmentSection = () => {
             ))}
           </div>
         </div>
-      </motion.section>
+      </motion.section> */}
 
-      {/* Gallery Section */}
+      {/* Gallery Section
       <motion.section
         className="py-24 bg-[#355E3B] relative"
         initial="hidden"
@@ -450,9 +450,9 @@ const ResearchDevelopmentSection = () => {
             ))}
           </div>
         </div>
-      </motion.section>
+      </motion.section> */}
 
-      {/* Publications Section */}
+      {/* Publications Section
       <motion.section
         className="py-20 bg-[#355E3B]"
         initial="hidden"
@@ -502,7 +502,7 @@ const ResearchDevelopmentSection = () => {
             ))}
           </div>
         </div>
-      </motion.section>
+      </motion.section> */}
 
       {/* Team Section */}
       <motion.section
