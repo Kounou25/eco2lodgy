@@ -4,43 +4,43 @@ import { ArrowRight, CheckCircle, Leaf, Home, Droplet } from 'lucide-react';
 
 const AboutSection = () => {
   const stats = [
-    { 
-      icon: <Leaf className="w-10 h-10 text-[#2E5A27]" />,
-      value: "100%", 
-      label: "Matériaux Locaux",
-      description: "Utilisation de ressources écologiques du Niger" 
-    },
-    { 
-      icon: <Home className="w-10 h-10 text-[#2E5A27]" />,
-      value: "500+", 
-      label: "Logements",
-      description: "Projets durables en cours ou réalisés" 
-    },
-    { 
-      icon: <Droplet className="w-10 h-10 text-[#2E5A27]" />,
-      value: "80%", 
-      label: "Résilience",
-      description: "Réduction des risques d'inondations" 
-    },
+    // { 
+    //   icon: <Leaf className="w-10 h-10 text-[#2E5A27]" />,
+    //   value: "100%", 
+    //   label: "Matériaux Locaux",
+    //   description: "Utilisation de ressources écologiques du Niger" 
+    // },
+    // { 
+    //   icon: <Home className="w-10 h-10 text-[#2E5A27]" />,
+    //   value: "500+", 
+    //   label: "Logements",
+    //   description: "Projets durables en cours ou réalisés" 
+    // },
+    // { 
+    //   icon: <Droplet className="w-10 h-10 text-[#2E5A27]" />,
+    //   value: "80%", 
+    //   label: "Résilience",
+    //   description: "Réduction des risques d'inondations" 
+    // },
   ];
 
   const values = [
-    {
-      title: "Résilience Climatique",
-      description: "Des solutions conçues pour résister aux inondations et au changement climatique."
-    },
-    {
-      title: "Durabilité",
-      description: "Matériaux écologiques locaux pour un faible impact environnemental."
-    },
-    {
-      title: "Innovation",
-      description: "Technologie moderne au service de l'habitat nigérien."
-    },
-    {
-      title: "Accessibilité",
-      description: "Logements abordables adaptés aux besoins des communautés."
-    },
+    // {
+    //   title: "Résilience Climatique",
+    //   description: "Des solutions conçues pour résister aux inondations et au changement climatique."
+    // },
+    // {
+    //   title: "Durabilité",
+    //   description: "Matériaux écologiques locaux pour un faible impact environnemental."
+    // },
+    // {
+    //   title: "Innovation",
+    //   description: "Technologie moderne au service de l'habitat nigérien."
+    // },
+    // {
+    //   title: "Accessibilité",
+    //   description: "Logements abordables adaptés aux besoins des communautés."
+    // },
   ];
 
   return (
