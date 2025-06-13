@@ -10,7 +10,7 @@ const SpecialTeamSection = ({ department }) => {
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-        const response = await fetch('https://alphatek.fr:3008/api/members/');
+        const response = await fetch('https://alphatek.fr:3008/api/members/member/');
         const data = await response.json();
         const formatted = data.members
           .filter(m => department ? m.departement.toLowerCase() === department.toLowerCase() : true)

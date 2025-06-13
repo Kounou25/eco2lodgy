@@ -74,10 +74,10 @@ export default function AdminDashboard() {
 
   // Endpoints API
   const API_ENDPOINTS = {
-    projects: 'https://alphatek.fr:3008/api/projects/',
-    partners: 'https://alphatek.fr:3008/api/partners/',
-    members: 'https://alphatek.fr:3008/api/members/',
-    posts: 'https://alphatek.fr:3008/api/posts/',
+    projects: 'https://alphatek.fr:3008/api/projects/project/',
+    partners: 'https://alphatek.fr:3008/api/partners/partners/',
+    members: 'https://alphatek.fr:3008/api/members/member/',
+    posts: 'https://alphatek.fr:3008/api/posts/post/',
     users: 'https://alphatek.fr:3008/api/users/users'
   };
 

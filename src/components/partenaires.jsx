@@ -8,7 +8,7 @@ const PartnersSection = () => {
   useEffect(() => {
     const fetchPartners = async () => {
       try {
-        const response = await fetch('https://alphatek.fr:3008/api/partners/');
+        const response = await fetch('https://alphatek.fr:3008/api/partners/partners');
         if (!response.ok) {
           throw new Error('Erreur lors de la récupération des partenaires');
         }

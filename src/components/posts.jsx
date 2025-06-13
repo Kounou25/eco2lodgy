@@ -15,7 +15,7 @@ const PostSection = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch('https://alphatek.fr:3008/api/posts/');
+        const res = await fetch('https://alphatek.fr:3008/api/posts/post/');
         if (!res.ok) throw new Error('Failed to fetch posts');
         const data = await res.json();
 
