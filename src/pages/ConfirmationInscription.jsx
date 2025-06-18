@@ -19,10 +19,35 @@ const ConfirmationInscription = () => {
       duration: "5 jours",
       startDate: "2024-02-15",
       location: "Niamey"
+    },
+    {
+      id: 2,
+      title: "Gestion de l'Eau et Assainissement",
+      price: "50,000 FCFA",
+      duration: "3 jours",
+      startDate: "2024-02-20",
+      location: "Tillabéri"
     }
   ];
 
   const formation = formations.find(f => f.id === parseInt(id));
+
+  if (!formation) {
+    return (
+      <>
+        <Navbar />
+        <div className="min-h-screen bg-gray-50 pt-20 flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold mb-4">Formation non trouvée</h1>
+            <Link to="/formations">
+              <Button>Retour aux formations</Button>
+            </Link>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
@@ -40,7 +65,7 @@ const ConfirmationInscription = () => {
               </h1>
               
               <p className="text-lg text-gray-600">
-                Votre demande d'inscription à la formation "{formation?.title}" a été envoyée avec succès.
+                Votre demande d'inscription à la formation "{formation.title}" a été envoyée avec succès.
               </p>
             </div>
 
@@ -81,7 +106,7 @@ const ConfirmationInscription = () => {
                     <div>
                       <h4 className="font-semibold mb-1">Instructions de paiement</h4>
                       <p className="text-gray-600 text-sm">
-                        Après validation, vous recevrez les instructions pour effectuer le paiement de {formation?.price}.
+                        Après validation, vous recevrez les instructions pour effectuer le paiement de {formation.price}.
                       </p>
                     </div>
                   </div>
@@ -104,11 +129,11 @@ const ConfirmationInscription = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4 text-[#2E5A27]" />
-                      <span>Début : {new Date(formation?.startDate).toLocaleDateString('fr-FR')}</span>
+                      <span>Début : {new Date(formation.startDate).toLocaleDateString('fr-FR')}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <MapPin className="w-4 h-4 text-[#2E5A27]" />
-                      <span>{formation?.location}</span>
+                      <span>{formation.location}</span>
                     </div>
                   </div>
                 </div>

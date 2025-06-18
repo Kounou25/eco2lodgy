@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -69,6 +69,52 @@ const FormationDetail = () => {
         "Matériaux pour les exercices pratiques",
         "Certificat de formation",
         "Suivi post-formation pendant 3 mois"
+      ]
+    },
+    {
+      id: 2,
+      title: "Gestion de l'Eau et Assainissement",
+      description: "Formation sur les systèmes d'eau durable et l'assainissement écologique.",
+      category: "environnement",
+      duration: "3 jours",
+      participants: "20 max",
+      location: "Tillabéri",
+      price: "50,000 FCFA",
+      level: "Intermédiaire",
+      startDate: "2024-02-20",
+      endDate: "2024-02-22",
+      instructor: "Dr. Fatima Ousmane",
+      instructorBio: "Docteur en ingénierie environnementale spécialisée dans la gestion de l'eau.",
+      objectives: [
+        "Concevoir des systèmes de récupération d'eau",
+        "Installer des systèmes d'assainissement écologique",
+        "Maintenance et gestion des installations"
+      ],
+      program: [
+        {
+          day: "Jour 1",
+          title: "Systèmes de récupération d'eau",
+          content: "Conception et installation de systèmes de collecte d'eau de pluie"
+        },
+        {
+          day: "Jour 2",
+          title: "Assainissement écologique",
+          content: "Installation de toilettes sèches et systèmes de traitement"
+        },
+        {
+          day: "Jour 3",
+          title: "Maintenance et gestion",
+          content: "Entretien des installations et gestion communautaire"
+        }
+      ],
+      prerequisites: [
+        "Notions de base en plomberie",
+        "Intérêt pour l'environnement"
+      ],
+      included: [
+        "Kit d'outils de base",
+        "Manuel technique",
+        "Certificat de formation"
       ]
     }
   ];
