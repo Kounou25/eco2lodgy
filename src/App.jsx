@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -24,6 +25,10 @@ import EngineeringConsulting from "./pages/Ingenierie&consulting";
 import PartnersPage from './pages/PartnersPage';
 import LoginPage from "./pages/login";
 import BlogPost from "./pages/blogPost";
+import FormationsPage from "./pages/FormationsPage";
+import FormationDetail from "./pages/FormationDetail";
+import InscriptionFormation from "./pages/InscriptionFormation";
+import ConfirmationInscription from "./pages/ConfirmationInscription";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +42,11 @@ const App = () => (
         <Route path="/" element={<Index />} />
         <Route path="index" element={<Index />} />
 
+        {/* Routes des formations */}
+        <Route path="/formations" element={<FormationsPage />} />
+        <Route path="/formations/:id" element={<FormationDetail />} />
+        <Route path="/formations/:id/inscription" element={<InscriptionFormation />} />
+        <Route path="/formations/:id/confirmation" element={<ConfirmationInscription />} />
         
         {/* Routes des services */}
         <Route path="/services">
@@ -52,8 +62,6 @@ const App = () => (
           <Route path="architecture" element={<Architecture />} />
         </Route>
 
-       
-
         {/* Route de login */}
         <Route path="/login" element={<LoginPage />} />
         {/* Route admin */}
@@ -61,18 +69,15 @@ const App = () => (
         {/* Route de blog */}
         <Route path="/blog">
           <Route path=":id" element={<BlogPost />} />
-          {/* Route de blog - page d'accueil */}
         </Route>
-
-        {/* Routes du dashboard - publiques */}
 
         {/* Routes du dashboard - protégées */}
         <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route index element={<DashboardHome />} /> {/* /dashboard */}
-          <Route path="projects" element={<ProjectsPage />} /> {/* /dashboard/projects */}
-          <Route path="team" element={<TeamPage />} /> {/* /dashboard/team */}
-          <Route path="posts" element={<PostsPage />} /> {/* /dashboard/posts */}
-          <Route path="partners" element={<PartnersPage />} /> {/* /dashboard/partners */}
+          <Route index element={<DashboardHome />} />
+          <Route path="projects" element={<ProjectsPage />} />
+          <Route path="team" element={<TeamPage />} />
+          <Route path="posts" element={<PostsPage />} />
+          <Route path="partners" element={<PartnersPage />} />
         </Route>
 
         {/* Route 404 - doit être la dernière */}

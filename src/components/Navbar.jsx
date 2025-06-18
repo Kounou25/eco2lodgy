@@ -67,6 +67,7 @@ const Navbar = () => {
         { name: 'Formation', href: '/services/formations', sectionId: null },
       ],
     },
+    { name: 'Formations', href: '/formations', sectionId: null },
     { name: 'Présentation', href: '/#about', sectionId: 'about' },
     { name: 'Contact', href: '/#contact', sectionId: 'contact' },
   ];
