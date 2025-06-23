@@ -3,7 +3,7 @@ import {
   Briefcase, Handshake, Users, FileText, 
   Plus, Edit, Trash2, Image as ImageIcon, 
   ChevronDown, Search, ArrowLeft, ArrowRight, 
-  Loader2, AlertCircle, CheckCircle, X
+  Loader2, AlertCircle, CheckCircle, X, GraduationCap
 } from 'lucide-react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -22,7 +22,27 @@ export default function AdminDashboard() {
     projects: { title: '', description: '', projectType: '', images: [] },
     partners: { name: '', description: '', website: '', image_file: null },
     members: { name: '', role: '', departement: '', description: '', image_file: null },
-    posts: { title: '', content: '', author: '', image_file: null }
+    posts: { title: '', content: '', author: '', image_file: null },
+    formations: { 
+      title: '', 
+      description: '', 
+      category: '', 
+      duration: '', 
+      participants: '', 
+      location: '', 
+      price: '', 
+      level: '', 
+      startDate: '', 
+      endDate: '', 
+      instructor: '', 
+      instructorBio: '', 
+      videoUrl: '',
+      objectives: [''],
+      program: [{ day: '', title: '', content: '' }],
+      prerequisites: [''],
+      included: [''],
+      image_file: null 
+    }
   });
 
   const [isEditing, setIsEditing] = useState(false);
@@ -32,7 +52,8 @@ export default function AdminDashboard() {
     projects: [],
     partners: [],
     members: [],
-    posts: []
+    posts: [],
+    formations: []
   });
   const [userData, setUserData] = useState(null);
   const [status, setStatus] = useState({
@@ -47,8 +68,8 @@ export default function AdminDashboard() {
   // Vérification de l'utilisateur dans localStorage
   useEffect(() => {
     const userString = localStorage.getItem('user');
-    console.log('Valeur brute de localStorage.user:', userString); // Ajoutez ceci
-    console.log('Type de userString:', typeof userString); // Vérifiez le type
+    console.log('Valeur brute de localStorage.user:', userString);
+    console.log('Type de userString:', typeof userString);
   
     if (!userString) {
       console.warn('Aucune donnée utilisateur trouvée dans localStorage');
@@ -67,7 +88,7 @@ export default function AdminDashboard() {
     } catch (error) {
       console.error('Erreur lors du parsing de localStorage.user:', error);
       console.log('Contenu problématique:', userString);
-      localStorage.removeItem('user'); // Supprime les données corrompues
+      localStorage.removeItem('user');
       navigate('/login');
     }
   }, [navigate]);
@@ -78,6 +99,7 @@ export default function AdminDashboard() {
     partners: 'https://alphatek.fr:3008/api/partners/partners/',
     members: 'https://alphatek.fr:3008/api/members/member/',
     posts: 'https://alphatek.fr:3008/api/posts/post/',
+    formations: 'https://alphatek.fr:3008/api/formations/formation/',
     users: 'https://alphatek.fr:3008/api/users/users'
   };
 
@@ -85,7 +107,10 @@ export default function AdminDashboard() {
   const DROPDOWN_OPTIONS = {
     projectType: ['Développement', 'Recherche', 'Innovation', 'Infrastructure'],
     departement: ['Recherches', 'Technique', 'R&D', 'Economie', 'Numerique','Formation'],
-    role: ['Développeur', 'Chercheur', 'Ingenieur', 'Analyste', 'Consultant']
+    role: ['Développeur', 'Chercheur', 'Ingenieur', 'Analyste', 'Consultant'],
+    formationCategory: ['construction', 'environnement', 'agriculture', 'energie', 'numerique', 'autre'],
+    formationLevel: ['Débutant', 'Intermédiaire', 'Avancé'],
+    formationLocation: ['Niamey', 'Tillabéri', 'Dosso', 'Maradi', 'Zinder', 'Agadez', 'Tahoua', 'Diffa']
   };
 
   // Récupération des données initiales
@@ -100,7 +125,7 @@ export default function AdminDashboard() {
           ...Object.values(API_ENDPOINTS).map(url => fetch(url))
         ]);
         
-        const [projects, partners, members, posts, usersData] = await Promise.all(
+        const [projects, partners, members, posts, formations, usersData] = await Promise.all(
           responses.map(res => res.json())
         );
 
@@ -108,7 +133,8 @@ export default function AdminDashboard() {
           projects: projects.projects || [],
           partners: partners.partners || [],
           members: members.members || [],
-          posts: posts.posts || []
+          posts: posts.posts || [],
+          formations: formations.formations || []
         });
         
         setUsers(usersData.users || []);
@@ -143,6 +169,37 @@ export default function AdminDashboard() {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  // Gestion des listes dynamiques pour formations
+  const addToArray = (entity, field, defaultValue = '') => {
+    setFormData(prev => ({
+      ...prev,
+      [entity]: {
+        ...prev[entity],
+        [field]: [...prev[entity][field], typeof defaultValue === 'object' ? defaultValue : defaultValue]
+      }
+    }));
+  };
+
+  const removeFromArray = (entity, field, index) => {
+    setFormData(prev => ({
+      ...prev,
+      [entity]: {
+        ...prev[entity],
+        [field]: prev[entity][field].filter((_, i) => i !== index)
+      }
+    }));
+  };
+
+  const updateArrayItem = (entity, field, index, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [entity]: {
+        ...prev[entity],
+        [field]: prev[entity][field].map((item, i) => i === index ? value : item)
+      }
+    }));
+  };
 
   // Gestion des formulaires
   const handleInputChange = (e, entity) => {
@@ -184,15 +241,36 @@ export default function AdminDashboard() {
   };
 
   const resetForm = (entity) => {
+    const defaultFormData = {
+      projects: { title: '', description: '', projectType: '', images: [] },
+      partners: { name: '', description: '', website: '', image_file: null },
+      members: { name: '', role: '', departement: '', description: '', image_file: null },
+      posts: { title: '', content: '', author: '', image_file: null },
+      formations: { 
+        title: '', 
+        description: '', 
+        category: '', 
+        duration: '', 
+        participants: '', 
+        location: '', 
+        price: '', 
+        level: '', 
+        startDate: '', 
+        endDate: '', 
+        instructor: '', 
+        instructorBio: '', 
+        videoUrl: '',
+        objectives: [''],
+        program: [{ day: '', title: '', content: '' }],
+        prerequisites: [''],
+        included: [''],
+        image_file: null 
+      }
+    };
+    
     setFormData(prev => ({
       ...prev,
-      [entity]: entity === 'projects' 
-        ? { title: '', description: '', projectType: '', images: [] }
-        : Object.fromEntries(
-            Object.keys(prev[entity]).map(key => 
-              [key, key.endsWith('_file') ? null : '']
-            )
-        )
+      [entity]: defaultFormData[entity]
     }));
     setIsEditing(false);
     setEditingId(null);
@@ -210,7 +288,11 @@ export default function AdminDashboard() {
       // Ajout des champs texte
       Object.entries(entityData).forEach(([key, value]) => {
         if (key === 'images' || key === 'image_preview') return;
-        if (value) formDataToSend.append(key, value);
+        if (key === 'objectives' || key === 'program' || key === 'prerequisites' || key === 'included') {
+          formDataToSend.append(key, JSON.stringify(value));
+        } else if (value) {
+          formDataToSend.append(key, value);
+        }
       });
 
       // Gestion spéciale pour les images des projets
@@ -261,21 +343,38 @@ export default function AdminDashboard() {
   const handleEdit = (item, entity) => {
     setIsEditing(true);
     setEditingId(item.id);
-    setFormData(prev => ({
-      ...prev,
-      [entity]: {
-        ...item,
-        ...(entity === 'projects' 
-          ? { images: [] } 
-          : { 
-              image_file: null,
-              image_preview: item.image_url 
-                ? `https://alphatek.fr:3008${item.image_url}` 
-                : null
-            }
-        )
-      }
-    }));
+    if (entity === 'formations') {
+      setFormData(prev => ({
+        ...prev,
+        [entity]: {
+          ...item,
+          objectives: item.objectives || [''],
+          program: item.program || [{ day: '', title: '', content: '' }],
+          prerequisites: item.prerequisites || [''],
+          included: item.included || [''],
+          image_file: null,
+          image_preview: item.image_url 
+            ? `https://alphatek.fr:3008${item.image_url}` 
+            : null
+        }
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [entity]: {
+          ...item,
+          ...(entity === 'projects' 
+            ? { images: [] } 
+            : { 
+                image_file: null,
+                image_preview: item.image_url 
+                  ? `https://alphatek.fr:3008${item.image_url}` 
+                  : null
+              }
+          )
+        }
+      }));
+    }
   };
 
   const handleDelete = async (id, entity) => {
@@ -357,6 +456,44 @@ export default function AdminDashboard() {
         required: true 
       },
       { name: 'image', label: 'Image', type: 'file', required: !isEditing }
+    ],
+    formations: [
+      { name: 'title', label: 'Titre', type: 'text', required: true },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
+      { 
+        name: 'category', 
+        label: 'Catégorie', 
+        type: 'select', 
+        options: DROPDOWN_OPTIONS.formationCategory,
+        required: true
+      },
+      { name: 'duration', label: 'Durée', type: 'text', required: true },
+      { name: 'participants', label: 'Participants max', type: 'text', required: true },
+      { 
+        name: 'location', 
+        label: 'Lieu', 
+        type: 'select', 
+        options: DROPDOWN_OPTIONS.formationLocation,
+        required: true
+      },
+      { name: 'price', label: 'Prix', type: 'text', required: true },
+      { 
+        name: 'level', 
+        label: 'Niveau', 
+        type: 'select', 
+        options: DROPDOWN_OPTIONS.formationLevel,
+        required: true
+      },
+      { name: 'startDate', label: 'Date de début', type: 'date', required: true },
+      { name: 'endDate', label: 'Date de fin', type: 'date', required: true },
+      { name: 'instructor', label: 'Formateur', type: 'text', required: true },
+      { name: 'instructorBio', label: 'Bio du formateur', type: 'textarea', required: true },
+      { name: 'videoUrl', label: 'URL Vidéo', type: 'url' },
+      { name: 'image', label: 'Image de couverture', type: 'file', required: !isEditing },
+      { name: 'objectives', label: 'Objectifs', type: 'array' },
+      { name: 'program', label: 'Programme', type: 'program-array' },
+      { name: 'prerequisites', label: 'Prérequis', type: 'array' },
+      { name: 'included', label: 'Inclus', type: 'array' }
     ]
   };
 
@@ -364,7 +501,8 @@ export default function AdminDashboard() {
     projects: { singular: 'Projet', plural: 'Projets' },
     partners: { singular: 'Partenaire', plural: 'Partenaires' },
     members: { singular: 'Membre', plural: 'Membres' },
-    posts: { singular: 'Article', plural: 'Articles' }
+    posts: { singular: 'Article', plural: 'Articles' },
+    formations: { singular: 'Formation', plural: 'Formations' }
   };
 
   // Composant Form
@@ -384,12 +522,97 @@ export default function AdminDashboard() {
         <form onSubmit={(e) => handleSubmit(e, entity)} className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {fields.map(field => (
-              <div key={field.name} className={field.type === 'textarea' ? 'md:col-span-2' : ''}>
+              <div key={field.name} className={
+                field.type === 'textarea' || field.type === 'array' || field.type === 'program-array' 
+                  ? 'md:col-span-2' : ''
+              }>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">
                   {field.label || field.name}
                   {field.required && <span className="text-red-500 ml-1">*</span>}
                 </label>
                 
+                {/* Gestion des différents types de champs */}
+                {field.type === 'array' && (
+                  <div className="space-y-2">
+                    {entityData[field.name]?.map((item, index) => (
+                      <div key={index} className="flex gap-2">
+                        <input
+                          type="text"
+                          value={item}
+                          onChange={(e) => updateArrayItem(entity, field.name, index, e.target.value)}
+                          className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 transition"
+                          placeholder={`${field.label} ${index + 1}`}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => removeFromArray(entity, field.name, index)}
+                          className="px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition"
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={() => addToArray(entity, field.name, '')}
+                      className="flex items-center gap-2 px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition"
+                    >
+                      <Plus size={16} />
+                      Ajouter {field.label?.toLowerCase()}
+                    </button>
+                  </div>
+                )}
+                
+                {field.type === 'program-array' && (
+                  <div className="space-y-4">
+                    {entityData[field.name]?.map((item, index) => (
+                      <div key={index} className="border border-gray-200 rounded-lg p-4">
+                        <div className="flex justify-between items-center mb-3">
+                          <h4 className="font-medium">Programme {index + 1}</h4>
+                          <button
+                            type="button"
+                            onClick={() => removeFromArray(entity, field.name, index)}
+                            className="text-red-600 hover:bg-red-50 p-1 rounded"
+                          >
+                            <X size={16} />
+                          </button>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          <input
+                            type="text"
+                            value={item.day || ''}
+                            onChange={(e) => updateArrayItem(entity, field.name, index, {...item, day: e.target.value})}
+                            placeholder="Jour (ex: Jour 1)"
+                            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 transition"
+                          />
+                          <input
+                            type="text"
+                            value={item.title || ''}
+                            onChange={(e) => updateArrayItem(entity, field.name, index, {...item, title: e.target.value})}
+                            placeholder="Titre de la session"
+                            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 transition"
+                          />
+                          <textarea
+                            value={item.content || ''}
+                            onChange={(e) => updateArrayItem(entity, field.name, index, {...item, content: e.target.value})}
+                            placeholder="Contenu détaillé"
+                            rows={2}
+                            className="md:col-span-3 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 transition"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={() => addToArray(entity, field.name, { day: '', title: '', content: '' })}
+                      className="flex items-center gap-2 px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition"
+                    >
+                      <Plus size={16} />
+                      Ajouter une session
+                    </button>
+                  </div>
+                )}
+
                 {field.type === 'file' || field.type === 'multiple-file' ? (
                   <div className="space-y-2">
                     <label className="flex flex-col items-center justify-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition">
@@ -447,7 +670,7 @@ export default function AdminDashboard() {
                         onChange={(e) => handleFileChange(e, entity)}
                         className="hidden"
                         accept="image/*"
-                        required={field.required && (entity === 'projects' ? entityData.images.length === 0 : !entityData.image_preview)}
+                        required={field.required && (entity === 'projects' ? entityData.images?.length === 0 : !entityData.image_preview)}
                         multiple={field.type === 'multiple-file'}
                       />
                     </label>
@@ -554,7 +777,8 @@ export default function AdminDashboard() {
   const renderList = (entity) => {
     const { plural } = LABELS[entity];
     const columns = FORM_CONFIG[entity]
-      .filter(field => field.type !== 'textarea' && field.type !== 'file' && field.type !== 'multiple-file')
+      .filter(field => field.type !== 'textarea' && field.type !== 'file' && field.type !== 'multiple-file' && field.type !== 'array' && field.type !== 'program-array')
+      .slice(0, 4) // Limiter le nombre de colonnes affichées
       .map(field => ({
         key: field.name,
         label: field.label || field.name
@@ -615,7 +839,10 @@ export default function AdminDashboard() {
                         {columns.map(col => (
                           <td key={col.key} className="px-6 py-4 whitespace-nowrap">
                             <div className={`text-sm ${col.key === 'title' || col.key === 'name' ? 'font-medium text-gray-900' : 'text-gray-500'}`}>
-                              {item[col.key]}
+                              {col.key === 'startDate' || col.key === 'endDate' ? 
+                                new Date(item[col.key]).toLocaleDateString('fr-FR') : 
+                                item[col.key]
+                              }
                             </div>
                           </td>
                         ))}
@@ -739,7 +966,8 @@ export default function AdminDashboard() {
                 projects: <Briefcase className="inline mr-2" size={16} />,
                 partners: <Handshake className="inline mr-2" size={16} />,
                 members: <Users className="inline mr-2" size={16} />,
-                posts: <FileText className="inline mr-2" size={16} />
+                posts: <FileText className="inline mr-2" size={16} />,
+                formations: <GraduationCap className="inline mr-2" size={16} />
               };
               
               return (
