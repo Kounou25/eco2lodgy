@@ -29,6 +29,10 @@ import FormationsPage from "./pages/FormationsPage";
 import FormationDetail from "./pages/FormationDetail";
 import InscriptionFormation from "./pages/InscriptionFormation";
 import ConfirmationInscription from "./pages/ConfirmationInscription";
+import { NewDashboardLayout } from './components/NewDashboardLayout';
+import NewDashboardHome from './pages/NewDashboardHome';
+import NewDashboardProjects from './pages/NewDashboardProjects';
+import NewDashboardFormations from './pages/NewDashboardFormations';
 
 const queryClient = new QueryClient();
 
@@ -71,7 +75,7 @@ const App = () => (
           <Route path=":id" element={<BlogPost />} />
         </Route>
 
-        {/* Routes du dashboard - protégées */}
+        {/* Routes du dashboard principal - protégées */}
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<DashboardHome />} />
           <Route path="projects" element={<ProjectsPage />} />
@@ -79,6 +83,16 @@ const App = () => (
           <Route path="posts" element={<PostsPage />} />
           <Route path="partners" element={<PartnersPage />} />
         </Route>
+
+        {/* Routes du nouveau dashboard séparé */}
+        <Route path="/new-dashboard" element={<NewDashboardLayout><NewDashboardHome /></NewDashboardLayout>} />
+        <Route path="/new-dashboard/projects" element={<NewDashboardLayout><NewDashboardProjects /></NewDashboardLayout>} />
+        <Route path="/new-dashboard/formations" element={<NewDashboardLayout><NewDashboardFormations /></NewDashboardLayout>} />
+        <Route path="/new-dashboard/team" element={<NewDashboardLayout><div className="p-4"><h1 className="text-2xl font-bold">Équipe - En développement</h1></div></NewDashboardLayout>} />
+        <Route path="/new-dashboard/partners" element={<NewDashboardLayout><div className="p-4"><h1 className="text-2xl font-bold">Partenaires - En développement</h1></div></NewDashboardLayout>} />
+        <Route path="/new-dashboard/analytics" element={<NewDashboardLayout><div className="p-4"><h1 className="text-2xl font-bold">Statistiques - En développement</h1></div></NewDashboardLayout>} />
+        <Route path="/new-dashboard/settings" element={<NewDashboardLayout><div className="p-4"><h1 className="text-2xl font-bold">Paramètres - En développement</h1></div></NewDashboardLayout>} />
+        <Route path="/new-dashboard/messages" element={<NewDashboardLayout><div className="p-4"><h1 className="text-2xl font-bold">Messages - En développement</h1></div></NewDashboardLayout>} />
 
         {/* Route 404 - doit être la dernière */}
         <Route path="*" element={<NotFound />} />
