@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { BookOpen, Users, Clock, Calendar, MapPin, ArrowRight, Search, Star, TrendingUp, Award, Filter } from 'lucide-react';
+import { BookOpen, Users, Clock, Calendar, MapPin, ArrowRight, Search, Star, TrendingUp, Award, Filter, Play, Video } from 'lucide-react';
 
 const FormationsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -26,12 +26,13 @@ const FormationsPage = () => {
       price: "75,000 FCFA",
       level: "Débutant",
       startDate: "2024-02-15",
-      image: "/images/construction.jpg",
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=400&fit=crop",
       instructor: "Ing. Amadou Diallo",
       rating: 4.8,
       studentsCount: 127,
       isPopular: true,
       icon: "🏗️",
+      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
       objectives: [
         "Maîtriser les techniques de construction avec des matériaux locaux",
         "Comprendre les principes de la construction écologique",
@@ -49,12 +50,13 @@ const FormationsPage = () => {
       price: "50,000 FCFA",
       level: "Intermédiaire",
       startDate: "2024-02-20",
-      image: "/images/water.jpg",
+      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=400&fit=crop",
       instructor: "Dr. Fatima Ousmane",
       rating: 4.9,
       studentsCount: 89,
       isPopular: false,
       icon: "💧",
+      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
       objectives: [
         "Concevoir des systèmes de récupération d'eau",
         "Installer des systèmes d'assainissement écologique",
@@ -72,12 +74,13 @@ const FormationsPage = () => {
       price: "60,000 FCFA",
       level: "Débutant",
       startDate: "2024-03-01",
-      image: "/images/solar.jpg",
+      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop",
       instructor: "Tech. Ibrahim Moussa",
       rating: 4.7,
       studentsCount: 65,
       isPopular: true,
       icon: "☀️",
+      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
       objectives: [
         "Installer des panneaux solaires",
         "Dimensionner un système photovoltaïque",
@@ -95,12 +98,13 @@ const FormationsPage = () => {
       price: "45,000 FCFA",
       level: "Débutant",
       startDate: "2024-03-10",
-      image: "/images/agriculture.jpg",
+      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=800&h=400&fit=crop",
       instructor: "Agr. Aissata Sani",
       rating: 4.6,
       studentsCount: 112,
       isPopular: false,
       icon: "🌱",
+      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
       objectives: [
         "Créer un jardin urbain productif",
         "Techniques de compostage",
@@ -118,12 +122,13 @@ const FormationsPage = () => {
       price: "80,000 FCFA",
       level: "Avancé",
       startDate: "2024-03-15",
-      image: "/images/woodwork.jpg",
+      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=400&fit=crop",
       instructor: "Maître Moustapha Garba",
       rating: 4.9,
       studentsCount: 43,
       isPopular: false,
       icon: "🪵",
+      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
       objectives: [
         "Maîtriser les outils de menuiserie",
         "Travailler le bois local",
@@ -141,12 +146,13 @@ const FormationsPage = () => {
       price: "55,000 FCFA",
       level: "Intermédiaire",
       startDate: "2024-03-20",
-      image: "/images/management.jpg",
+      image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&h=400&fit=crop",
       instructor: "Dr. Harouna Abdou",
       rating: 4.8,
       studentsCount: 78,
       isPopular: true,
       icon: "👥",
+      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
       objectives: [
         "Planifier un projet communautaire",
         "Gérer les ressources et équipes",
@@ -196,30 +202,102 @@ const FormationsPage = () => {
     <>
       <Navbar />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-[#2E5A27] to-[#556331] text-white py-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyIi8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
+        {/* Enhanced Hero Section */}
+        <section className="relative bg-gradient-to-r from-[#2E5A27] via-[#4C956C] to-[#556331] text-white py-32 overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="grid grid-cols-8 gap-4 h-full transform rotate-12 scale-150">
+              {Array.from({ length: 64 }).map((_, i) => (
+                <div key={i} className="bg-white/20 rounded-lg animate-pulse" style={{ animationDelay: `${i * 0.1}s` }}></div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Floating Elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-20 left-10 w-16 h-16 bg-white/10 rounded-full animate-float"></div>
+            <div className="absolute top-40 right-20 w-12 h-12 bg-yellow-300/20 rounded-full animate-bounce"></div>
+            <div className="absolute bottom-32 left-1/4 w-8 h-8 bg-white/15 rounded-full animate-pulse"></div>
+            <div className="absolute bottom-20 right-1/3 w-20 h-20 bg-green-300/10 rounded-full animate-float"></div>
+          </div>
+
           <div className="container mx-auto px-4 text-center relative z-10">
-            <div className="animate-fade-in">
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                Formations Eco2lodgy
+            <div className="max-w-4xl mx-auto">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full mb-8 border border-white/20">
+                <BookOpen className="w-5 h-5" />
+                <span className="font-medium">Centre de Formation Eco2lodgy</span>
+              </div>
+
+              {/* Main Title */}
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                Développez vos
+                <span className="block text-yellow-300 hero-underline">compétences</span>
+                <span className="block">durables</span>
               </h1>
-              <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-                Développez vos compétences avec nos formations pratiques en développement durable
+
+              {/* Subtitle */}
+              <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto leading-relaxed">
+                Maîtrisez les techniques écologiques avec nos formations pratiques certifiées, 
+                dispensées par des experts locaux
               </p>
-              <div className="flex flex-wrap justify-center gap-6 text-lg">
-                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-                  <BookOpen className="w-6 h-6" />
-                  <span>Formations certifiantes</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-                  <Users className="w-6 h-6" />
-                  <span>Formateurs experts</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-                  <Award className="w-6 h-6" />
-                  <span>Certifications reconnues</span>
-                </div>
+
+              {/* Stats Cards */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-3xl mx-auto">
+                {[
+                  { icon: BookOpen, value: "15+", label: "Formations" },
+                  { icon: Users, value: "500+", label: "Apprenants" },
+                  { icon: Award, value: "98%", label: "Satisfaction" },
+                  { icon: Video, value: "100%", label: "Pratique" }
+                ].map((stat, index) => (
+                  <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/15 transition-all duration-300">
+                    <stat.icon className="w-6 h-6 mx-auto mb-2 text-yellow-300" />
+                    <div className="text-2xl font-bold">{stat.value}</div>
+                    <div className="text-sm text-white/80">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Features */}
+              <div className="flex flex-wrap justify-center gap-4 mb-8">
+                {[
+                  { icon: <Award className="w-5 h-5" />, text: "Certifications reconnues" },
+                  { icon: <Users className="w-5 h-5" />, text: "Formateurs experts" },
+                  { icon: <BookOpen className="w-5 h-5" />, text: "Apprentissage pratique" },
+                  { icon: <Video className="w-5 h-5" />, text: "Supports multimédias" }
+                ].map((feature, index) => (
+                  <div key={index} className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 hover:border-yellow-300/50 transition-all duration-300">
+                    <span className="text-yellow-300">{feature.icon}</span>
+                    <span className="text-sm font-medium">{feature.text}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  size="lg" 
+                  className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold px-8 py-4 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+                  onClick={() => document.getElementById('formations')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  <BookOpen className="w-5 h-5 mr-2" />
+                  Explorer les formations
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="border-2 border-white text-white hover:bg-white hover:text-[#2E5A27] font-bold px-8 py-4 rounded-full text-lg backdrop-blur-sm transition-all duration-300 hover:scale-105"
+                >
+                  <Play className="w-5 h-5 mr-2" />
+                  Voir la présentation
+                </Button>
+              </div>
+            </div>
+
+            {/* Scroll Indicator */}
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+              <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+                <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
               </div>
             </div>
           </div>
@@ -243,37 +321,68 @@ const FormationsPage = () => {
               {popularFormations.map((formation, index) => (
                 <div
                   key={formation.id}
-                  className="bg-gradient-to-br from-[#2E5A27] to-[#556331] text-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 relative overflow-hidden"
+                  className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 overflow-hidden border border-gray-100"
                 >
-                  <div className="absolute top-4 right-4 text-3xl">{formation.icon}</div>
-                  <div className="mb-4">
-                    <Badge className="bg-white/20 text-white border-white/30 mb-2">
-                      🔥 Populaire
-                    </Badge>
-                    <h3 className="text-xl font-bold mb-2">{formation.title}</h3>
-                    <div className="flex items-center gap-2 text-sm">
-                      <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                      <span>{formation.rating}</span>
-                      <span className="text-white/70">({formation.studentsCount} participants)</span>
+                  {/* Image de couverture */}
+                  <div className="relative h-48 overflow-hidden">
+                    <img 
+                      src={formation.image} 
+                      alt={formation.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                    
+                    {/* Badges */}
+                    <div className="absolute top-4 left-4 flex gap-2">
+                      <Badge className="bg-red-500 hover:bg-red-600 text-white border-0">
+                        🔥 Populaire
+                      </Badge>
                     </div>
+                    
+                    {/* Play Button */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="bg-white/20 backdrop-blur-sm rounded-full p-4 hover:bg-white/30 transition-colors duration-300">
+                        <Play className="w-8 h-8 text-white" />
+                      </div>
+                    </div>
+
+                    {/* Icon */}
+                    <div className="absolute bottom-4 right-4 text-3xl">{formation.icon}</div>
                   </div>
-                  <div className="space-y-2 text-sm mb-4">
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4" />
-                      <span>{new Date(formation.startDate).toLocaleDateString('fr-FR')}</span>
+
+                  {/* Content */}
+                  <div className="p-6">
+                    <div className="mb-4">
+                      <h3 className="text-xl font-bold mb-2 group-hover:text-[#2E5A27] transition-colors duration-300">
+                        {formation.title}
+                      </h3>
+                      <div className="flex items-center gap-2 text-sm">
+                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                        <span className="font-medium">{formation.rating}</span>
+                        <span className="text-gray-500">({formation.studentsCount} participants)</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4" />
-                      <span>{formation.location}</span>
+                    
+                    <div className="space-y-2 text-sm mb-4">
+                      <div className="flex items-center gap-2 text-gray-600">
+                        <Calendar className="w-4 h-4 text-[#2E5A27]" />
+                        <span>{new Date(formation.startDate).toLocaleDateString('fr-FR')}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-gray-600">
+                        <MapPin className="w-4 h-4 text-[#2E5A27]" />
+                        <span>{formation.location}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-2xl font-bold">{formation.price}</span>
-                    <Link to={`/formations/${formation.id}`}>
-                      <Button variant="secondary" size="sm" className="bg-white/20 hover:bg-white/30 text-white border-white/30">
-                        Voir plus
-                      </Button>
-                    </Link>
+                    
+                    <div className="flex justify-between items-center">
+                      <span className="text-2xl font-bold text-[#2E5A27]">{formation.price}</span>
+                      <Link to={`/formations/${formation.id}`}>
+                        <Button className="bg-[#2E5A27] hover:bg-[#2E5A27]/90 rounded-full group/btn">
+                          Voir plus
+                          <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform duration-300" />
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -282,7 +391,7 @@ const FormationsPage = () => {
         </section>
 
         {/* Filters and Search */}
-        <section className="py-8 bg-white border-b">
+        <section className="py-8 bg-white border-b" id="formations">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-6">
               <div className="flex items-center gap-2">
@@ -325,11 +434,19 @@ const FormationsPage = () => {
               {filteredFormations.map((formation, index) => (
                 <Card 
                   key={formation.id} 
-                  className="overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-0 shadow-lg bg-white rounded-2xl group"
+                  className="group overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-0 shadow-lg bg-white rounded-2xl"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="h-48 bg-gradient-to-br from-[#2E5A27] to-[#556331] relative overflow-hidden">
-                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all duration-300"></div>
+                  {/* Image de couverture */}
+                  <div className="relative h-48 overflow-hidden">
+                    <img 
+                      src={formation.image} 
+                      alt={formation.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                    
+                    {/* Badges */}
                     <div className="absolute top-4 left-4 flex gap-2">
                       <Badge className={`${getLevelColor(formation.level)} border font-medium`}>
                         <span className="mr-1">{getLevelIcon(formation.level)}</span>
@@ -341,20 +458,28 @@ const FormationsPage = () => {
                         </Badge>
                       )}
                     </div>
-                    <div className="absolute top-4 right-4 text-4xl group-hover:scale-110 transition-transform duration-300">
+
+                    {/* Play Button Overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="bg-white/20 backdrop-blur-sm rounded-full p-3 hover:bg-white/30 transition-colors duration-300">
+                        <Play className="w-6 h-6 text-white" />
+                      </div>
+                    </div>
+
+                    {/* Icon */}
+                    <div className="absolute bottom-4 right-4 text-3xl group-hover:scale-110 transition-transform duration-300">
                       {formation.icon}
                     </div>
+
+                    {/* Title Overlay */}
                     <div className="absolute bottom-4 left-4 text-white">
-                      <h3 className="text-xl font-bold mb-1 group-hover:text-yellow-300 transition-colors duration-300">
+                      <h3 className="text-lg font-bold group-hover:text-yellow-300 transition-colors duration-300">
                         {formation.title}
                       </h3>
-                      <p className="text-sm opacity-90">Par {formation.instructor}</p>
-                      <div className="flex items-center gap-2 mt-2">
-                        <div className="flex items-center gap-1">
-                          <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                          <span className="text-sm">{formation.rating}</span>
-                        </div>
-                        <span className="text-xs opacity-75">({formation.studentsCount} participants)</span>
+                      <div className="flex items-center gap-2 mt-1">
+                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                        <span className="text-sm">{formation.rating}</span>
+                        <span className="text-xs opacity-75">({formation.studentsCount})</span>
                       </div>
                     </div>
                   </div>
