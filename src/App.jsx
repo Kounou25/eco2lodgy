@@ -33,6 +33,7 @@ import { NewDashboardLayout } from './components/NewDashboardLayout';
 import NewDashboardHome from './pages/NewDashboardHome';
 import NewDashboardProjects from './pages/NewDashboardProjects';
 import NewDashboardFormations from './pages/NewDashboardFormations';
+import NewDashboardFormationsAdmin from './pages/NewDashboardFormationsAdmin';
 
 const queryClient = new QueryClient();
 
