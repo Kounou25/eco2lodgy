@@ -88,6 +88,7 @@ const App = () => (
         <Route path="/new-dashboard" element={<NewDashboardLayout><NewDashboardHome /></NewDashboardLayout>} />
         <Route path="/new-dashboard/projects" element={<NewDashboardLayout><NewDashboardProjects /></NewDashboardLayout>} />
         <Route path="/new-dashboard/formations" element={<NewDashboardLayout><NewDashboardFormations /></NewDashboardLayout>} />
+        <Route path="/new-dashboard/formations-admin" element={<NewDashboardLayout><NewDashboardFormationsAdmin /></NewDashboardLayout>} />
         <Route path="/new-dashboard/team" element={<NewDashboardLayout><div className="p-4"><h1 className="text-2xl font-bold">Équipe - En développement</h1></div></NewDashboardLayout>} />
         <Route path="/new-dashboard/partners" element={<NewDashboardLayout><div className="p-4"><h1 className="text-2xl font-bold">Partenaires - En développement</h1></div></NewDashboardLayout>} />
         <Route path="/new-dashboard/analytics" element={<NewDashboardLayout><div className="p-4"><h1 className="text-2xl font-bold">Statistiques - En développement</h1></div></NewDashboardLayout>} />

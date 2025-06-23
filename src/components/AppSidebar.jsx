@@ -41,6 +41,11 @@ const items = [
     icon: GraduationCap,
   },
   {
+    title: "Admin Formations",
+    url: "/new-dashboard/formations-admin",
+    icon: Settings,
+  },
+  {
     title: "Équipe",
     url: "/new-dashboard/team",
     icon: Users,
