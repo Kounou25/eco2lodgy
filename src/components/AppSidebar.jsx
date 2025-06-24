@@ -25,41 +25,46 @@ import {
 } from "@/components/ui/sidebar"
 
 const items = [
-  {
-    title: "Accueil",
-    url: "/new-dashboard",
-    icon: Home,
-  },
-  {
-    title: "Projets",
-    url: "/new-dashboard/projects",
-    icon: FileText,
-  },
-  {
-    title: "Formations",
-    url: "/new-dashboard/formations",
-    icon: GraduationCap,
-  },
+  // {
+  //   title: "Accueil",
+  //   url: "/new-dashboard",
+  //   icon: Home,
+  // },
+  // {
+  //   title: "Projets",
+  //   url: "/new-dashboard/projects",
+  //   icon: FileText,
+  // },
+  // {
+  //   title: "Formations",
+  //   url: "/new-dashboard/formations",
+  //   icon: GraduationCap,
+  // },
   {
     title: "Admin Formations",
     url: "/new-dashboard/formations-admin",
     icon: Settings,
   },
   {
-    title: "Équipe",
-    url: "/new-dashboard/team",
-    icon: Users,
+    title: "Inscriptions",
+    url: "/new-dashboard/inscriptions-admin",
+    icon: Settings,
   },
-  {
-    title: "Partenaires",
-    url: "/new-dashboard/partners",
-    icon: Building,
-  },
-  {
-    title: "Statistiques",
-    url: "/new-dashboard/analytics",
-    icon: BarChart3,
-  },
+  // {
+  //   title: "Équipe",
+  //   url: "/new-dashboard/team",
+  //   icon: Users,
+  // },
+  // {
+  //   title: "Partenaires",
+  //   url: "/new-dashboard/partners",
+  //   icon: Building,
+  // },
+  // {
+  //   title: "Statistiques",
+  //   url: "/new-dashboard/analytics",
+  //   icon: BarChart3,
+  // },
 ]
 
 const settingsItems = [

@@ -32,7 +32,7 @@ const FormationsPage = () => {
       studentsCount: 127,
       isPopular: true,
       icon: "🏗️",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      videoUrl: "https://www.youtube.com/watch?v=eXcF2dAD0WI",
       objectives: [
         "Maîtriser les techniques de construction avec des matériaux locaux",
         "Comprendre les principes de la construction écologique",

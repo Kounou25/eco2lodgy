@@ -26,7 +26,7 @@ const FormationDetail = () => {
       startDate: "2024-02-15",
       endDate: "2024-02-19",
       image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&h=600&fit=crop",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      videoUrl: "https://www.youtube.com/embed/LjIw7O_WG4g",
       instructor: "Ing. Amadou Diallo",
       instructorBio: "Ingénieur en construction avec 15 ans d'expérience en bâtiments écologiques au Niger.",
       objectives: [
@@ -86,7 +86,7 @@ const FormationDetail = () => {
       startDate: "2024-02-20",
       endDate: "2024-02-22",
       image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=1200&h=600&fit=crop",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      videoUrl: "https://www.youtube.com/embed/eXcF2dAD0WI",
       instructor: "Dr. Fatima Ousmane",
       instructorBio: "Docteur en ingénierie environnementale spécialisée dans la gestion de l'eau.",
       objectives: [

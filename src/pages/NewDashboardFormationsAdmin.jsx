@@ -4,7 +4,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
 import { 
@@ -49,7 +48,7 @@ export default function NewDashboardFormationsAdmin() {
       maxParticipants: 20,
       currentParticipants: 15,
       startDate: "2024-04-15",
-      endDate: "2024-04-19",
+      endDate: "2024-04-20",
       location: "Niamey",
       instructor: "Dr. Amadou Diallo",
       instructorBio: "Expert en construction durable avec 15 ans d'expérience",
@@ -64,6 +63,10 @@ export default function NewDashboardFormationsAdmin() {
         { day: 1, title: "Introduction à la construction durable", content: "Concepts de base et enjeux environnementaux" },
         { day: 2, title: "Matériaux écologiques", content: "Sélection et utilisation des matériaux durables" },
         { day: 3, title: "Techniques de construction", content: "Méthodes de construction respectueuses de l'environnement" }
+      ],
+      detailedProgram: [
+        { day: 1, title: "Introduction détaillée", description: "Concepts fondamentaux et impact environnemental" },
+        { day: 2, title: "Matériaux durables", description: "Analyse approfondie des matériaux écologiques" }
       ],
       prerequisites: [
         "Connaissance de base en construction",
@@ -97,6 +100,7 @@ export default function NewDashboardFormationsAdmin() {
       introVideo: "",
       objectives: [""],
       program: [{ day: 1, title: "", content: "" }],
+      detailedProgram: [{ day: 1, title: "", description: "" }],
       prerequisites: [""],
       certificationType: "",
       isActive: true,
@@ -107,7 +111,14 @@ export default function NewDashboardFormationsAdmin() {
   const openForm = (formation = null) => {
     if (formation) {
       setEditingFormation(formation)
-      form.reset(formation)
+      form.reset({
+        ...formation,
+        objectives: Array.isArray(formation.objectives) && formation.objectives.length ? formation.objectives : [""],
+        program: Array.isArray(formation.program) && formation.program.length ? formation.program : [{ day: 1, title: "", content: "" }],
+        detailedProgram: Array.isArray(formation.detailedProgram) && formation.detailedProgram.length ? formation.detailedProgram : [{ day: 1, title: "", description: "" }],
+        prerequisites: Array.isArray(formation.prerequisites) && formation.prerequisites.length ? formation.prerequisites : [""],
+        tags: Array.isArray(formation.tags) && formation.tags.length ? formation.tags : [""]
+      })
     } else {
       setEditingFormation(null)
       form.reset({
@@ -128,6 +139,7 @@ export default function NewDashboardFormationsAdmin() {
         introVideo: "",
         objectives: [""],
         program: [{ day: 1, title: "", content: "" }],
+        detailedProgram: [{ day: 1, title: "", description: "" }],
         prerequisites: [""],
         certificationType: "",
         isActive: true,
@@ -166,7 +178,11 @@ export default function NewDashboardFormationsAdmin() {
 
   const addArrayItem = (fieldName) => {
     const currentValues = form.getValues(fieldName)
-    form.setValue(fieldName, [...currentValues, fieldName === 'program' ? { day: currentValues.length + 1, title: "", content: "" } : ""])
+    form.setValue(fieldName, [...currentValues, 
+      fieldName === 'program' ? { day: currentValues.length + 1, title: "", content: "" } : 
+      fieldName === 'detailedProgram' ? { day: currentValues.length + 1, title: "", description: "" } : 
+      ""
+    ])
   }
 
   const removeArrayItem = (fieldName, index) => {
@@ -601,6 +617,150 @@ export default function NewDashboardFormationsAdmin() {
                           variant="outline" 
                           size="sm"
                           onClick={() => removeArrayItem('objectives', index)}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Programme */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-lg font-semibold flex items-center gap-2">
+                        <BookOpen className="h-5 w-5" />
+                        Programme
+                      </h3>
+                      <Button 
+                        type="button" 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => addArrayItem('program')}
+                      >
+                        <Plus className="h-4 w-4 mr-1" />
+                        Ajouter
+                      </Button>
+                    </div>
+                    
+                    {form.watch('program').map((_, index) => (
+                      <div key={index} className="grid grid-cols-6 gap-2">
+                        <FormField
+                          control={form.control}
+                          name={`program.${index}.day`}
+                          render={({ field }) => (
+                            <FormItem className="col-span-1">
+                              <FormLabel>Jour</FormLabel>
+                              <FormControl>
+                                <Input {...field} type="number" placeholder="Jour" />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name={`program.${index}.title`}
+                          render={({ field }) => (
+                            <FormItem className="col-span-2">
+                              <FormLabel>Titre</FormLabel>
+                              <FormControl>
+                                <Input {...field} placeholder="Titre du programme" />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name={`program.${index}.content`}
+                          render={({ field }) => (
+                            <FormItem className="col-span-2">
+                              <FormLabel>Description</FormLabel>
+                              <FormControl>
+                                <Textarea {...field} placeholder="Description du programme" rows={3} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <Button 
+                          type="button" 
+                          variant="outline" 
+                          size="sm"
+                          className="mt-6"
+                          onClick={() => removeArrayItem('program', index)}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Programme détaillé */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-lg font-semibold flex items-center gap-2">
+                        <BookOpen className="h-5 w-5" />
+                        Programme détaillé
+                      </h3>
+                      <Button 
+                        type="button" 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => addArrayItem('detailedProgram')}
+                      >
+                        <Plus className="h-4 w-4 mr-1" />
+                        Ajouter
+                      </Button>
+                    </div>
+                    
+                    {form.watch('detailedProgram').map((_, index) => (
+                      <div key={index} className="grid grid-cols-6 gap-2">
+                        <FormField
+                          control={form.control}
+                          name={`detailedProgram.${index}.day`}
+                          render={({ field }) => (
+                            <FormItem className="col-span-1">
+                              <FormLabel>Jour</FormLabel>
+                              <FormControl>
+                                <Input {...field} type="number" placeholder="Jour" />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name={`detailedProgram.${index}.title`}
+                          render={({ field }) => (
+                            <FormItem className="col-span-2">
+                              <FormLabel>Titre</FormLabel>
+                              <FormControl>
+                                <Input {...field} placeholder="Titre du programme détaillé" />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name={`detailedProgram.${index}.description`}
+                          render={({ field }) => (
+                            <FormItem className="col-span-2">
+                              <FormLabel>Description</FormLabel>
+                              <FormControl>
+                                <Textarea {...field} placeholder="Description détaillée du programme" rows={4} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <Button 
+                          type="button" 
+                          variant="outline" 
+                          size="sm"
+                          className="mt-6"
+                          onClick={() => removeArrayItem('detailedProgram', index)}
                         >
                           <X className="h-4 w-4" />
                         </Button>
