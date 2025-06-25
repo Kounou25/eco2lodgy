@@ -204,104 +204,96 @@ const FormationsPage = () => {
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
         {/* Enhanced Hero Section */}
         <section className="relative bg-gradient-to-r from-[#2E5A27] via-[#4C956C] to-[#556331] text-white py-32 overflow-hidden">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="grid grid-cols-8 gap-4 h-full transform rotate-12 scale-150">
-              {Array.from({ length: 64 }).map((_, i) => (
-                <div key={i} className="bg-white/20 rounded-lg animate-pulse" style={{ animationDelay: `${i * 0.1}s` }}></div>
-              ))}
-            </div>
+  {/* Background Pattern */}
+  <div className="absolute inset-0 opacity-10">
+    <div className="grid grid-cols-8 gap-4 h-full transform rotate-12 scale-150">
+      {Array.from({ length: 64 }).map((_, i) => (
+        <div key={i} className="bg-white/20 rounded-lg animate-pulse" style={{ animationDelay: `${i * 0.1}s` }}></div>
+      ))}
+    </div>
+  </div>
+  
+  {/* Floating Elements */}
+  <div className="absolute inset-0 overflow-hidden">
+    <div className="absolute top-20 left-10 w-16 h-16 bg-white/10 rounded-full animate-float"></div>
+    <div className="absolute top-40 right-20 w-12 h-12 bg-yellow-300/20 rounded-full animate-bounce"></div>
+    <div className="absolute bottom-32 left-1/4 w-8 h-8 bg-white/15 rounded-full animate-pulse"></div>
+    <div className="absolute bottom-20 right-1/3 w-20 h-20 bg-green-300/10 rounded-full animate-float"></div>
+  </div>
+
+  <div className="container mx-auto px-4 text-center relative z-10">
+    <div className="max-w-4xl mx-auto">
+      {/* Badge */}
+      <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full mb-8 border border-white/20">
+        <BookOpen className="w-5 h-5" />
+        <span className="font-medium">Centre de Formation Eco2lodgy</span>
+      </div>
+
+      {/* Main Title */}
+      <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+        Développez vos
+        <span className="block text-yellow-300 hero-underline">compétences</span>
+        <span className="block">durables</span>
+      </h1>
+
+      {/* Subtitle */}
+      <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto leading-relaxed">
+        Maîtrisez les techniques écologiques avec nos formations pratiques certifiées, 
+        dispensées par des experts locaux
+      </p>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-3xl mx-auto">
+        {[
+          { icon: BookOpen, value: "15+", label: "Formations" },
+          { icon: Users, value: "500+", label: "Apprenants" },
+          { icon: Award, value: "98%", label: "Satisfaction" },
+          { icon: Video, value: "100%", label: "Pratique" }
+        ].map((stat, index) => (
+          <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/15 transition-all duration-300">
+            <stat.icon className="w-6 h-6 mx-auto mb-2 text-yellow-300" />
+            <div className="text-2xl font-bold">{stat.value}</div>
+            <div className="text-sm text-white/80">{stat.label}</div>
           </div>
-          
-          {/* Floating Elements */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute top-20 left-10 w-16 h-16 bg-white/10 rounded-full animate-float"></div>
-            <div className="absolute top-40 right-20 w-12 h-12 bg-yellow-300/20 rounded-full animate-bounce"></div>
-            <div className="absolute bottom-32 left-1/4 w-8 h-8 bg-white/15 rounded-full animate-pulse"></div>
-            <div className="absolute bottom-20 right-1/3 w-20 h-20 bg-green-300/10 rounded-full animate-float"></div>
+        ))}
+      </div>
+
+      {/* Features */}
+      <div className="flex flex-wrap justify-center gap-4 mb-8">
+        {[
+          { icon: <Award className="w-5 h-5" />, text: "Certifications reconnues" },
+          { icon: <Users className="w-5 h-5" />, text: "Formateurs experts" },
+          { icon: <BookOpen className="w-5 h-5" />, text: "Apprentissage pratique" },
+          { icon: <Video className="w-5 h-5" />, text: "Supports multimédias" }
+        ].map((feature, index) => (
+          <div key={index} className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 hover:border-yellow-300/50 transition-all duration-300">
+            <span className="text-yellow-300">{feature.icon}</span>
+            <span className="text-sm font-medium">{feature.text}</span>
           </div>
+        ))}
+      </div>
 
-          <div className="container mx-auto px-4 text-center relative z-10">
-            <div className="max-w-4xl mx-auto">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full mb-8 border border-white/20">
-                <BookOpen className="w-5 h-5" />
-                <span className="font-medium">Centre de Formation Eco2lodgy</span>
-              </div>
+      {/* CTA Buttons */}
+      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button 
+          size="lg" 
+          className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold px-8 py-4 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+          onClick={() => document.getElementById('formations')?.scrollIntoView({ behavior: 'smooth' })}
+        >
+          <BookOpen className="w-5 h-5 mr-2" />
+          Explorer les formations
+        </Button>
+      </div>
+    </div>
 
-              {/* Main Title */}
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-                Développez vos
-                <span className="block text-yellow-300 hero-underline">compétences</span>
-                <span className="block">durables</span>
-              </h1>
-
-              {/* Subtitle */}
-              <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto leading-relaxed">
-                Maîtrisez les techniques écologiques avec nos formations pratiques certifiées, 
-                dispensées par des experts locaux
-              </p>
-
-              {/* Stats Cards */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-3xl mx-auto">
-                {[
-                  { icon: BookOpen, value: "15+", label: "Formations" },
-                  { icon: Users, value: "500+", label: "Apprenants" },
-                  { icon: Award, value: "98%", label: "Satisfaction" },
-                  { icon: Video, value: "100%", label: "Pratique" }
-                ].map((stat, index) => (
-                  <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/15 transition-all duration-300">
-                    <stat.icon className="w-6 h-6 mx-auto mb-2 text-yellow-300" />
-                    <div className="text-2xl font-bold">{stat.value}</div>
-                    <div className="text-sm text-white/80">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Features */}
-              <div className="flex flex-wrap justify-center gap-4 mb-8">
-                {[
-                  { icon: <Award className="w-5 h-5" />, text: "Certifications reconnues" },
-                  { icon: <Users className="w-5 h-5" />, text: "Formateurs experts" },
-                  { icon: <BookOpen className="w-5 h-5" />, text: "Apprentissage pratique" },
-                  { icon: <Video className="w-5 h-5" />, text: "Supports multimédias" }
-                ].map((feature, index) => (
-                  <div key={index} className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 hover:border-yellow-300/50 transition-all duration-300">
-                    <span className="text-yellow-300">{feature.icon}</span>
-                    <span className="text-sm font-medium">{feature.text}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg" 
-                  className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold px-8 py-4 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
-                  onClick={() => document.getElementById('formations')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  <BookOpen className="w-5 h-5 mr-2" />
-                  Explorer les formations
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="border-2 border-white text-white hover:bg-white hover:text-[#2E5A27] font-bold px-8 py-4 rounded-full text-lg backdrop-blur-sm transition-all duration-300 hover:scale-105"
-                >
-                  <Play className="w-5 h-5 mr-2" />
-                  Voir la présentation
-                </Button>
-              </div>
-            </div>
-
-            {/* Scroll Indicator */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-              <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-                <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
-              </div>
-            </div>
-          </div>
-        </section>
+    {/* Scroll Indicator */}
+    {/* <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+        <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
+      </div>
+    </div> */}
+  </div>
+</section>
 
         {/* Section Formations Populaires */}
         <section className="py-12 bg-white">
