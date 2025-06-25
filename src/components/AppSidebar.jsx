@@ -25,21 +25,6 @@ import {
 } from "@/components/ui/sidebar"
 
 const items = [
-  // {
-  //   title: "Accueil",
-  //   url: "/new-dashboard",
-  //   icon: Home,
-  // },
-  // {
-  //   title: "Projets",
-  //   url: "/new-dashboard/projects",
-  //   icon: FileText,
-  // },
-  // {
-  //   title: "Formations",
-  //   url: "/new-dashboard/formations",
-  //   icon: GraduationCap,
-  // },
   {
     title: "Admin Formations",
     url: "/new-dashboard/formations-admin",
@@ -50,21 +35,6 @@ const items = [
     url: "/new-dashboard/inscriptions-admin",
     icon: Settings,
   },
-  // {
-  //   title: "Équipe",
-  //   url: "/new-dashboard/team",
-  //   icon: Users,
-  // },
-  // {
-  //   title: "Partenaires",
-  //   url: "/new-dashboard/partners",
-  //   icon: Building,
-  // },
-  // {
-  //   title: "Statistiques",
-  //   url: "/new-dashboard/analytics",
-  //   icon: BarChart3,
-  // },
 ]
 
 const settingsItems = [
@@ -84,15 +54,15 @@ export function AppSidebar() {
   const location = useLocation()
 
   return (
-    <Sidebar variant="inset">
+    <Sidebar variant="inset" className="border-r">
       <SidebarHeader>
         <div className="flex items-center gap-2 px-4 py-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white font-bold">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white font-bold flex-shrink-0">
             AT
           </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold">ALPHATEK</span>
-            <span className="text-xs text-muted-foreground">Dashboard</span>
+          <div className="flex flex-col min-w-0">
+            <span className="text-sm font-semibold truncate">ALPHATEK</span>
+            <span className="text-xs text-muted-foreground truncate">Dashboard</span>
           </div>
         </div>
       </SidebarHeader>
@@ -107,10 +77,11 @@ export function AppSidebar() {
                   <SidebarMenuButton 
                     asChild
                     isActive={location.pathname === item.url}
+                    className="w-full"
                   >
-                    <Link to={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
+                    <Link to={item.url} className="flex items-center gap-2 min-w-0">
+                      <item.icon className="flex-shrink-0" />
+                      <span className="truncate">{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -128,10 +99,11 @@ export function AppSidebar() {
                   <SidebarMenuButton 
                     asChild
                     isActive={location.pathname === item.url}
+                    className="w-full"
                   >
-                    <Link to={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
+                    <Link to={item.url} className="flex items-center gap-2 min-w-0">
+                      <item.icon className="flex-shrink-0" />
+                      <span className="truncate">{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -144,14 +116,14 @@ export function AppSidebar() {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton>
-              <div className="flex items-center gap-2 px-1 py-1.5">
-                <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
+            <SidebarMenuButton className="w-full">
+              <div className="flex items-center gap-2 px-1 py-1.5 min-w-0">
+                <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
                   <span className="text-sm font-medium text-blue-800">U</span>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium">Utilisateur</span>
-                  <span className="text-xs text-muted-foreground">user@alphatek.fr</span>
+                <div className="flex flex-col min-w-0">
+                  <span className="text-sm font-medium truncate">Utilisateur</span>
+                  <span className="text-xs text-muted-foreground truncate">user@alphatek.fr</span>
                 </div>
               </div>
             </SidebarMenuButton>

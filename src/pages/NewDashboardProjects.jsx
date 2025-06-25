@@ -45,42 +45,42 @@ export default function NewDashboardProjects() {
   }
 
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Projets</h1>
-          <p className="text-muted-foreground">
+    <div className="flex flex-1 flex-col gap-4 w-full max-w-none overflow-hidden">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight truncate">Projets</h1>
+          <p className="text-muted-foreground text-sm sm:text-base">
             Gérez tous vos projets en cours et à venir
           </p>
         </div>
-        <Button>
+        <Button className="w-full sm:w-auto">
           <Plus className="mr-2 h-4 w-4" />
           Nouveau projet
         </Button>
       </div>
 
-      <div className="grid gap-4">
+      <div className="grid gap-4 grid-cols-1">
         {projects.map((project) => (
-          <Card key={project.id}>
+          <Card key={project.id} className="min-w-0">
             <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="text-xl">{project.title}</CardTitle>
-                  <CardDescription className="mt-2">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <CardTitle className="text-lg sm:text-xl truncate">{project.title}</CardTitle>
+                  <CardDescription className="mt-2 text-sm">
                     {project.description}
                   </CardDescription>
                 </div>
-                <Badge className={getStatusColor(project.status)}>
+                <Badge className={`${getStatusColor(project.status)} whitespace-nowrap flex-shrink-0`}>
                   {project.status}
                 </Badge>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                    <span>Équipe: {project.team} membres</span>
-                    <span>Échéance: {new Date(project.deadline).toLocaleDateString('fr-FR')}</span>
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                <div className="space-y-3 min-w-0 flex-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4 text-sm text-muted-foreground">
+                    <span className="whitespace-nowrap">Équipe: {project.team} membres</span>
+                    <span className="whitespace-nowrap">Échéance: {new Date(project.deadline).toLocaleDateString('fr-FR')}</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div 
@@ -92,14 +92,14 @@ export default function NewDashboardProjects() {
                     Progression: {project.progress}%
                   </span>
                 </div>
-                <div className="flex space-x-2">
-                  <Button variant="outline" size="sm">
+                <div className="flex space-x-2 flex-shrink-0">
+                  <Button variant="outline" size="sm" className="p-2">
                     <Eye className="h-4 w-4" />
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" className="p-2">
                     <Edit className="h-4 w-4" />
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" className="p-2">
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>

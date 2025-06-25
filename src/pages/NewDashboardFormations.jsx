@@ -51,32 +51,32 @@ export default function NewDashboardFormations() {
   }
 
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Formations</h1>
-          <p className="text-muted-foreground">
+    <div className="flex flex-1 flex-col gap-4 w-full max-w-none overflow-hidden">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight truncate">Formations</h1>
+          <p className="text-muted-foreground text-sm sm:text-base">
             Gérez toutes vos formations et sessions
           </p>
         </div>
-        <Button>
+        <Button className="w-full sm:w-auto">
           <Plus className="mr-2 h-4 w-4" />
           Nouvelle formation
         </Button>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
         {formations.map((formation) => (
-          <Card key={formation.id} className="hover:shadow-lg transition-shadow">
+          <Card key={formation.id} className="hover:shadow-lg transition-shadow min-w-0">
             <CardHeader>
-              <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="text-lg">{formation.title}</CardTitle>
-                  <CardDescription className="mt-1">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <CardTitle className="text-base sm:text-lg truncate">{formation.title}</CardTitle>
+                  <CardDescription className="mt-1 text-sm line-clamp-2">
                     {formation.description}
                   </CardDescription>
                 </div>
-                <Badge className={getLevelColor(formation.level)}>
+                <Badge className={`${getLevelColor(formation.level)} whitespace-nowrap flex-shrink-0 text-xs`}>
                   {formation.level}
                 </Badge>
               </div>
@@ -84,21 +84,21 @@ export default function NewDashboardFormations() {
             <CardContent>
               <div className="space-y-3">
                 <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                  <Users className="h-4 w-4" />
-                  <span>{formation.participants}/{formation.maxParticipants} participants</span>
+                  <Users className="h-4 w-4 flex-shrink-0" />
+                  <span className="truncate">{formation.participants}/{formation.maxParticipants} participants</span>
                 </div>
                 
                 <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                  <Calendar className="h-4 w-4" />
-                  <span>{new Date(formation.startDate).toLocaleDateString('fr-FR')}</span>
+                  <Calendar className="h-4 w-4 flex-shrink-0" />
+                  <span className="truncate">{new Date(formation.startDate).toLocaleDateString('fr-FR')}</span>
                 </div>
                 
                 <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                  <MapPin className="h-4 w-4" />
-                  <span>{formation.location}</span>
+                  <MapPin className="h-4 w-4 flex-shrink-0" />
+                  <span className="truncate">{formation.location}</span>
                 </div>
                 
-                <div className="text-lg font-semibold text-blue-600">
+                <div className="text-base sm:text-lg font-semibold text-blue-600 truncate">
                   {formation.price}
                 </div>
                 
@@ -110,13 +110,13 @@ export default function NewDashboardFormations() {
                 </div>
                 
                 <div className="flex space-x-2 pt-2">
-                  <Button variant="outline" size="sm" className="flex-1">
-                    <Eye className="h-4 w-4 mr-1" />
-                    Voir
+                  <Button variant="outline" size="sm" className="flex-1 min-w-0">
+                    <Eye className="h-4 w-4 mr-1 flex-shrink-0" />
+                    <span className="truncate">Voir</span>
                   </Button>
-                  <Button variant="outline" size="sm" className="flex-1">
-                    <Edit className="h-4 w-4 mr-1" />
-                    Modifier
+                  <Button variant="outline" size="sm" className="flex-1 min-w-0">
+                    <Edit className="h-4 w-4 mr-1 flex-shrink-0" />
+                    <span className="truncate">Modifier</span>
                   </Button>
                 </div>
               </div>
