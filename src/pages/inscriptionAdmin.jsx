@@ -1,335 +1,163 @@
-import { useState } from 'react';
+
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  X, 
-  User, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Calendar, 
-  BookOpen, 
-  Target, 
-  Utensils, 
-  Bed, 
-  Bus, 
-  AlertCircle, 
-  CheckCircle,
-  Save 
-} from "lucide-react";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Search, Filter, Download, Eye, Check, X } from 'lucide-react';
 
 export default function InscriptionsAdmin() {
-  const [inscriptions, setInscriptions] = useState([
+  const [searchTerm, setSearchTerm] = useState('');
+  
+  const inscriptions = [
     {
       id: 1,
-      firstName: "Aminata",
-      lastName: "Diallo",
-      email: "aminata.diallo@example.com",
-      phone: "+227 90 12 34 56",
-      address: "Rue des Écoles, Niamey",
-      city: "Niamey",
-      profession: "Architecte",
-      experience: "5 ans dans la construction traditionnelle",
-      motivation: "Intérêt pour les techniques écologiques modernes",
-      dietaryRestrictions: "Sans gluten",
-      accommodationNeeded: true,
-      transportNeeded: false,
-      emergencyContact: "Ibrahim Diallo",
-      emergencyPhone: "+227 91 23 45 67",
-      acceptTerms: true,
-      acceptNewsletter: true,
-      formationId: 1,
-      formationTitle: "Techniques de Construction Écologique",
-      status: "Confirmée",
-      registrationDate: "2024-02-10"
+      nom: "Amadou Diallo",
+      email: "amadou.diallo@email.com",
+      formation: "Développement Web",
+      dateInscription: "2024-01-15",
+      statut: "En attente",
+      telephone: "+227 96 12 34 56"
     },
     {
       id: 2,
-      firstName: "Moussa",
-      lastName: "Issa",
-      email: "moussa.issa@example.com",
-      phone: "+227 92 34 56 78",
-      address: "",
-      city: " detainAgadez",
-      profession: "Ingénieur BTP",
-      experience: "3 ans dans le bâtiment",
-      motivation: "Approfondir mes connaissances en durabilité",
-      dietaryRestrictions: "",
-      accommodationNeeded: false,
-      transportNeeded: true,
-      emergencyContact: "Fatima Issa",
-      emergencyPhone: "+227 93 45 67 89",
-      acceptTerms: true,
-      acceptNewsletter: false,
-      formationId: 1,
-      formationTitle: "Techniques de Construction Écologique",
-      status: "En attente",
-      registrationDate: "2024-02-12"
+      nom: "Fatima Ibrahim",
+      email: "fatima.ibrahim@email.com",
+      formation: "Data Science",
+      dateInscription: "2024-01-14",
+      statut: "Accepté",
+      telephone: "+227 97 23 45 67"
+    },
+    {
+      id: 3,
+      nom: "Moussa Oumarou",
+      email: "moussa.oumarou@email.com",
+      formation: "Cybersécurité",
+      dateInscription: "2024-01-13",
+      statut: "Refusé",
+      telephone: "+227 98 34 56 78"
     }
-  ]);
+  ];
 
-  const [selectedInscription, setSelectedInscription] = useState(null);
-
-  const form = useForm({
-    defaultValues: {
-      status: ""
-    }
-  });
-
-  const openModal = (inscription) => {
-    setSelectedInscription(inscription);
-    form.reset({ status: inscription.status });
-  };
-
-  const closeModal = () => {
-    setSelectedInscription(null);
-    form.reset();
-  };
-
-  const handleStatusChange = (data) => {
-    setInscriptions(inscriptions.map(inscription => 
-      inscription.id === selectedInscription.id 
-        ? { ...inscription, status: data.status }
-        : inscription
-    ));
-    setSelectedInscription({ ...selectedInscription, status: data.status });
-  };
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case "Confirmée": return "bg-green-100 text-green-800";
-      case "En attente": return "bg-yellow-100 text-yellow-800";
-      case "Annulée": return "bg-red-100 text-red-800";
-      default: return "bg-gray-100 text-gray-800";
+  const getStatusColor = (statut) => {
+    switch (statut) {
+      case "En attente": return "bg-yellow-100 text-yellow-800 border-yellow-200";
+      case "Accepté": return "bg-green-100 text-green-800 border-green-200";
+      case "Refusé": return "bg-red-100 text-red-800 border-red-200";
+      default: return "bg-gray-100 text-gray-800 border-gray-200";
     }
   };
+
+  const filteredInscriptions = inscriptions.filter(inscription =>
+    inscription.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    inscription.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    inscription.formation.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
-    <div className="flex flex-1 flex-col gap-6 p-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Gestion des Inscriptions</h1>
-          <p className="text-muted-foreground">
-            Consultez et gérez les inscriptions aux formations
-          </p>
+    <div className="flex flex-1 flex-col gap-4 w-full max-w-none overflow-hidden p-2 sm:p-4">
+      <div className="flex flex-col space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
+              Gestion des Inscriptions
+            </h1>
+            <p className="text-muted-foreground text-sm sm:text-base mt-1">
+              Gérez toutes les inscriptions aux formations
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <Button variant="outline" size="sm" className="w-full sm:w-auto">
+              <Download className="mr-2 h-4 w-4" />
+              Exporter
+            </Button>
+            <Button variant="outline" size="sm" className="w-full sm:w-auto">
+              <Filter className="mr-2 h-4 w-4" />
+              Filtrer
+            </Button>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Input
+              placeholder="Rechercher par nom, email ou formation..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 w-full"
+            />
+          </div>
         </div>
       </div>
 
-      {/* Liste des inscriptions */}
-      <div className="grid gap-4">
-        {inscriptions.map((inscription) => (
-          <Card key={inscription.id} className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <CardTitle className="text-xl">{`${inscription.firstName} ${inscription.lastName}`}</CardTitle>
-                    <Badge className={getStatusColor(inscription.status)}>
-                      {inscription.status}
-                    </Badge>
-                  </div>
-                  <CardDescription className="mb-3">
-                    Inscrit à : {inscription.formationTitle}
+      <div className="grid gap-3 sm:gap-4">
+        {filteredInscriptions.map((inscription) => (
+          <Card key={inscription.id} className="w-full">
+            <CardHeader className="pb-3">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                <div className="min-w-0 flex-1 space-y-1">
+                  <CardTitle className="text-base sm:text-lg truncate">
+                    {inscription.nom}
+                  </CardTitle>
+                  <CardDescription className="text-sm space-y-1">
+                    <div className="truncate">{inscription.email}</div>
+                    <div className="text-xs text-muted-foreground">
+                      {inscription.telephone}
+                    </div>
                   </CardDescription>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-1">
-                      <Mail className="h-4 w-4" />
-                      <span>{inscription.email}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Phone className="h-4 w-4" />
-                      <span>{inscription.phone}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-4 w-4" />
-                      <span>{new Date(inscription.registrationDate).toLocaleDateString('fr-FR')}</span>
-                    </div>
-                  </div>
                 </div>
-                <Button variant="outline" size="sm" onClick={() => openModal(inscription)}>
-                  Détails
-                </Button>
+                <Badge 
+                  variant="outline" 
+                  className={`${getStatusColor(inscription.statut)} whitespace-nowrap flex-shrink-0 text-xs`}
+                >
+                  {inscription.statut}
+                </Badge>
               </div>
             </CardHeader>
+            
+            <CardContent className="pt-0">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                <div className="space-y-2 min-w-0 flex-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-sm text-muted-foreground">
+                    <span className="font-medium text-foreground truncate">
+                      Formation: {inscription.formation}
+                    </span>
+                    <span className="text-xs sm:text-sm whitespace-nowrap">
+                      Inscrit le: {new Date(inscription.dateInscription).toLocaleDateString('fr-FR')}
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="flex flex-wrap sm:flex-nowrap gap-2 flex-shrink-0">
+                  <Button variant="outline" size="sm" className="flex-1 sm:flex-none">
+                    <Eye className="h-4 w-4 mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">Voir</span>
+                  </Button>
+                  {inscription.statut === "En attente" && (
+                    <>
+                      <Button variant="outline" size="sm" className="flex-1 sm:flex-none text-green-600 hover:text-green-700">
+                        <Check className="h-4 w-4 mr-1 sm:mr-2" />
+                        <span className="hidden sm:inline">Accepter</span>
+                      </Button>
+                      <Button variant="outline" size="sm" className="flex-1 sm:flex-none text-red-600 hover:text-red-700">
+                        <X className="h-4 w-4 mr-1 sm:mr-2" />
+                        <span className="hidden sm:inline">Refuser</span>
+                      </Button>
+                    </>
+                  )}
+                </div>
+              </div>
+            </CardContent>
           </Card>
         ))}
       </div>
 
-      {/* Modal des détails */}
-      {selectedInscription && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <Card className="w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle>Détails de l'inscription</CardTitle>
-                <Button variant="ghost" size="sm" onClick={closeModal}>
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-              <CardDescription>
-                Inscription de {`${selectedInscription.firstName} ${selectedInscription.lastName}`} pour {selectedInscription.formationTitle}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(handleStatusChange)}>
-                  {/* Informations personnelles */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold flex items-center gap-2">
-                      <User className="h-5 w-5" />
-                      Informations personnelles
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Prénom</p>
-                        <p>{selectedInscription.firstName}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Nom</p>
-                        <p>{selectedInscription.lastName}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Email</p>
-                        <p>{selectedInscription.email}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Téléphone</p>
-                        <p>{selectedInscription.phone}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Adresse</p>
-                        <p>{selectedInscription.address || "Non fournie"}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Ville</p>
-                        <p>{selectedInscription.city || "Non fournie"}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Informations professionnelles */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold flex items-center gap-2">
-                      <BookOpen className="h-5 w-5" />
-                      Informations professionnelles
-                    </h3>
-                    <div className="grid grid-cols-1 gap-4">
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Profession</p>
-                        <p>{selectedInscription.profession || "Non fournie"}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Expérience</p>
-                        <p>{selectedInscription.experience || "Non fournie"}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Motivation</p>
-                        <p>{selectedInscription.motivation}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Informations complémentaires */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold flex items-center gap-2">
-                      <AlertCircle className="h-5 w-5" />
-                      Informations complémentaires
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Restrictions alimentaires</p>
-                        <p>{selectedInscription.dietaryRestrictions || "Aucune"}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Hébergement requis</p>
-                        <p>{selectedInscription.accommodationNeeded ? "Oui" : "Non"}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Transport requis</p>
-                        <p>{selectedInscription.transportNeeded ? "Oui" : "Non"}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Contact d'urgence</p>
-                        <p>{selectedInscription.emergencyContact || "Non fourni"}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Téléphone d'urgence</p>
-                        <p>{selectedInscription.emergencyPhone || "Non fourni"}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Conditions */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold flex items-center gap-2">
-                      <CheckCircle className="h-5 w-5" />
-                      Conditions
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Acceptation des conditions</p>
-                        <p>{selectedInscription.acceptTerms ? "Oui" : "Non"}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Inscription à la newsletter</p>
-                        <p>{selectedInscription.acceptNewsletter ? "Oui" : "Non"}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Informations sur la formation */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold flex items-center gap-2">
-                      <Target className="h-5 w-5" />
-                      Formation
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Titre de la formation</p>
-                        <p>{selectedInscription.formationTitle}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Date d'inscription</p>
-                        <p>{new Date(selectedInscription.registrationDate).toLocaleDateString('fr-FR')}</p>
-                      </div>
-                      <div>
-                        <FormField
-                          control={form.control}
-                          name="status"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Statut</FormLabel>
-                              <FormControl>
-                                <select {...field} className="w-full p-2 border rounded-md">
-                                  <option value="Confirmée">Confirmée</option>
-                                  <option value="En attente">En attente</option>
-                                  <option value="Annulée">Annulée</option>
-                                </select>
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Boutons */}
-                  <div className="flex justify-end gap-4 pt-6">
-                    <Button type="submit" className="flex-1">
-                      <Save className="mr-2 h-4 w-4" />
-                      Enregistrer
-                    </Button>
-                    <Button type="button" variant="outline" onClick={closeModal}>
-                      Fermer
-                    </Button>
-                  </div>
-                </form>
-              </Form>
-            </CardContent>
-          </Card>
+      {filteredInscriptions.length === 0 && (
+        <div className="text-center py-8 sm:py-12">
+          <p className="text-muted-foreground text-sm sm:text-base">
+            Aucune inscription trouvée pour "{searchTerm}"
+          </p>
         </div>
       )}
     </div>

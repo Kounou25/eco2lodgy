@@ -14,10 +14,10 @@ export function NewDashboardLayout({ children }) {
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
         <AppSidebar />
-        <SidebarInset className="flex-1">
+        <SidebarInset className="flex-1 min-w-0">
           <Header />
-          <div className="flex flex-1 flex-col gap-4 p-2 sm:p-4 pt-0 overflow-hidden">
-            <div className="min-h-0 flex-1">
+          <div className="flex flex-1 flex-col min-h-0">
+            <div className="flex-1 overflow-auto">
               {children}
             </div>
           </div>

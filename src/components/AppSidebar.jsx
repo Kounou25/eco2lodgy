@@ -55,33 +55,33 @@ export function AppSidebar() {
 
   return (
     <Sidebar variant="inset" className="border-r">
-      <SidebarHeader>
-        <div className="flex items-center gap-2 px-4 py-2">
+      <SidebarHeader className="p-2 sm:p-4">
+        <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white font-bold flex-shrink-0">
             AT
           </div>
-          <div className="flex flex-col min-w-0">
+          <div className="flex flex-col min-w-0 flex-1">
             <span className="text-sm font-semibold truncate">ALPHATEK</span>
             <span className="text-xs text-muted-foreground truncate">Dashboard</span>
           </div>
         </div>
       </SidebarHeader>
       
-      <SidebarContent>
+      <SidebarContent className="px-2">
         <SidebarGroup>
-          <SidebarGroupLabel>Navigation principale</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-xs sm:text-sm px-2">Navigation principale</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-1">
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton 
                     asChild
                     isActive={location.pathname === item.url}
-                    className="w-full"
+                    className="w-full h-10 px-3"
                   >
-                    <Link to={item.url} className="flex items-center gap-2 min-w-0">
-                      <item.icon className="flex-shrink-0" />
-                      <span className="truncate">{item.title}</span>
+                    <Link to={item.url} className="flex items-center gap-3 min-w-0">
+                      <item.icon className="flex-shrink-0 h-4 w-4" />
+                      <span className="truncate text-sm">{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -91,19 +91,19 @@ export function AppSidebar() {
         </SidebarGroup>
         
         <SidebarGroup>
-          <SidebarGroupLabel>Outils</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-xs sm:text-sm px-2">Outils</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-1">
               {settingsItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton 
                     asChild
                     isActive={location.pathname === item.url}
-                    className="w-full"
+                    className="w-full h-10 px-3"
                   >
-                    <Link to={item.url} className="flex items-center gap-2 min-w-0">
-                      <item.icon className="flex-shrink-0" />
-                      <span className="truncate">{item.title}</span>
+                    <Link to={item.url} className="flex items-center gap-3 min-w-0">
+                      <item.icon className="flex-shrink-0 h-4 w-4" />
+                      <span className="truncate text-sm">{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -113,15 +113,15 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       
-      <SidebarFooter>
+      <SidebarFooter className="p-2">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton className="w-full">
-              <div className="flex items-center gap-2 px-1 py-1.5 min-w-0">
+            <SidebarMenuButton className="w-full h-12 px-3">
+              <div className="flex items-center gap-3 min-w-0 w-full">
                 <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
                   <span className="text-sm font-medium text-blue-800">U</span>
                 </div>
-                <div className="flex flex-col min-w-0">
+                <div className="flex flex-col min-w-0 flex-1 text-left">
                   <span className="text-sm font-medium truncate">Utilisateur</span>
                   <span className="text-xs text-muted-foreground truncate">user@alphatek.fr</span>
                 </div>
