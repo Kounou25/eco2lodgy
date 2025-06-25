@@ -4,10 +4,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, Filter, Download, Eye, Check, X } from 'lucide-react';
+import { Search, Filter, Download, Eye } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function InscriptionsAdmin() {
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
   
   const inscriptions = [
     {
@@ -129,23 +131,16 @@ export default function InscriptionsAdmin() {
                   </div>
                 </div>
                 
-                <div className="flex flex-wrap sm:flex-nowrap gap-2 flex-shrink-0">
-                  <Button variant="outline" size="sm" className="flex-1 sm:flex-none">
+                <div className="flex gap-2 flex-shrink-0">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full sm:w-auto"
+                    onClick={() => navigate(`/new-dashboard/inscriptions-admin/${inscription.id}`)}
+                  >
                     <Eye className="h-4 w-4 mr-1 sm:mr-2" />
-                    <span className="hidden sm:inline">Voir</span>
+                    <span className="text-sm">Voir détails</span>
                   </Button>
-                  {inscription.statut === "En attente" && (
-                    <>
-                      <Button variant="outline" size="sm" className="flex-1 sm:flex-none text-green-600 hover:text-green-700">
-                        <Check className="h-4 w-4 mr-1 sm:mr-2" />
-                        <span className="hidden sm:inline">Accepter</span>
-                      </Button>
-                      <Button variant="outline" size="sm" className="flex-1 sm:flex-none text-red-600 hover:text-red-700">
-                        <X className="h-4 w-4 mr-1 sm:mr-2" />
-                        <span className="hidden sm:inline">Refuser</span>
-                      </Button>
-                    </>
-                  )}
                 </div>
               </div>
             </CardContent>

@@ -35,6 +35,7 @@ import NewDashboardProjects from './pages/NewDashboardProjects';
 import NewDashboardFormations from './pages/NewDashboardFormations';
 import NewDashboardFormationsAdmin from './pages/NewDashboardFormationsAdmin';
 import InscriptionsAdmin from "./pages/inscriptionAdmin";
+import InscriptionDetail from "./pages/InscriptionDetail";
 
 const queryClient = new QueryClient();
 
@@ -93,6 +94,7 @@ const App = () => (
           <Route path="/new-dashboard/formations" element={<NewDashboardLayout><NewDashboardFormations /></NewDashboardLayout>} />
           <Route path="/new-dashboard/formations-admin" element={<NewDashboardLayout><NewDashboardFormationsAdmin /></NewDashboardLayout>} />
           <Route path="/new-dashboard/inscriptions-admin" element={<NewDashboardLayout><InscriptionsAdmin /></NewDashboardLayout>} />
+          <Route path="/new-dashboard/inscriptions-admin/:id" element={<NewDashboardLayout><InscriptionDetail /></NewDashboardLayout>} />
           <Route path="/new-dashboard/team" element={<NewDashboardLayout><div className="p-4"><h1 className="text-2xl font-bold">Équipe - En développement</h1></div></NewDashboardLayout>} />
           <Route path="/new-dashboard/partners" element={<NewDashboardLayout><div className="p-4"><h1 className="text-2xl font-bold">Partenaires - En développement</h1></div></NewDashboardLayout>} />
           <Route path="/new-dashboard/analytics" element={<NewDashboardLayout><div className="p-4"><h1 className="text-2xl font-bold">Statistiques - En développement</h1></div></NewDashboardLayout>} />

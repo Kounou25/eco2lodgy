@@ -54,8 +54,8 @@ export function AppSidebar() {
   const location = useLocation()
 
   return (
-    <Sidebar variant="inset" className="border-r">
-      <SidebarHeader className="p-2 sm:p-4">
+    <Sidebar variant="inset" className="border-r bg-white">
+      <SidebarHeader className="p-2 sm:p-4 bg-white">
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white font-bold flex-shrink-0">
             AT
@@ -67,7 +67,7 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
       
-      <SidebarContent className="px-2">
+      <SidebarContent className="px-2 bg-white">
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs sm:text-sm px-2">Navigation principale</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -77,7 +77,7 @@ export function AppSidebar() {
                   <SidebarMenuButton 
                     asChild
                     isActive={location.pathname === item.url}
-                    className="w-full h-10 px-3"
+                    className="w-full h-10 px-3 data-[active=true]:bg-blue-100 data-[active=true]:text-blue-900"
                   >
                     <Link to={item.url} className="flex items-center gap-3 min-w-0">
                       <item.icon className="flex-shrink-0 h-4 w-4" />
@@ -99,7 +99,7 @@ export function AppSidebar() {
                   <SidebarMenuButton 
                     asChild
                     isActive={location.pathname === item.url}
-                    className="w-full h-10 px-3"
+                    className="w-full h-10 px-3 data-[active=true]:bg-blue-100 data-[active=true]:text-blue-900"
                   >
                     <Link to={item.url} className="flex items-center gap-3 min-w-0">
                       <item.icon className="flex-shrink-0 h-4 w-4" />
@@ -113,7 +113,7 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       
-      <SidebarFooter className="p-2">
+      <SidebarFooter className="p-2 bg-white">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton className="w-full h-12 px-3">
