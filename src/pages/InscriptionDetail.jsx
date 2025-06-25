@@ -2,7 +2,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, User, Mail, Phone, Calendar, GraduationCap, MapPin } from 'lucide-react';
+import { ArrowLeft, User, Mail, Phone, Calendar, GraduationCap, MapPin, Briefcase, Heart, AlertTriangle } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 export default function InscriptionDetail() {
@@ -12,17 +12,32 @@ export default function InscriptionDetail() {
   // Mock data - remplacez par des vraies données
   const inscription = {
     id: parseInt(id),
-    nom: "Amadou Diallo",
+    // Informations personnelles
+    firstName: "Amadou",
+    lastName: "Diallo",
     email: "amadou.diallo@email.com",
-    telephone: "+227 96 12 34 56",
+    phone: "+227 96 12 34 56",
+    address: "Quartier Lamordé, Niamey",
+    city: "Niamey",
+    
+    // Informations formation
     formation: "Développement Web",
     dateInscription: "2024-01-15",
     statut: "En attente",
-    age: 25,
-    niveau: "Débutant",
-    experience: "2 ans d'expérience en HTML/CSS",
-    motivation: "Je souhaite me spécialiser dans le développement web moderne et apprendre React.js pour évoluer dans ma carrière.",
-    adresse: "Quartier Lamordé, Niamey, Niger"
+    
+    // Informations professionnelles
+    profession: "Développeur Junior",
+    experience: "2 ans d'expérience en HTML/CSS, quelques projets personnels en JavaScript. J'ai travaillé sur des sites web statiques et je souhaite maintenant me perfectionner avec des frameworks modernes.",
+    motivation: "Je souhaite me spécialiser dans le développement web moderne et apprendre React.js pour évoluer dans ma carrière. Cette formation me permettra d'acquérir les compétences nécessaires pour travailler sur des projets plus complexes et répondre aux besoins actuels du marché.",
+    
+    // Informations complémentaires
+    dietaryRestrictions: "Aucune allergie particulière",
+    accommodationNeeded: true,
+    transportNeeded: false,
+    emergencyContact: "Fatima Diallo",
+    emergencyPhone: "+227 97 11 22 33",
+    acceptTerms: true,
+    acceptNewsletter: true
   };
 
   const getStatusColor = (statut) => {
@@ -57,70 +72,75 @@ export default function InscriptionDetail() {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {/* Informations personnelles */}
-        <Card>
+        <Card className="md:col-span-1">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
               <User className="h-5 w-5" />
               Informations personnelles
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <label className="text-sm font-medium text-muted-foreground">Nom complet</label>
-              <p className="text-sm sm:text-base font-medium">{inscription.nom}</p>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Prénom</label>
+              <p className="text-sm sm:text-base font-medium">{inscription.firstName}</p>
             </div>
             
             <div>
-              <label className="text-sm font-medium text-muted-foreground">Email</label>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Nom</label>
+              <p className="text-sm sm:text-base font-medium">{inscription.lastName}</p>
+            </div>
+            
+            <div>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Email</label>
               <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-muted-foreground" />
+                <Mail className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                 <p className="text-sm sm:text-base break-all">{inscription.email}</p>
               </div>
             </div>
             
             <div>
-              <label className="text-sm font-medium text-muted-foreground">Téléphone</label>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Téléphone</label>
               <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-muted-foreground" />
-                <p className="text-sm sm:text-base">{inscription.telephone}</p>
+                <Phone className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                <p className="text-sm sm:text-base">{inscription.phone}</p>
               </div>
             </div>
             
             <div>
-              <label className="text-sm font-medium text-muted-foreground">Âge</label>
-              <p className="text-sm sm:text-base">{inscription.age} ans</p>
-            </div>
-            
-            <div>
-              <label className="text-sm font-medium text-muted-foreground">Adresse</label>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Adresse</label>
               <div className="flex items-start gap-2">
-                <MapPin className="h-4 w-4 text-muted-foreground mt-1" />
-                <p className="text-sm sm:text-base">{inscription.adresse}</p>
+                <MapPin className="h-4 w-4 text-muted-foreground mt-1 flex-shrink-0" />
+                <p className="text-sm sm:text-base">{inscription.address}</p>
               </div>
+            </div>
+            
+            <div>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Ville</label>
+              <p className="text-sm sm:text-base">{inscription.city}</p>
             </div>
           </CardContent>
         </Card>
 
-        {/* Informations formation */}
-        <Card>
+        {/* Informations formation et statut */}
+        <Card className="md:col-span-1">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
               <GraduationCap className="h-5 w-5" />
               Formation et statut
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <label className="text-sm font-medium text-muted-foreground">Formation</label>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Formation</label>
               <p className="text-sm sm:text-base font-medium">{inscription.formation}</p>
             </div>
             
             <div>
-              <label className="text-sm font-medium text-muted-foreground">Date d'inscription</label>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Date d'inscription</label>
               <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-muted-foreground" />
+                <Calendar className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                 <p className="text-sm sm:text-base">
                   {new Date(inscription.dateInscription).toLocaleDateString('fr-FR')}
                 </p>
@@ -128,7 +148,7 @@ export default function InscriptionDetail() {
             </div>
             
             <div>
-              <label className="text-sm font-medium text-muted-foreground">Statut</label>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Statut</label>
               <Badge 
                 variant="outline" 
                 className={`${getStatusColor(inscription.statut)} text-xs sm:text-sm`}
@@ -138,13 +158,38 @@ export default function InscriptionDetail() {
             </div>
             
             <div>
-              <label className="text-sm font-medium text-muted-foreground">Niveau</label>
-              <p className="text-sm sm:text-base">{inscription.niveau}</p>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Conditions acceptées</label>
+              <p className="text-sm sm:text-base text-green-600">
+                {inscription.acceptTerms ? "✓ Conditions générales acceptées" : "✗ Conditions non acceptées"}
+              </p>
             </div>
             
             <div>
-              <label className="text-sm font-medium text-muted-foreground">Expérience</label>
-              <p className="text-sm sm:text-base">{inscription.experience}</p>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Newsletter</label>
+              <p className="text-sm sm:text-base">
+                {inscription.acceptNewsletter ? "✓ Abonné aux actualités" : "✗ Non abonné"}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Informations professionnelles */}
+        <Card className="md:col-span-2 lg:col-span-1">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+              <Briefcase className="h-5 w-5" />
+              Informations professionnelles
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Profession</label>
+              <p className="text-sm sm:text-base">{inscription.profession}</p>
+            </div>
+            
+            <div>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Expérience</label>
+              <p className="text-sm sm:text-base leading-relaxed">{inscription.experience}</p>
             </div>
           </CardContent>
         </Card>
@@ -153,13 +198,71 @@ export default function InscriptionDetail() {
       {/* Motivation */}
       <Card>
         <CardHeader>
-          <CardTitle>Motivation</CardTitle>
+          <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+            <Heart className="h-5 w-5" />
+            Motivation
+          </CardTitle>
           <CardDescription>Raison de la candidature</CardDescription>
         </CardHeader>
         <CardContent>
           <p className="text-sm sm:text-base leading-relaxed">{inscription.motivation}</p>
         </CardContent>
       </Card>
+
+      {/* Informations complémentaires */}
+      <div className="grid gap-4 md:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+              <AlertTriangle className="h-5 w-5" />
+              Besoins spéciaux
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Restrictions alimentaires</label>
+              <p className="text-sm sm:text-base">{inscription.dietaryRestrictions}</p>
+            </div>
+            
+            <div>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Hébergement</label>
+              <p className="text-sm sm:text-base">
+                {inscription.accommodationNeeded ? "✓ Hébergement nécessaire" : "✗ Hébergement non nécessaire"}
+              </p>
+            </div>
+            
+            <div>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Transport</label>
+              <p className="text-sm sm:text-base">
+                {inscription.transportNeeded ? "✓ Aide au transport nécessaire" : "✗ Transport autonome"}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+              <Phone className="h-5 w-5" />
+              Contact d'urgence
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Nom du contact</label>
+              <p className="text-sm sm:text-base font-medium">{inscription.emergencyContact}</p>
+            </div>
+            
+            <div>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Téléphone d'urgence</label>
+              <div className="flex items-center gap-2">
+                <Phone className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                <p className="text-sm sm:text-base">{inscription.emergencyPhone}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
