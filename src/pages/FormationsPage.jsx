@@ -1,14 +1,14 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import TestimonialSection from '../components/TestimonialSection';
+import CertificatePhotosSection from '../components/CertificatePhotosSection';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { BookOpen, Users, Clock, Calendar, MapPin, ArrowRight, Search, Star, TrendingUp, Award, Filter, Play, Video } from 'lucide-react';
+import { BookOpen, Users, Clock, Calendar, MapPin, ArrowRight, Search, Star, TrendingUp, Award, Filter, Play, Video, AlertTriangle, UserCheck } from 'lucide-react';
 
 const FormationsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -26,6 +26,9 @@ const FormationsPage = () => {
       price: "75,000 FCFA",
       level: "Débutant",
       startDate: "2024-02-15",
+      registrationDeadline: "2024-02-10",
+      currentRegistrations: 18,
+      maxRegistrations: 20,
       image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=400&fit=crop",
       instructor: "Ing. Amadou Diallo",
       rating: 4.8,
@@ -50,6 +53,9 @@ const FormationsPage = () => {
       price: "50,000 FCFA",
       level: "Intermédiaire",
       startDate: "2024-02-20",
+      registrationDeadline: "2024-02-18",
+      currentRegistrations: 12,
+      maxRegistrations: 20,
       image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=400&fit=crop",
       instructor: "Dr. Fatima Ousmane",
       rating: 4.9,
@@ -74,6 +80,9 @@ const FormationsPage = () => {
       price: "60,000 FCFA",
       level: "Débutant",
       startDate: "2024-03-01",
+      registrationDeadline: "2024-02-28",
+      currentRegistrations: 11,
+      maxRegistrations: 12,
       image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop",
       instructor: "Tech. Ibrahim Moussa",
       rating: 4.7,
@@ -98,6 +107,9 @@ const FormationsPage = () => {
       price: "45,000 FCFA",
       level: "Débutant",
       startDate: "2024-03-10",
+      registrationDeadline: "2024-03-05",
+      currentRegistrations: 22,
+      maxRegistrations: 25,
       image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=800&h=400&fit=crop",
       instructor: "Agr. Aissata Sani",
       rating: 4.6,
@@ -122,6 +134,9 @@ const FormationsPage = () => {
       price: "80,000 FCFA",
       level: "Avancé",
       startDate: "2024-03-15",
+      registrationDeadline: "2024-03-12",
+      currentRegistrations: 7,
+      maxRegistrations: 10,
       image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=400&fit=crop",
       instructor: "Maître Moustapha Garba",
       rating: 4.9,
@@ -146,6 +161,9 @@ const FormationsPage = () => {
       price: "55,000 FCFA",
       level: "Intermédiaire",
       startDate: "2024-03-20",
+      registrationDeadline: "2024-03-15",
+      currentRegistrations: 28,
+      maxRegistrations: 30,
       image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&h=400&fit=crop",
       instructor: "Dr. Harouna Abdou",
       rating: 4.8,
@@ -162,13 +180,55 @@ const FormationsPage = () => {
   ];
 
   const categories = [
-    { id: 'all', name: 'Toutes les formations', count: formations.length },
-    { id: 'construction', name: 'Construction', count: formations.filter(f => f.category === 'construction').length },
-    { id: 'environnement', name: 'Environnement', count: formations.filter(f => f.category === 'environnement').length },
-    { id: 'energie', name: 'Énergie', count: formations.filter(f => f.category === 'energie').length },
-    { id: 'agriculture', name: 'Agriculture', count: formations.filter(f => f.category === 'agriculture').length },
-    { id: 'artisanat', name: 'Artisanat', count: formations.filter(f => f.category === 'artisanat').length },
-    { id: 'gestion', name: 'Gestion', count: formations.filter(f => f.category === 'gestion').length }
+    { 
+      id: 'all', 
+      name: 'Toutes les formations', 
+      count: formations.length,
+      icon: '📚',
+      description: 'Toutes nos formations disponibles'
+    },
+    { 
+      id: 'construction', 
+      name: 'Construction & Bâtiment', 
+      count: formations.filter(f => f.category === 'construction').length,
+      icon: '🏗️',
+      description: 'Techniques de construction durable'
+    },
+    { 
+      id: 'environnement', 
+      name: 'Environnement & Eau', 
+      count: formations.filter(f => f.category === 'environnement').length,
+      icon: '💧',
+      description: 'Gestion environnementale'
+    },
+    { 
+      id: 'energie', 
+      name: 'Énergies Renouvelables', 
+      count: formations.filter(f => f.category === 'energie').length,
+      icon: '☀️',
+      description: 'Solutions énergétiques durables'
+    },
+    { 
+      id: 'agriculture', 
+      name: 'Agriculture Durable', 
+      count: formations.filter(f => f.category === 'agriculture').length,
+      icon: '🌱',
+      description: 'Techniques agricoles modernes'
+    },
+    { 
+      id: 'artisanat', 
+      name: 'Artisanat & Menuiserie', 
+      count: formations.filter(f => f.category === 'artisanat').length,
+      icon: '🪵',
+      description: 'Savoir-faire traditionnel'
+    },
+    { 
+      id: 'gestion', 
+      name: 'Gestion de Projets', 
+      count: formations.filter(f => f.category === 'gestion').length,
+      icon: '👥',
+      description: 'Management et coordination'
+    }
   ];
 
   const filteredFormations = formations.filter(formation => {
@@ -198,102 +258,117 @@ const FormationsPage = () => {
     }
   };
 
+  const isRegistrationDeadlineNear = (deadline) => {
+    const today = new Date();
+    const deadlineDate = new Date(deadline);
+    const timeDiff = deadlineDate.getTime() - today.getTime();
+    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return daysDiff <= 3 && daysDiff > 0;
+  };
+
+  const getAvailabilityStatus = (current, max) => {
+    const percentage = (current / max) * 100;
+    if (percentage >= 90) return { status: 'critical', color: 'bg-red-500', text: 'Complet bientôt' };
+    if (percentage >= 70) return { status: 'warning', color: 'bg-yellow-500', text: 'Places limitées' };
+    return { status: 'available', color: 'bg-green-500', text: 'Places disponibles' };
+  };
+
   return (
     <>
       <Navbar />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
         {/* Enhanced Hero Section */}
         <section className="relative bg-gradient-to-r from-[#2E5A27] via-[#4C956C] to-[#556331] text-white py-32 overflow-hidden">
-  {/* Background Pattern */}
-  <div className="absolute inset-0 opacity-10">
-    <div className="grid grid-cols-8 gap-4 h-full transform rotate-12 scale-150">
-      {Array.from({ length: 64 }).map((_, i) => (
-        <div key={i} className="bg-white/20 rounded-lg animate-pulse" style={{ animationDelay: `${i * 0.1}s` }}></div>
-      ))}
-    </div>
-  </div>
-  
-  {/* Floating Elements */}
-  <div className="absolute inset-0 overflow-hidden">
-    <div className="absolute top-20 left-10 w-16 h-16 bg-white/10 rounded-full animate-float"></div>
-    <div className="absolute top-40 right-20 w-12 h-12 bg-yellow-300/20 rounded-full animate-bounce"></div>
-    <div className="absolute bottom-32 left-1/4 w-8 h-8 bg-white/15 rounded-full animate-pulse"></div>
-    <div className="absolute bottom-20 right-1/3 w-20 h-20 bg-green-300/10 rounded-full animate-float"></div>
-  </div>
-
-  <div className="container mx-auto px-4 text-center relative z-10">
-    <div className="max-w-4xl mx-auto">
-      {/* Badge */}
-      <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full mb-8 border border-white/20">
-        <BookOpen className="w-5 h-5" />
-        <span className="font-medium">Centre de Formation Eco2lodgy</span>
-      </div>
-
-      {/* Main Title */}
-      <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-        Développez vos
-        <span className="block text-yellow-300 hero-underline">compétences</span>
-        <span className="block">durables</span>
-      </h1>
-
-      {/* Subtitle */}
-      <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto leading-relaxed">
-        Maîtrisez les techniques écologiques avec nos formations pratiques certifiées, 
-        dispensées par des experts locaux
-      </p>
-
-      {/* Stats Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-3xl mx-auto">
-        {[
-          { icon: BookOpen, value: "15+", label: "Formations" },
-          { icon: Users, value: "500+", label: "Apprenants" },
-          { icon: Award, value: "98%", label: "Satisfaction" },
-          { icon: Video, value: "100%", label: "Pratique" }
-        ].map((stat, index) => (
-          <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/15 transition-all duration-300">
-            <stat.icon className="w-6 h-6 mx-auto mb-2 text-yellow-300" />
-            <div className="text-2xl font-bold">{stat.value}</div>
-            <div className="text-sm text-white/80">{stat.label}</div>
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="grid grid-cols-8 gap-4 h-full transform rotate-12 scale-150">
+              {Array.from({ length: 64 }).map((_, i) => (
+                <div key={i} className="bg-white/20 rounded-lg animate-pulse" style={{ animationDelay: `${i * 0.1}s` }}></div>
+              ))}
+            </div>
           </div>
-        ))}
-      </div>
-
-      {/* Features */}
-      <div className="flex flex-wrap justify-center gap-4 mb-8">
-        {[
-          { icon: <Award className="w-5 h-5" />, text: "Certifications reconnues" },
-          { icon: <Users className="w-5 h-5" />, text: "Formateurs experts" },
-          { icon: <BookOpen className="w-5 h-5" />, text: "Apprentissage pratique" },
-          { icon: <Video className="w-5 h-5" />, text: "Supports multimédias" }
-        ].map((feature, index) => (
-          <div key={index} className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 hover:border-yellow-300/50 transition-all duration-300">
-            <span className="text-yellow-300">{feature.icon}</span>
-            <span className="text-sm font-medium">{feature.text}</span>
+          
+          {/* Floating Elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-20 left-10 w-16 h-16 bg-white/10 rounded-full animate-float"></div>
+            <div className="absolute top-40 right-20 w-12 h-12 bg-yellow-300/20 rounded-full animate-bounce"></div>
+            <div className="absolute bottom-32 left-1/4 w-8 h-8 bg-white/15 rounded-full animate-pulse"></div>
+            <div className="absolute bottom-20 right-1/3 w-20 h-20 bg-green-300/10 rounded-full animate-float"></div>
           </div>
-        ))}
-      </div>
 
-      {/* CTA Buttons */}
-      <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <Button 
-          size="lg" 
-          className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold px-8 py-4 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
-          onClick={() => document.getElementById('formations')?.scrollIntoView({ behavior: 'smooth' })}
-        >
-          <BookOpen className="w-5 h-5 mr-2" />
-          Explorer les formations
-        </Button>
-      </div>
-    </div>
+          <div className="container mx-auto px-4 text-center relative z-10">
+            <div className="max-w-4xl mx-auto">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full mb-8 border border-white/20">
+                <BookOpen className="w-5 h-5" />
+                <span className="font-medium">Centre de Formation Eco2lodgy</span>
+              </div>
 
-    {/* Scroll Indicator */}
-    {/* <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce">
-      <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-        <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
-      </div>
-    </div> */}
-  </div>
-</section>
+              {/* Main Title */}
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                Développez vos
+                <span className="block text-yellow-300 hero-underline">compétences</span>
+                <span className="block">durables</span>
+              </h1>
+
+              {/* Subtitle */}
+              <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto leading-relaxed">
+                Maîtrisez les techniques écologiques avec nos formations pratiques certifiées, 
+                dispensées par des experts locaux
+              </p>
+
+              {/* Stats Cards */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-3xl mx-auto">
+                {[
+                  { icon: BookOpen, value: "15+", label: "Formations" },
+                  { icon: Users, value: "500+", label: "Apprenants" },
+                  { icon: Award, value: "98%", label: "Satisfaction" },
+                  { icon: Video, value: "100%", label: "Pratique" }
+                ].map((stat, index) => (
+                  <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/15 transition-all duration-300">
+                    <stat.icon className="w-6 h-6 mx-auto mb-2 text-yellow-300" />
+                    <div className="text-2xl font-bold">{stat.value}</div>
+                    <div className="text-sm text-white/80">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Features */}
+              <div className="flex flex-wrap justify-center gap-4 mb-8">
+                {[
+                  { icon: <Award className="w-5 h-5" />, text: "Certifications reconnues" },
+                  { icon: <Users className="w-5 h-5" />, text: "Formateurs experts" },
+                  { icon: <BookOpen className="w-5 h-5" />, text: "Apprentissage pratique" },
+                  { icon: <Video className="w-5 h-5" />, text: "Supports multimédias" }
+                ].map((feature, index) => (
+                  <div key={index} className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 hover:border-yellow-300/50 transition-all duration-300">
+                    <span className="text-yellow-300">{feature.icon}</span>
+                    <span className="text-sm font-medium">{feature.text}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  size="lg" 
+                  className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold px-8 py-4 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+                  onClick={() => document.getElementById('formations')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  <BookOpen className="w-5 h-5 mr-2" />
+                  Explorer les formations
+                </Button>
+              </div>
+            </div>
+
+            {/* Scroll Indicator */}
+            {/* <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce">
+              <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+                <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
+              </div>
+            </div> */}
+          </div>
+        </section>
 
         {/* Section Formations Populaires */}
         <section className="py-12 bg-white">
@@ -310,85 +385,100 @@ const FormationsPage = () => {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {popularFormations.map((formation, index) => (
-                <div
-                  key={formation.id}
-                  className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 overflow-hidden border border-gray-100"
-                >
-                  {/* Image de couverture */}
-                  <div className="relative h-48 overflow-hidden">
-                    <img 
-                      src={formation.image} 
-                      alt={formation.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-                    
-                    {/* Badges */}
-                    <div className="absolute top-4 left-4 flex gap-2">
-                      <Badge className="bg-red-500 hover:bg-red-600 text-white border-0">
-                        🔥 Populaire
-                      </Badge>
-                    </div>
-                    
-                    {/* Play Button */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="bg-white/20 backdrop-blur-sm rounded-full p-4 hover:bg-white/30 transition-colors duration-300">
-                        <Play className="w-8 h-8 text-white" />
+              {popularFormations.map((formation, index) => {
+                const availability = getAvailabilityStatus(formation.currentRegistrations, formation.maxRegistrations);
+                const isHot = isRegistrationDeadlineNear(formation.registrationDeadline);
+                
+                return (
+                  <div
+                    key={formation.id}
+                    className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 overflow-hidden border border-gray-100"
+                  >
+                    {/* Image de couverture */}
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={formation.image} 
+                        alt={formation.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                      
+                      {/* Badges */}
+                      <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
+                        <Badge className="bg-red-500 hover:bg-red-600 text-white border-0">
+                          🔥 Populaire
+                        </Badge>
+                        {isHot && (
+                          <Badge className="bg-orange-500 hover:bg-orange-600 text-white border-0 animate-pulse">
+                            🔥 HOT
+                          </Badge>
+                        )}
+                        <Badge className={`${availability.color} text-white border-0`}>
+                          {availability.text}
+                        </Badge>
                       </div>
+                      
+                      {/* Play Button Overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="bg-white/20 backdrop-blur-sm rounded-full p-3 hover:bg-white/30 transition-colors duration-300">
+                          <Play className="w-6 h-6 text-white" />
+                        </div>
+                      </div>
+
+                      {/* Icon */}
+                      <div className="absolute bottom-4 right-4 text-3xl">{formation.icon}</div>
                     </div>
 
-                    {/* Icon */}
-                    <div className="absolute bottom-4 right-4 text-3xl">{formation.icon}</div>
+                    {/* Content */}
+                    <div className="p-6">
+                      <div className="mb-4">
+                        <h3 className="text-xl font-bold mb-2 group-hover:text-[#2E5A27] transition-colors duration-300">
+                          {formation.title}
+                        </h3>
+                        <div className="flex items-center gap-2 text-sm">
+                          <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                          <span className="font-medium">{formation.rating}</span>
+                          <span className="text-gray-500">({formation.studentsCount} participants)</span>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-2 text-sm mb-4">
+                        <div className="flex items-center gap-2 text-gray-600">
+                          <Calendar className="w-4 h-4 text-[#2E5A27]" />
+                          <span>{new Date(formation.startDate).toLocaleDateString('fr-FR')}</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-gray-600">
+                          <MapPin className="w-4 h-4 text-[#2E5A27]" />
+                          <span>{formation.location}</span>
+                        </div>
+                      </div>
+                      
+                      <div className="flex justify-between items-center">
+                        <span className="text-2xl font-bold text-[#2E5A27]">
+                          {formation.price}
+                        </span>
+                        <Link to={`/formations/${formation.id}`}>
+                          <Button className="bg-[#2E5A27] hover:bg-[#2E5A27]/90 rounded-full group/btn">
+                            Voir plus
+                            <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform duration-300" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-
-                  {/* Content */}
-                  <div className="p-6">
-                    <div className="mb-4">
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-[#2E5A27] transition-colors duration-300">
-                        {formation.title}
-                      </h3>
-                      <div className="flex items-center gap-2 text-sm">
-                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                        <span className="font-medium">{formation.rating}</span>
-                        <span className="text-gray-500">({formation.studentsCount} participants)</span>
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-2 text-sm mb-4">
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Calendar className="w-4 h-4 text-[#2E5A27]" />
-                        <span>{new Date(formation.startDate).toLocaleDateString('fr-FR')}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <MapPin className="w-4 h-4 text-[#2E5A27]" />
-                        <span>{formation.location}</span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex justify-between items-center">
-                      <span className="text-2xl font-bold text-[#2E5A27]">{formation.price}</span>
-                      <Link to={`/formations/${formation.id}`}>
-                        <Button className="bg-[#2E5A27] hover:bg-[#2E5A27]/90 rounded-full group/btn">
-                          Voir plus
-                          <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform duration-300" />
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
 
-        {/* Filters and Search */}
+        {/* Filters and Search with Enhanced Categories */}
         <section className="py-8 bg-white border-b" id="formations">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-6">
               <div className="flex items-center gap-2">
                 <Filter className="w-5 h-5 text-[#2E5A27]" />
-                <h3 className="text-lg font-semibold">Filtrer les formations</h3>
+                <h3 className="text-lg font-semibold">Filtrer par catégorie</h3>
               </div>
               <div className="relative w-full md:w-80">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -401,18 +491,23 @@ const FormationsPage = () => {
               </div>
             </div>
             
-            <div className="flex flex-wrap gap-3 justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4">
               {categories.map((category) => (
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`px-6 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
+                  className={`p-4 rounded-2xl font-medium transition-all duration-300 transform hover:scale-105 text-left ${
                     selectedCategory === category.id
                       ? 'bg-[#2E5A27] text-white shadow-lg'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-md'
                   }`}
                 >
-                  {category.name} ({category.count})
+                  <div className="text-2xl mb-2">{category.icon}</div>
+                  <div className="text-sm font-bold mb-1">{category.name}</div>
+                  <div className="text-xs opacity-75 mb-2">{category.description}</div>
+                  <div className="text-xs font-medium">
+                    {category.count} formation{category.count > 1 ? 's' : ''}
+                  </div>
                 </button>
               ))}
             </div>
@@ -423,99 +518,138 @@ const FormationsPage = () => {
         <section className="py-12">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredFormations.map((formation, index) => (
-                <Card 
-                  key={formation.id} 
-                  className="group overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-0 shadow-lg bg-white rounded-2xl"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  {/* Image de couverture */}
-                  <div className="relative h-48 overflow-hidden">
-                    <img 
-                      src={formation.image} 
-                      alt={formation.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-                    
-                    {/* Badges */}
-                    <div className="absolute top-4 left-4 flex gap-2">
-                      <Badge className={`${getLevelColor(formation.level)} border font-medium`}>
-                        <span className="mr-1">{getLevelIcon(formation.level)}</span>
-                        {formation.level}
-                      </Badge>
-                      {formation.isPopular && (
-                        <Badge className="bg-orange-100 text-orange-800 border-orange-200">
-                          🔥 Populaire
+              {filteredFormations.map((formation, index) => {
+                const availability = getAvailabilityStatus(formation.currentRegistrations, formation.maxRegistrations);
+                const isHot = isRegistrationDeadlineNear(formation.registrationDeadline);
+                
+                return (
+                  <Card 
+                    key={formation.id} 
+                    className="group overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-0 shadow-lg bg-white rounded-2xl"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={formation.image} 
+                        alt={formation.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                      
+                      <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
+                        <Badge className={`${getLevelColor(formation.level)} border font-medium`}>
+                          <span className="mr-1">{getLevelIcon(formation.level)}</span>
+                          {formation.level}
                         </Badge>
+                        {formation.isPopular && (
+                          <Badge className="bg-orange-100 text-orange-800 border-orange-200">
+                            🔥 Populaire
+                          </Badge>
+                        )}
+                        {isHot && (
+                          <Badge className="bg-red-500 text-white border-0 animate-pulse">
+                            🔥 HOT
+                          </Badge>
+                        )}
+                      </div>
+
+                      <div className="absolute top-4 right-4">
+                        <Badge className={`${availability.color} text-white border-0 text-xs`}>
+                          {formation.maxRegistrations - formation.currentRegistrations} places
+                        </Badge>
+                      </div>
+
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="bg-white/20 backdrop-blur-sm rounded-full p-3 hover:bg-white/30 transition-colors duration-300">
+                          <Play className="w-6 h-6 text-white" />
+                        </div>
+                      </div>
+
+                      <div className="absolute bottom-4 right-4 text-3xl group-hover:scale-110 transition-transform duration-300">
+                        {formation.icon}
+                      </div>
+
+                      <div className="absolute bottom-4 left-4 text-white">
+                        <h3 className="text-lg font-bold group-hover:text-yellow-300 transition-colors duration-300">
+                          {formation.title}
+                        </h3>
+                        <div className="flex items-center gap-2 mt-1">
+                          <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                          <span className="text-sm">{formation.rating}</span>
+                          <span className="text-xs opacity-75">({formation.studentsCount})</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <CardHeader className="pb-3">
+                      <CardDescription className="text-gray-600 line-clamp-2">
+                        {formation.description}
+                      </CardDescription>
+                    </CardHeader>
+
+                    <CardContent className="space-y-4">
+                      {/* Compteur d'inscriptions */}
+                      <div className="bg-gray-50 rounded-lg p-3">
+                        <div className="flex items-center justify-between text-sm mb-2">
+                          <div className="flex items-center gap-2">
+                            <UserCheck className="w-4 h-4 text-[#2E5A27]" />
+                            <span className="font-medium">{formation.currentRegistrations} inscrits</span>
+                          </div>
+                          <span className="text-[#2E5A27] font-bold">
+                            {formation.maxRegistrations - formation.currentRegistrations} places restantes
+                          </span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div 
+                            className={`h-2 rounded-full transition-all duration-300 ${availability.color}`}
+                            style={{ width: `${(formation.currentRegistrations / formation.maxRegistrations) * 100}%` }}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div className="flex items-center gap-2 text-gray-600">
+                          <Clock className="w-4 h-4 text-[#2E5A27]" />
+                          <span>{formation.duration}</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-gray-600">
+                          <Users className="w-4 h-4 text-[#2E5A27]" />
+                          <span>{formation.participants}</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-gray-600">
+                          <MapPin className="w-4 h-4 text-[#2E5A27]" />
+                          <span>{formation.location}</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-gray-600">
+                          <Calendar className="w-4 h-4 text-[#2E5A27]" />
+                          <span>{new Date(formation.startDate).toLocaleDateString('fr-FR')}</span>
+                        </div>
+                      </div>
+
+                      {isHot && (
+                        <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                          <div className="flex items-center gap-2 text-red-700 text-sm">
+                            <AlertTriangle className="w-4 h-4" />
+                            <span className="font-medium">Clôture des inscriptions dans 3 jours !</span>
+                          </div>
+                        </div>
                       )}
-                    </div>
 
-                    {/* Play Button Overlay */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="bg-white/20 backdrop-blur-sm rounded-full p-3 hover:bg-white/30 transition-colors duration-300">
-                        <Play className="w-6 h-6 text-white" />
+                      <div className="flex justify-between items-center pt-4 border-t">
+                        <div className="text-2xl font-bold text-[#2E5A27]">
+                          {formation.price}
+                        </div>
+                        <Link to={`/formations/${formation.id}`}>
+                          <Button className="bg-[#2E5A27] hover:bg-[#2E5A27]/90 rounded-full group transition-all duration-300 hover:shadow-lg">
+                            Voir détails
+                            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                          </Button>
+                        </Link>
                       </div>
-                    </div>
-
-                    {/* Icon */}
-                    <div className="absolute bottom-4 right-4 text-3xl group-hover:scale-110 transition-transform duration-300">
-                      {formation.icon}
-                    </div>
-
-                    {/* Title Overlay */}
-                    <div className="absolute bottom-4 left-4 text-white">
-                      <h3 className="text-lg font-bold group-hover:text-yellow-300 transition-colors duration-300">
-                        {formation.title}
-                      </h3>
-                      <div className="flex items-center gap-2 mt-1">
-                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                        <span className="text-sm">{formation.rating}</span>
-                        <span className="text-xs opacity-75">({formation.studentsCount})</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <CardHeader className="pb-3">
-                    <CardDescription className="text-gray-600 line-clamp-2">
-                      {formation.description}
-                    </CardDescription>
-                  </CardHeader>
-
-                  <CardContent className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Clock className="w-4 h-4 text-[#2E5A27]" />
-                        <span>{formation.duration}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Users className="w-4 h-4 text-[#2E5A27]" />
-                        <span>{formation.participants}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <MapPin className="w-4 h-4 text-[#2E5A27]" />
-                        <span>{formation.location}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Calendar className="w-4 h-4 text-[#2E5A27]" />
-                        <span>{new Date(formation.startDate).toLocaleDateString('fr-FR')}</span>
-                      </div>
-                    </div>
-
-                    <div className="flex justify-between items-center pt-4 border-t">
-                      <div className="text-2xl font-bold text-[#2E5A27]">
-                        {formation.price}
-                      </div>
-                      <Link to={`/formations/${formation.id}`}>
-                        <Button className="bg-[#2E5A27] hover:bg-[#2E5A27]/90 rounded-full group transition-all duration-300 hover:shadow-lg">
-                          Voir détails
-                          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                        </Button>
-                      </Link>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
 
             {filteredFormations.length === 0 && (
@@ -530,6 +664,9 @@ const FormationsPage = () => {
 
         {/* Testimonials Section */}
         <TestimonialSection />
+
+        {/* Certificate Photos Section */}
+        <CertificatePhotosSection />
 
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-r from-[#2E5A27] to-[#556331] relative overflow-hidden">
