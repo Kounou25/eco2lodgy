@@ -1,4 +1,3 @@
-
 import { useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -6,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { 
   Form,
   FormControl,
@@ -80,6 +80,18 @@ export default function NewDashboardFormationsAdmin() {
 
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [editingFormation, setEditingFormation] = useState(null)
+
+  // Catégories prédéfinies
+  const categories = [
+    "Construction",
+    "Architecture",
+    "Urbanisme",
+    "Ingénierie",
+    "Environnement",
+    "Gestion de projet",
+    "Formation technique",
+    "Recherche & Développement"
+  ]
 
   const form = useForm({
     defaultValues: {
@@ -328,9 +340,20 @@ export default function NewDashboardFormationsAdmin() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Catégorie *</FormLabel>
-                            <FormControl>
-                              <Input {...field} />
-                            </FormControl>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Sélectionner une catégorie" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {categories.map((category) => (
+                                  <SelectItem key={category} value={category}>
+                                    {category}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
                             <FormMessage />
                           </FormItem>
                         )}
@@ -358,13 +381,18 @@ export default function NewDashboardFormationsAdmin() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Niveau</FormLabel>
-                            <FormControl>
-                              <select {...field} className="w-full p-2 border rounded-md">
-                                <option value="Débutant">Débutant</option>
-                                <option value="Intermédiaire">Intermédiaire</option>
-                                <option value="Avancé">Avancé</option>
-                              </select>
-                            </FormControl>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="Débutant">Débutant</SelectItem>
+                                <SelectItem value="Intermédiaire">Intermédiaire</SelectItem>
+                                <SelectItem value="Avancé">Avancé</SelectItem>
+                              </SelectContent>
+                            </Select>
                             <FormMessage />
                           </FormItem>
                         )}

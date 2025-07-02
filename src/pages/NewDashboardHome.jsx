@@ -10,7 +10,10 @@ import {
   TrendingUp, 
   Calendar,
   Plus,
-  Eye
+  Eye,
+  UserCheck,
+  Clock,
+  CheckCircle
 } from "lucide-react"
 
 export default function NewDashboardHome() {
@@ -42,6 +45,42 @@ export default function NewDashboardHome() {
       icon: Building,
       color: "text-orange-600",
       bg: "bg-orange-100"
+    }
+  ]
+
+  // Nouvelles statistiques pour les formations
+  const formationStats = [
+    {
+      title: "Formations en cours",
+      value: "8",
+      icon: Clock,
+      color: "text-blue-600",
+      bg: "bg-blue-100",
+      trend: "+2 ce mois"
+    },
+    {
+      title: "Formations terminées",
+      value: "24",
+      icon: CheckCircle,
+      color: "text-green-600",
+      bg: "bg-green-100",
+      trend: "+12 cette année"
+    },
+    {
+      title: "Total inscrits",
+      value: "156",
+      icon: UserCheck,
+      color: "text-purple-600",
+      bg: "bg-purple-100",
+      trend: "+18 cette semaine"
+    },
+    {
+      title: "Taux de réussite",
+      value: "94%",
+      icon: TrendingUp,
+      color: "text-orange-600",
+      bg: "bg-orange-100",
+      trend: "+5% vs dernier mois"
     }
   ]
 
@@ -82,7 +121,7 @@ export default function NewDashboardHome() {
         </Button>
       </div>
 
-      {/* Stats Cards */}
+      {/* Stats Cards Générales */}
       <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
           <Card key={stat.title} className="min-w-0">
@@ -103,6 +142,32 @@ export default function NewDashboardHome() {
             </CardContent>
           </Card>
         ))}
+      </div>
+
+      {/* Statistiques spécifiques aux formations */}
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold">Statistiques Formations</h2>
+        <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          {formationStats.map((stat) => (
+            <Card key={stat.title} className="min-w-0">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium truncate">
+                  {stat.title}
+                </CardTitle>
+                <div className={`p-2 rounded-lg ${stat.bg} flex-shrink-0`}>
+                  <stat.icon className={`h-4 w-4 ${stat.color}`} />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{stat.value}</div>
+                <p className={`text-xs ${stat.color} flex items-center`}>
+                  <TrendingUp className="inline mr-1 h-3 w-3 flex-shrink-0" />
+                  <span className="truncate">{stat.trend}</span>
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
 
       <div className="grid gap-4 grid-cols-1 lg:grid-cols-7">
