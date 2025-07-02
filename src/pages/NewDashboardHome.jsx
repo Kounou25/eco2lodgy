@@ -1,7 +1,5 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { 
   GraduationCap, 
   TrendingUp, 
@@ -108,10 +106,6 @@ export default function NewDashboardHome() {
             Gérez vos formations et suivez les performances
           </p>
         </div>
-        <Button className="w-full sm:w-auto">
-          <Plus className="mr-2 h-4 w-4" />
-          Nouvelle formation
-        </Button>
       </div>
 
       {/* Statistiques formations */}
@@ -137,9 +131,9 @@ export default function NewDashboardHome() {
         ))}
       </div>
 
-      <div className="grid gap-4 grid-cols-1 lg:grid-cols-7">
+      <div className="grid gap-4 grid-cols-1">
         {/* Activités récentes formations */}
-        <Card className="lg:col-span-4 min-w-0">
+        <Card className="min-w-0">
           <CardHeader>
             <CardTitle className="text-lg sm:text-xl">Activités récentes - Formations</CardTitle>
             <CardDescription className="text-sm">
@@ -167,34 +161,6 @@ export default function NewDashboardHome() {
                 </div>
               ))}
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Actions rapides formations */}
-        <Card className="lg:col-span-3 min-w-0">
-          <CardHeader>
-            <CardTitle className="text-lg sm:text-xl">Actions rapides</CardTitle>
-            <CardDescription className="text-sm">
-              Gestion des formations
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <Button variant="outline" className="w-full justify-start">
-              <GraduationCap className="mr-2 h-4 w-4 flex-shrink-0" />
-              <span className="truncate">Créer une formation</span>
-            </Button>
-            <Button variant="outline" className="w-full justify-start">
-              <Users className="mr-2 h-4 w-4 flex-shrink-0" />
-              <span className="truncate">Gérer les inscriptions</span>
-            </Button>
-            <Button variant="outline" className="w-full justify-start">
-              <Calendar className="mr-2 h-4 w-4 flex-shrink-0" />
-              <span className="truncate">Planifier une session</span>
-            </Button>
-            <Button variant="outline" className="w-full justify-start">
-              <CheckCircle className="mr-2 h-4 w-4 flex-shrink-0" />
-              <span className="truncate">Voir les résultats</span>
-            </Button>
           </CardContent>
         </Card>
       </div>
