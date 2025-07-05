@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Navbar from '../components/Navbar';
@@ -10,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { ArrowLeft, User, Mail, Phone, MapPin, CreditCard } from 'lucide-react';
+import { ArrowLeft, User, Mail, Phone, MapPin, CreditCard, AlertTriangle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const InscriptionFormation = () => {
@@ -18,6 +17,9 @@ const InscriptionFormation = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formation, setFormation] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const form = useForm({
     defaultValues: {
@@ -36,73 +38,111 @@ const InscriptionFormation = () => {
       emergencyContact: '',
       emergencyPhone: '',
       acceptTerms: false,
-      acceptNewsletter: false
-    }
+      acceptNewsletter: false,
+    },
   });
 
-  // Simulation des données de formation
-  const formations = [
-    {
-      id: 1,
-      title: "Techniques de Construction Écologique",
-      price: "75,000 FCFA",
-      duration: "5 jours",
-      startDate: "2024-02-15",
-      location: "Niamey"
-    }
-  ];
+  // Récupération des données depuis l'API
+  useEffect(() => {
+    const fetchFormation = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`https://alphatek.fr:3008/api/formations/${id}`);
+        if (!response.ok) {
+          throw new Error(response.status === 404 ? 'Formation non trouvée' : 'Erreur serveur');
+        }
+        const data = await response.json();
 
-  const formation = formations.find(f => f.id === parseInt(id));
+        // Transformation des données pour correspondre au format attendu
+        const transformedFormation = {
+          id: data.id || parseInt(id),
+          title: data.title || 'Formation sans titre',
+          price: data.price && data.currency ? `${parseFloat(data.price).toLocaleString('fr-FR')} ${data.currency}` : 'Prix non spécifié',
+          duration: data.duration || 'Durée non spécifiée',
+          startDate: data.start_date || new Date().toISOString(),
+          location: data.location || 'Lieu non spécifié',
+        };
 
-  if (!formation) {
-    return (
-      <>
-        <Navbar />
-        <div className="min-h-screen bg-gray-50 pt-20 flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold mb-4">Formation non trouvée</h1>
-            <Link to="/formations">
-              <Button>Retour aux formations</Button>
-            </Link>
-          </div>
-        </div>
-        <Footer />
-      </>
-    );
-  }
+        setFormation(transformedFormation);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
 
+    fetchFormation();
+  }, [id]);
+
+  // Gestion de la soumission du formulaire
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-    
+
     try {
-      // Simulation de l'envoi des données
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      console.log('Données d\'inscription:', data);
-      
+      // Simulation de l'envoi des données à l'API (à remplacer par une vraie requête)
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      console.log('Données d\'inscription:', { formationId: id, ...data });
+
       toast({
-        title: "Inscription réussie !",
-        description: "Votre demande d'inscription a été envoyée avec succès. Nous vous recontacterons sous 48h.",
+        title: 'Inscription réussie !',
+        description: 'Votre demande d\'inscription a été envoyée avec succès. Nous vous recontacterons sous 48h.',
       });
-      
+
       // Redirection vers la page de confirmation
       navigate(`/formations/${id}/confirmation`);
-      
     } catch (error) {
       toast({
-        title: "Erreur",
-        description: "Une erreur est survenue. Veuillez réessayer.",
-        variant: "destructive",
+        title: 'Erreur',
+        description: 'Une erreur est survenue. Veuillez réessayer.',
+        variant: 'destructive',
       });
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  // Affichage pendant le chargement
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <div className="flex-1 flex items-center justify-center bg-gray-50 pt-20">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#2E5A27] border-solid mx-auto mb-4"></div>
+            <p className="text-lg font-semibold">Chargement de la formation...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Affichage en cas d'erreur ou formation non trouvée
+  if (error || !formation) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <div className="flex-1 flex items-center justify-center bg-gray-50 pt-20">
+          <div className="text-center">
+            <AlertTriangle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+            <h1 className="text-2xl font-bold mb-4">{error || 'Formation non trouvée'}</h1>
+            <Link to="/formations">
+              <Button className="bg-[#2E5A27] hover:bg-[#2E5A27]/90 rounded-full">
+                Retour aux formations
+              </Button>
+            </Link>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <div className="min-h-screen bg-gray-50 pt-20">
+      <div className="flex-1 bg-gray-50 pt-20">
         {/* Header */}
         <section className="py-8 bg-white border-b">
           <div className="container mx-auto px-4">
@@ -110,13 +150,8 @@ const InscriptionFormation = () => {
               <ArrowLeft className="w-4 h-4 mr-2" />
               Retour à la formation
             </Link>
-            
-            <h1 className="text-3xl font-bold mb-2">
-              Inscription à la formation
-            </h1>
-            <h2 className="text-xl text-gray-600">
-              {formation.title}
-            </h2>
+            <h1 className="text-3xl font-bold mb-2">Inscription à la formation</h1>
+            <h2 className="text-xl text-gray-600">{formation.title}</h2>
           </div>
         </section>
 
@@ -141,7 +176,7 @@ const InscriptionFormation = () => {
                           <FormField
                             control={form.control}
                             name="firstName"
-                            rules={{ required: "Le prénom est requis" }}
+                            rules={{ required: 'Le prénom est requis' }}
                             render={({ field }) => (
                               <FormItem>
                                 <FormLabel>Prénom *</FormLabel>
@@ -152,11 +187,10 @@ const InscriptionFormation = () => {
                               </FormItem>
                             )}
                           />
-                          
                           <FormField
                             control={form.control}
                             name="lastName"
-                            rules={{ required: "Le nom est requis" }}
+                            rules={{ required: 'Le nom est requis' }}
                             render={({ field }) => (
                               <FormItem>
                                 <FormLabel>Nom *</FormLabel>
@@ -168,17 +202,16 @@ const InscriptionFormation = () => {
                             )}
                           />
                         </div>
-
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <FormField
                             control={form.control}
                             name="email"
-                            rules={{ 
+                            rules={{
                               required: "L'email est requis",
                               pattern: {
                                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                message: "Email invalide"
-                              }
+                                message: 'Email invalide',
+                              },
                             }}
                             render={({ field }) => (
                               <FormItem>
@@ -190,11 +223,10 @@ const InscriptionFormation = () => {
                               </FormItem>
                             )}
                           />
-                          
                           <FormField
                             control={form.control}
                             name="phone"
-                            rules={{ required: "Le téléphone est requis" }}
+                            rules={{ required: 'Le téléphone est requis' }}
                             render={({ field }) => (
                               <FormItem>
                                 <FormLabel>Téléphone *</FormLabel>
@@ -206,7 +238,6 @@ const InscriptionFormation = () => {
                             )}
                           />
                         </div>
-
                         <FormField
                           control={form.control}
                           name="address"
@@ -220,7 +251,6 @@ const InscriptionFormation = () => {
                             </FormItem>
                           )}
                         />
-
                         <FormField
                           control={form.control}
                           name="city"
@@ -256,7 +286,6 @@ const InscriptionFormation = () => {
                             </FormItem>
                           )}
                         />
-
                         <FormField
                           control={form.control}
                           name="experience"
@@ -264,27 +293,26 @@ const InscriptionFormation = () => {
                             <FormItem>
                               <FormLabel>Expérience dans le domaine</FormLabel>
                               <FormControl>
-                                <Textarea 
+                                <Textarea
                                   placeholder="Décrivez brièvement votre expérience dans le domaine de la formation..."
-                                  {...field} 
+                                  {...field}
                                 />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
                           )}
                         />
-
                         <FormField
                           control={form.control}
                           name="motivation"
-                          rules={{ required: "La motivation est requise" }}
+                          rules={{ required: 'La motivation est requise' }}
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>Motivation *</FormLabel>
                               <FormControl>
-                                <Textarea 
+                                <Textarea
                                   placeholder="Pourquoi souhaitez-vous suivre cette formation ?"
-                                  {...field} 
+                                  {...field}
                                 />
                               </FormControl>
                               <FormMessage />
@@ -313,7 +341,6 @@ const InscriptionFormation = () => {
                             </FormItem>
                           )}
                         />
-
                         <div className="space-y-3">
                           <FormField
                             control={form.control}
@@ -327,14 +354,11 @@ const InscriptionFormation = () => {
                                   />
                                 </FormControl>
                                 <div className="space-y-1 leading-none">
-                                  <FormLabel>
-                                    J'ai besoin d'un hébergement
-                                  </FormLabel>
+                                  <FormLabel>J'ai besoin d'un hébergement</FormLabel>
                                 </div>
                               </FormItem>
                             )}
                           />
-
                           <FormField
                             control={form.control}
                             name="transportNeeded"
@@ -347,15 +371,12 @@ const InscriptionFormation = () => {
                                   />
                                 </FormControl>
                                 <div className="space-y-1 leading-none">
-                                  <FormLabel>
-                                    J'ai besoin d'aide pour le transport
-                                  </FormLabel>
+                                  <FormLabel>J'ai besoin d'aide pour le transport</FormLabel>
                                 </div>
                               </FormItem>
                             )}
                           />
                         </div>
-
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <FormField
                             control={form.control}
@@ -370,7 +391,6 @@ const InscriptionFormation = () => {
                               </FormItem>
                             )}
                           />
-                          
                           <FormField
                             control={form.control}
                             name="emergencyPhone"
@@ -394,7 +414,7 @@ const InscriptionFormation = () => {
                         <FormField
                           control={form.control}
                           name="acceptTerms"
-                          rules={{ required: "Vous devez accepter les conditions" }}
+                          rules={{ required: 'Vous devez accepter les conditions' }}
                           render={({ field }) => (
                             <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                               <FormControl>
@@ -412,7 +432,6 @@ const InscriptionFormation = () => {
                             </FormItem>
                           )}
                         />
-
                         <FormField
                           control={form.control}
                           name="acceptNewsletter"
@@ -425,9 +444,7 @@ const InscriptionFormation = () => {
                                 />
                               </FormControl>
                               <div className="space-y-1 leading-none">
-                                <FormLabel>
-                                  Je souhaite recevoir les actualités d'Eco2lodgy
-                                </FormLabel>
+                                <FormLabel>Je souhaite recevoir les actualités d'Eco2lodgy</FormLabel>
                               </div>
                             </FormItem>
                           )}
@@ -435,12 +452,12 @@ const InscriptionFormation = () => {
                       </CardContent>
                     </Card>
 
-                    <Button 
-                      type="submit" 
+                    <Button
+                      type="submit"
                       className="w-full bg-[#2E5A27] hover:bg-[#2E5A27]/90 py-6 text-lg"
                       disabled={isSubmitting}
                     >
-                      {isSubmitting ? "Inscription en cours..." : "Confirmer l'inscription"}
+                      {isSubmitting ? 'Inscription en cours...' : 'Confirmer l\'inscription'}
                     </Button>
                   </form>
                 </Form>
@@ -469,7 +486,6 @@ const InscriptionFormation = () => {
                         </div>
                       </div>
                     </div>
-                    
                     <div className="border-t pt-4">
                       <div className="flex justify-between items-center text-lg font-bold">
                         <span>Total :</span>
@@ -487,7 +503,7 @@ const InscriptionFormation = () => {
         </section>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
