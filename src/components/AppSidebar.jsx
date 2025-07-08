@@ -38,16 +38,16 @@ const items = [
 ]
 
 const settingsItems = [
-  {
-    title: "Paramètres",
-    url: "/new-dashboard/settings",
-    icon: Settings,
-  },
-  {
-    title: "Messages",
-    url: "/new-dashboard/messages",
-    icon: Mail,
-  },
+  // {
+  //   title: "Paramètres",
+  //   url: "/new-dashboard/settings",
+  //   icon: Settings,
+  // },
+  // {
+  //   title: "Messages",
+  //   url: "/new-dashboard/messages",
+  //   icon: Mail,
+  // },
 ]
 
 export function AppSidebar() {
@@ -91,7 +91,7 @@ export function AppSidebar() {
         </SidebarGroup>
         
         <SidebarGroup>
-          <SidebarGroupLabel className="text-xs sm:text-sm px-2">Outils</SidebarGroupLabel>
+          {/* <SidebarGroupLabel className="text-xs sm:text-sm px-2">Outils</SidebarGroupLabel> */}
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
               {settingsItems.map((item) => (

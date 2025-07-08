@@ -47,11 +47,19 @@ const InscriptionFormation = () => {
     const fetchFormation = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`https://alphatek.fr:3008/api/formations/${id}`);
+        console.log(`Fetching formation with ID: ${id}`);
+        const response = await fetch(`https://alphatek.fr:3008/api/formations/${id}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            // Ajouter un en-tête d'authentification si nécessaire
+            // 'Authorization': `Bearer ${yourToken}`,
+          },
+        });
         if (!response.ok) {
-          throw new Error(response.status === 404 ? 'Formation non trouvée' : 'Erreur serveur');
+          throw new Error(response.status === 404 ? 'Formation non trouvée' : `Erreur HTTP ${response.status}: ${response.statusText}`);
         }
         const data = await response.json();
+        console.log('Formation data:', data);
 
         // Transformation des données pour correspondre au format attendu
         const transformedFormation = {
@@ -66,6 +74,7 @@ const InscriptionFormation = () => {
         setFormation(transformedFormation);
         setLoading(false);
       } catch (err) {
+        console.error('Erreur lors de la récupération de la formation:', err);
         setError(err.message);
         setLoading(false);
       }
@@ -77,12 +86,48 @@ const InscriptionFormation = () => {
   // Gestion de la soumission du formulaire
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-
     try {
-      // Simulation de l'envoi des données à l'API (à remplacer par une vraie requête)
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      console.log('Données du formulaire:', data);
 
-      console.log('Données d\'inscription:', { formationId: id, ...data });
+      // Mapper les données du formulaire au format attendu par l'API
+      const apiData = {
+        formation_id: parseInt(id),
+        first_name: data.firstName,
+        last_name: data.lastName,
+        email: data.email,
+        phone: data.phone,
+        address: data.address || null,
+        city: data.city || null,
+        profession: data.profession || null,
+        experience: data.experience || null,
+        motivation: data.motivation,
+        dietary_restrictions: data.dietaryRestrictions || null,
+        accommodation_needed: data.accommodationNeeded,
+        transport_needed: data.transportNeeded,
+        emergency_contact: data.emergencyContact || null,
+        emergency_phone: data.emergencyPhone || null,
+        accept_terms: data.acceptTerms,
+        accept_newsletter: data.acceptNewsletter,
+      };
+
+      console.log('Envoi des données à l\'API:', apiData);
+      const response = await fetch('https://alphatek.fr:3008/api/registrations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Ajouter un en-tête d'authentification si nécessaire
+          // 'Authorization': `Bearer ${yourToken}`,
+        },
+        body: JSON.stringify(apiData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `Erreur HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      console.log('Réponse de l\'API:', result);
 
       toast({
         title: 'Inscription réussie !',
@@ -92,9 +137,10 @@ const InscriptionFormation = () => {
       // Redirection vers la page de confirmation
       navigate(`/formations/${id}/confirmation`);
     } catch (error) {
+      console.error('Erreur lors de la soumission:', error);
       toast({
         title: 'Erreur',
-        description: 'Une erreur est survenue. Veuillez réessayer.',
+        description: error.message || 'Une erreur est survenue. Veuillez réessayer.',
         variant: 'destructive',
       });
     } finally {

@@ -1,53 +1,89 @@
-
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, User, Mail, Phone, Calendar, GraduationCap, MapPin, Briefcase, Heart, AlertTriangle } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 
 export default function InscriptionDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  
-  // Mock data - remplacez par des vraies données
-  const inscription = {
-    id: parseInt(id),
-    // Informations personnelles
-    firstName: "Amadou",
-    lastName: "Diallo",
-    email: "amadou.diallo@email.com",
-    phone: "+227 96 12 34 56",
-    address: "Quartier Lamordé, Niamey",
-    city: "Niamey",
-    
-    // Informations formation
-    formation: "Développement Web",
-    dateInscription: "2024-01-15",
-    statut: "En attente",
-    
-    // Informations professionnelles
-    profession: "Développeur Junior",
-    experience: "2 ans d'expérience en HTML/CSS, quelques projets personnels en JavaScript. J'ai travaillé sur des sites web statiques et je souhaite maintenant me perfectionner avec des frameworks modernes.",
-    motivation: "Je souhaite me spécialiser dans le développement web moderne et apprendre React.js pour évoluer dans ma carrière. Cette formation me permettra d'acquérir les compétences nécessaires pour travailler sur des projets plus complexes et répondre aux besoins actuels du marché.",
-    
-    // Informations complémentaires
-    dietaryRestrictions: "Aucune allergie particulière",
-    accommodationNeeded: true,
-    transportNeeded: false,
-    emergencyContact: "Fatima Diallo",
-    emergencyPhone: "+227 97 11 22 33",
-    acceptTerms: true,
-    acceptNewsletter: true
-  };
+  const { toast } = useToast();
+  const [inscription, setInscription] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const getStatusColor = (statut) => {
-    switch (statut) {
-      case "En attente": return "bg-yellow-100 text-yellow-800 border-yellow-200";
-      case "Accepté": return "bg-green-100 text-green-800 border-green-200";
-      case "Refusé": return "bg-red-100 text-red-800 border-red-200";
-      default: return "bg-gray-100 text-gray-800 border-gray-200";
+  // Récupération des détails de l'inscription depuis l'API
+  useEffect(() => {
+    const fetchInscription = async () => {
+      try {
+        setLoading(true);
+        console.log(`Fetching inscription with ID: ${id}`);
+        const response = await fetch(`https://alphatek.fr:3008/api/registrations/registrations/${id}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            // Ajouter un en-tête d'authentification si nécessaire
+            // 'Authorization': `Bearer ${localStorage.getItem('token') || ''}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error(response.status === 404 ? 'Inscription non trouvée' : `Erreur HTTP ${response.status}: ${response.statusText}`);
+        }
+        const data = await response.json();
+        console.log('Inscription reçue:', data);
+        setInscription(data);
+        setLoading(false);
+      } catch (err) {
+        console.error('Erreur lors de la récupération de l\'inscription:', err);
+        setError(err.message);
+        setLoading(false);
+        toast({
+          title: 'Erreur',
+          description: err.message || 'Impossible de charger les détails de l\'inscription.',
+          variant: 'destructive',
+        });
+      }
+    };
+
+    fetchInscription();
+  }, [id, toast]);
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'confirmed': return 'bg-green-100 text-green-800 border-green-200';
+      case 'cancelled': return 'bg-red-100 text-red-800 border-red-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
+
+  // Affichage pendant le chargement
+  if (loading) {
+    return (
+      <div className="flex flex-1 flex-col gap-4 w-full max-w-none overflow-hidden p-2 sm:p-4">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#2E5A27] border-solid mx-auto mb-4"></div>
+          <p className="text-lg font-semibold">Chargement des détails de l'inscription...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Affichage en cas d'erreur
+  if (error || !inscription) {
+    return (
+      <div className="flex flex-1 flex-col gap-4 w-full max-w-none overflow-hidden p-2 sm:p-4">
+        <div className="text-center">
+          <AlertTriangle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+          <h1 className="text-2xl font-bold mb-4">{error || 'Inscription non trouvée'}</h1>
+          <Button onClick={() => navigate('/new-dashboard/inscriptions-admin')}>
+            Retour aux inscriptions
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-1 flex-col gap-4 w-full max-w-none overflow-hidden p-2 sm:p-4">
@@ -84,12 +120,12 @@ export default function InscriptionDetail() {
           <CardContent className="space-y-4">
             <div>
               <label className="text-xs sm:text-sm font-medium text-muted-foreground">Prénom</label>
-              <p className="text-sm sm:text-base font-medium">{inscription.firstName}</p>
+              <p className="text-sm sm:text-base font-medium">{inscription.first_name}</p>
             </div>
             
             <div>
               <label className="text-xs sm:text-sm font-medium text-muted-foreground">Nom</label>
-              <p className="text-sm sm:text-base font-medium">{inscription.lastName}</p>
+              <p className="text-sm sm:text-base font-medium">{inscription.last_name}</p>
             </div>
             
             <div>
@@ -112,13 +148,13 @@ export default function InscriptionDetail() {
               <label className="text-xs sm:text-sm font-medium text-muted-foreground">Adresse</label>
               <div className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 text-muted-foreground mt-1 flex-shrink-0" />
-                <p className="text-sm sm:text-base">{inscription.address}</p>
+                <p className="text-sm sm:text-base">{inscription.address || 'Non spécifié'}</p>
               </div>
             </div>
             
             <div>
               <label className="text-xs sm:text-sm font-medium text-muted-foreground">Ville</label>
-              <p className="text-sm sm:text-base">{inscription.city}</p>
+              <p className="text-sm sm:text-base">{inscription.city || 'Non spécifié'}</p>
             </div>
           </CardContent>
         </Card>
@@ -134,7 +170,17 @@ export default function InscriptionDetail() {
           <CardContent className="space-y-4">
             <div>
               <label className="text-xs sm:text-sm font-medium text-muted-foreground">Formation</label>
-              <p className="text-sm sm:text-base font-medium">{inscription.formation}</p>
+              <p className="text-sm sm:text-base font-medium">{inscription.formation_title}</p>
+            </div>
+            
+            <div>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Date de la formation</label>
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                <p className="text-sm sm:text-base">
+                  {new Date(inscription.formation_date).toLocaleDateString('fr-FR')}
+                </p>
+              </div>
             </div>
             
             <div>
@@ -142,7 +188,7 @@ export default function InscriptionDetail() {
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                 <p className="text-sm sm:text-base">
-                  {new Date(inscription.dateInscription).toLocaleDateString('fr-FR')}
+                  {new Date(inscription.registration_date).toLocaleDateString('fr-FR')}
                 </p>
               </div>
             </div>
@@ -151,23 +197,37 @@ export default function InscriptionDetail() {
               <label className="text-xs sm:text-sm font-medium text-muted-foreground">Statut</label>
               <Badge 
                 variant="outline" 
-                className={`${getStatusColor(inscription.statut)} text-xs sm:text-sm`}
+                className={`${getStatusColor(inscription.status)} text-xs sm:text-sm`}
               >
-                {inscription.statut}
+                {inscription.status === 'pending' ? 'En attente' : 
+                 inscription.status === 'confirmed' ? 'Confirmé' : 
+                 inscription.status === 'cancelled' ? 'Annulé' : inscription.status}
+              </Badge>
+            </div>
+            
+            <div>
+              <label className="text-xs sm:text-sm font-medium text-muted-foreground">Statut du paiement</label>
+              <Badge 
+                variant="outline" 
+                className={`${getStatusColor(inscription.payment_status)} text-xs sm:text-sm`}
+              >
+                {inscription.payment_status === 'pending' ? 'En attente' : 
+                 inscription.payment_status === 'confirmed' ? 'Payé' : 
+                 inscription.payment_status === 'cancelled' ? 'Annulé' : inscription.payment_status}
               </Badge>
             </div>
             
             <div>
               <label className="text-xs sm:text-sm font-medium text-muted-foreground">Conditions acceptées</label>
               <p className="text-sm sm:text-base text-green-600">
-                {inscription.acceptTerms ? "✓ Conditions générales acceptées" : "✗ Conditions non acceptées"}
+                {inscription.accept_terms ? "✓ Conditions générales acceptées" : "✗ Conditions non acceptées"}
               </p>
             </div>
             
             <div>
               <label className="text-xs sm:text-sm font-medium text-muted-foreground">Newsletter</label>
               <p className="text-sm sm:text-base">
-                {inscription.acceptNewsletter ? "✓ Abonné aux actualités" : "✗ Non abonné"}
+                {inscription.accept_newsletter ? "✓ Abonné aux actualités" : "✗ Non abonné"}
               </p>
             </div>
           </CardContent>
@@ -184,12 +244,12 @@ export default function InscriptionDetail() {
           <CardContent className="space-y-4">
             <div>
               <label className="text-xs sm:text-sm font-medium text-muted-foreground">Profession</label>
-              <p className="text-sm sm:text-base">{inscription.profession}</p>
+              <p className="text-sm sm:text-base">{inscription.profession || 'Non spécifié'}</p>
             </div>
             
             <div>
               <label className="text-xs sm:text-sm font-medium text-muted-foreground">Expérience</label>
-              <p className="text-sm sm:text-base leading-relaxed">{inscription.experience}</p>
+              <p className="text-sm sm:text-base leading-relaxed">{inscription.experience || 'Non spécifié'}</p>
             </div>
           </CardContent>
         </Card>
@@ -205,7 +265,7 @@ export default function InscriptionDetail() {
           <CardDescription>Raison de la candidature</CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-sm sm:text-base leading-relaxed">{inscription.motivation}</p>
+          <p className="text-sm sm:text-base leading-relaxed">{inscription.motivation || 'Non spécifié'}</p>
         </CardContent>
       </Card>
 
@@ -221,20 +281,20 @@ export default function InscriptionDetail() {
           <CardContent className="space-y-4">
             <div>
               <label className="text-xs sm:text-sm font-medium text-muted-foreground">Restrictions alimentaires</label>
-              <p className="text-sm sm:text-base">{inscription.dietaryRestrictions}</p>
+              <p className="text-sm sm:text-base">{inscription.dietary_restrictions || 'Non spécifié'}</p>
             </div>
             
             <div>
               <label className="text-xs sm:text-sm font-medium text-muted-foreground">Hébergement</label>
               <p className="text-sm sm:text-base">
-                {inscription.accommodationNeeded ? "✓ Hébergement nécessaire" : "✗ Hébergement non nécessaire"}
+                {inscription.accommodation_needed ? "✓ Hébergement nécessaire" : "✗ Hébergement non nécessaire"}
               </p>
             </div>
             
             <div>
               <label className="text-xs sm:text-sm font-medium text-muted-foreground">Transport</label>
               <p className="text-sm sm:text-base">
-                {inscription.transportNeeded ? "✓ Aide au transport nécessaire" : "✗ Transport autonome"}
+                {inscription.transport_needed ? "✓ Aide au transport nécessaire" : "✗ Transport autonome"}
               </p>
             </div>
           </CardContent>
@@ -250,14 +310,14 @@ export default function InscriptionDetail() {
           <CardContent className="space-y-4">
             <div>
               <label className="text-xs sm:text-sm font-medium text-muted-foreground">Nom du contact</label>
-              <p className="text-sm sm:text-base font-medium">{inscription.emergencyContact}</p>
+              <p className="text-sm sm:text-base font-medium">{inscription.emergency_contact || 'Non spécifié'}</p>
             </div>
             
             <div>
               <label className="text-xs sm:text-sm font-medium text-muted-foreground">Téléphone d'urgence</label>
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                <p className="text-sm sm:text-base">{inscription.emergencyPhone}</p>
+                <p className="text-sm sm:text-base">{inscription.emergency_phone || 'Non spécifié'}</p>
               </div>
             </div>
           </CardContent>
