@@ -541,13 +541,7 @@ const FormationsPage = () => {
                     Nous contacter
                   </Button>
                 </Link>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-white text-white hover:bg-white hover:text-[#2E5A27] rounded-full px-8 py-4 text-lg font-semibold"
-                >
-                  Télécharger la brochure
-                </Button>
+                
               </div>
             </div>
           </div>

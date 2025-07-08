@@ -35,7 +35,10 @@ import NewDashboardProjects from './pages/NewDashboardProjects';
 import NewDashboardFormations from './pages/NewDashboardFormations';
 import NewDashboardFormationsAdmin from './pages/NewDashboardFormationsAdmin';
 import InscriptionsAdmin from "./pages/inscriptionAdmin";
+import GalleryAdmin from "./pages/AdminGallery";
 import InscriptionDetail from "./pages/InscriptionDetail";
+import TestimonialsAdmin from "./pages/AdminTestimonial";
+import RequireAuth from "./components/requireAuth";
 
 const queryClient = new QueryClient();
 
@@ -72,34 +75,72 @@ const App = () => (
 
           {/* Route de login */}
           <Route path="/login" element={<LoginPage />} />
-          {/* Route admin */}
-          <Route path="/admin" element={<AdminDashboard />} />
           {/* Route de blog */}
           <Route path="/blog">
             <Route path=":id" element={<BlogPost />} />
           </Route>
 
-          {/* Routes du dashboard principal - protégées */}
-          <Route path="/dashboard" element={<DashboardLayout />}>
-            <Route index element={<DashboardHome />} />
-            <Route path="projects" element={<ProjectsPage />} />
-            <Route path="team" element={<TeamPage />} />
-            <Route path="posts" element={<PostsPage />} />
-            <Route path="partners" element={<PartnersPage />} />
-          </Route>
+          {/* Route admin */}
+<Route path="/admin" element={
+  <RequireAuth>
+    <AdminDashboard />
+  </RequireAuth>
+} />
 
-          {/* Routes du nouveau dashboard séparé */}
-          <Route path="/new-dashboard" element={<NewDashboardLayout><NewDashboardHome /></NewDashboardLayout>} />
-          <Route path="/new-dashboard/projects" element={<NewDashboardLayout><NewDashboardProjects /></NewDashboardLayout>} />
-          <Route path="/new-dashboard/formations" element={<NewDashboardLayout><NewDashboardFormations /></NewDashboardLayout>} />
-          <Route path="/new-dashboard/formations-admin" element={<NewDashboardLayout><NewDashboardFormationsAdmin /></NewDashboardLayout>} />
-          <Route path="/new-dashboard/inscriptions-admin" element={<NewDashboardLayout><InscriptionsAdmin /></NewDashboardLayout>} />
-          <Route path="/new-dashboard/inscriptions-admin/:id" element={<NewDashboardLayout><InscriptionDetail /></NewDashboardLayout>} />
-          <Route path="/new-dashboard/team" element={<NewDashboardLayout><div className="p-4"><h1 className="text-2xl font-bold">Équipe - En développement</h1></div></NewDashboardLayout>} />
-          <Route path="/new-dashboard/partners" element={<NewDashboardLayout><div className="p-4"><h1 className="text-2xl font-bold">Partenaires - En développement</h1></div></NewDashboardLayout>} />
-          <Route path="/new-dashboard/analytics" element={<NewDashboardLayout><div className="p-4"><h1 className="text-2xl font-bold">Statistiques - En développement</h1></div></NewDashboardLayout>} />
-          <Route path="/new-dashboard/settings" element={<NewDashboardLayout><div className="p-4"><h1 className="text-2xl font-bold">Paramètres - En développement</h1></div></NewDashboardLayout>} />
-          <Route path="/new-dashboard/messages" element={<NewDashboardLayout><div className="p-4"><h1 className="text-2xl font-bold">Messages - En développement</h1></div></NewDashboardLayout>} />
+{/* Routes du dashboard principal - protégées */}
+<Route path="/dashboard" element={
+  <RequireAuth>
+    <DashboardLayout />
+  </RequireAuth>
+}>
+  <Route index element={<DashboardHome />} />
+  <Route path="projects" element={<ProjectsPage />} />
+  <Route path="team" element={<TeamPage />} />
+  <Route path="posts" element={<PostsPage />} />
+  <Route path="partners" element={<PartnersPage />} />
+</Route>
+
+{/* Routes du nouveau dashboard séparé - protégées */}
+<Route path="/new-dashboard" element={
+  <RequireAuth>
+    <NewDashboardLayout><NewDashboardHome /></NewDashboardLayout>
+  </RequireAuth>
+} />
+<Route path="/new-dashboard/projects" element={
+  <RequireAuth>
+    <NewDashboardLayout><NewDashboardProjects /></NewDashboardLayout>
+  </RequireAuth>
+} />
+<Route path="/new-dashboard/formations" element={
+  <RequireAuth>
+    <NewDashboardLayout><NewDashboardFormations /></NewDashboardLayout>
+  </RequireAuth>
+} />
+<Route path="/new-dashboard/formations-admin" element={
+  <RequireAuth>
+    <NewDashboardLayout><NewDashboardFormationsAdmin /></NewDashboardLayout>
+  </RequireAuth>
+} />
+<Route path="/new-dashboard/inscriptions-admin" element={
+  <RequireAuth>
+    <NewDashboardLayout><InscriptionsAdmin /></NewDashboardLayout>
+  </RequireAuth>
+} />
+<Route path="/new-dashboard/inscriptions-admin/:id" element={
+  <RequireAuth>
+    <NewDashboardLayout><InscriptionDetail /></NewDashboardLayout>
+  </RequireAuth>
+} />
+<Route path="/new-dashboard/gallery" element={
+  <RequireAuth>
+    <NewDashboardLayout><GalleryAdmin /></NewDashboardLayout>
+  </RequireAuth>
+} />
+<Route path="/new-dashboard/testimonials" element={
+  <RequireAuth>
+    <NewDashboardLayout><TestimonialsAdmin /></NewDashboardLayout>
+  </RequireAuth>
+} />
 
           {/* Route 404 - doit être la dernière */}
           <Route path="*" element={<NotFound />} />

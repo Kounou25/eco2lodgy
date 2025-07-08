@@ -78,14 +78,14 @@ export function Header() {
         </Breadcrumb>
       </div>
       
-      <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 flex-shrink-0">
+      {/* <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 flex-shrink-0">
         <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-10 sm:w-10">
           <Search className="h-4 w-4" />
         </Button>
         <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-10 sm:w-10">
           <Bell className="h-4 w-4" />
         </Button>
-      </div>
+      </div> */}
     </header>
   )
 }

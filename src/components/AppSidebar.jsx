@@ -4,6 +4,7 @@ import {
   Home, 
   Users, 
   Settings, 
+  PictureInPicture,
   FileText, 
   GraduationCap,
   Building,
@@ -24,16 +25,34 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
+const username = localStorage.getItem("user") || "Utilisateur";
+
 const items = [
   {
-    title: "Admin Formations",
+    title: "Dashboard",
+    url: "/new-dashboard/",
+    icon: Home,
+  },
+  
+  {
+    title: " Formations",
     url: "/new-dashboard/formations-admin",
-    icon: Settings,
+    icon: GraduationCap,
   },
   {
     title: "Inscriptions",
     url: "/new-dashboard/inscriptions-admin",
-    icon: Settings,
+    icon: Users,
+  },
+  {
+    title: "Temoignages",
+    url: "/new-dashboard/testimonials",
+    icon: FileText,
+  },
+  {
+    title: "Galerie",
+    url: "/new-dashboard/gallery",
+    icon: PictureInPicture,
   },
 ]
 
@@ -122,7 +141,7 @@ export function AppSidebar() {
                   <span className="text-sm font-medium text-blue-800">U</span>
                 </div>
                 <div className="flex flex-col min-w-0 flex-1 text-left">
-                  <span className="text-sm font-medium truncate">Utilisateur</span>
+                  <span className="text-sm font-medium truncate">{username.id}</span>
                   <span className="text-xs text-muted-foreground truncate">user@alphatek.fr</span>
                 </div>
               </div>
