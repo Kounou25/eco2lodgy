@@ -179,15 +179,7 @@ const TestimonialSection = () => {
 
         {/* Call to action */}
         <div className="text-center mt-12">
-          <div className="bg-white rounded-2xl p-8 shadow-lg max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4">Vous aussi, transformez votre avenir</h3>
-            <p className="text-gray-600 mb-6">
-              Rejoignez nos formations et développez des compétences qui feront la différence
-            </p>
-            <button className="bg-[#2E5A27] hover:bg-[#2E5A27]/90 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-105">
-              Découvrir nos formations
-            </button>
-          </div>
+          
         </div>
       </div>
 
