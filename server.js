@@ -1,5 +1,4 @@
-import https from "https";
-import fs from "fs";
+import http from "http";
 import handler from "serve-handler";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -9,13 +8,7 @@ const __dirname = path.dirname(__filename);
 
 const distPath = path.resolve(__dirname, "dist");
 
-// 🔐 Lire les certificats
-const options = {
-  key: fs.readFileSync("/etc/letsencrypt/live/alphatek.fr/privkey.pem"),
-  cert: fs.readFileSync("/etc/letsencrypt/live/alphatek.fr/fullchain.pem"),
-};
-
-const server = https.createServer(options, (req, res) => {
+const server = http.createServer((req, res) => {
   return handler(req, res, {
     public: distPath,
     rewrites: [
@@ -25,5 +18,5 @@ const server = https.createServer(options, (req, res) => {
 });
 
 server.listen(3005, () => {
-  console.log("Serveur HTTPS lancé sur https://alphatek.fr:3005");
+  console.log("✅ Serveur HTTP lancé sur http://localhost:3005");
 });

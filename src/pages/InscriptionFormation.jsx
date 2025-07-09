@@ -135,7 +135,7 @@ const InscriptionFormation = () => {
       });
 
       // Redirection vers la page de confirmation
-      navigate(`/formations/${id}/confirmation`);
+      navigate(`/formations/`);
     } catch (error) {
       console.error('Erreur lors de la soumission:', error);
       toast({

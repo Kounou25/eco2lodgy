@@ -39,7 +39,8 @@ export default function LoginPage() {
       // Stocker uniquement id et username dans localStorage
       localStorage.setItem('user', JSON.stringify({
         id: user.id,
-        username: user.username || user.email // Utilise email si username n'existe pas
+        email : user.email,
+        username: user.username, // Utilise email si username n'existe pas
       }));
 
       // Rediriger vers le tableau de bord (ou une autre page)

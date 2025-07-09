@@ -340,7 +340,7 @@ export default function TestimonialsAdmin() {
                 </div>
                 
                 <div className="flex gap-2 flex-shrink-0">
-                  <Button 
+                  {/* <Button 
                     variant="outline" 
                     size="sm" 
                     className="w-full sm:w-auto"
@@ -349,7 +349,7 @@ export default function TestimonialsAdmin() {
                   >
                     <Eye className="h-4 w-4 mr-1 sm:mr-2" aria-hidden="true" />
                     <span className="text-sm">Voir</span>
-                  </Button>
+                  </Button> */}
                   <Button 
                     variant="outline" 
                     size="sm" 

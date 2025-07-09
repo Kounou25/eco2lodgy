@@ -38,7 +38,7 @@ import InscriptionsAdmin from "./pages/inscriptionAdmin";
 import GalleryAdmin from "./pages/AdminGallery";
 import InscriptionDetail from "./pages/InscriptionDetail";
 import TestimonialsAdmin from "./pages/AdminTestimonial";
-import RequireAuth from "./components/requireAuth";
+import RequireAuth from "./components/RequireAuth";
 
 const queryClient = new QueryClient();
 

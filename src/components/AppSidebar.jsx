@@ -25,7 +25,15 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
-const username = localStorage.getItem("user") || "Utilisateur";
+let user = null;
+
+try {
+  const storedUser = localStorage.getItem("user");
+  user = storedUser ? JSON.parse(storedUser) : null;
+} catch (e) {
+  console.error("❌ Erreur parsing user depuis localStorage", e);
+  user = null;
+}
 
 const items = [
   {
@@ -80,7 +88,7 @@ export function AppSidebar() {
             AT
           </div>
           <div className="flex flex-col min-w-0 flex-1">
-            <span className="text-sm font-semibold truncate">ALPHATEK</span>
+            <span className="text-sm font-semibold truncate">ECO2LODGY</span>
             <span className="text-xs text-muted-foreground truncate">Dashboard</span>
           </div>
         </div>
@@ -141,8 +149,8 @@ export function AppSidebar() {
                   <span className="text-sm font-medium text-blue-800">U</span>
                 </div>
                 <div className="flex flex-col min-w-0 flex-1 text-left">
-                  <span className="text-sm font-medium truncate">{username.id}</span>
-                  <span className="text-xs text-muted-foreground truncate">user@alphatek.fr</span>
+                  <span className="text-sm font-medium truncate">{user.username}</span>
+                  <span className="text-xs text-muted-foreground truncate">{user.email}</span>
                 </div>
               </div>
             </SidebarMenuButton>

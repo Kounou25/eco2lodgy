@@ -503,6 +503,7 @@ export default function AdminDashboard() {
     members: { singular: 'Membre', plural: 'Membres' },
     posts: { singular: 'Article', plural: 'Articles' },
     formations: { singular: 'Formation', plural: 'Formations' }
+    
   };
 
   // Composant Form
@@ -960,36 +961,40 @@ export default function AdminDashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Navigation */}
         <div className="border-b border-gray-200 mb-6">
-          <nav className="-mb-px flex space-x-8">
-            {Object.keys(LABELS).map((tab) => {
-              const icons = {
-                projects: <Briefcase className="inline mr-2" size={16} />,
-                partners: <Handshake className="inline mr-2" size={16} />,
-                members: <Users className="inline mr-2" size={16} />,
-                posts: <FileText className="inline mr-2" size={16} />,
-                formations: <GraduationCap className="inline mr-2" size={16} />
-              };
-              
-              return (
-                <button
-                  key={tab}
-                  onClick={() => {
-                    setActiveTab(tab);
-                    setSearchTerm('');
-                    setCurrentPage(1);
-                  }}
-                  className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
-                    activeTab === tab 
-                      ? 'border-blue-500 text-blue-600' 
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  }`}
-                >
-                  {icons[tab]}
-                  {LABELS[tab].plural}
-                </button>
-              );
-            })}
-          </nav>
+        <nav className="-mb-px flex space-x-8">
+  {Object.keys(LABELS).map((tab) => {
+    const icons = {
+      projects: <Briefcase className="inline mr-2" size={16} />,
+      partners: <Handshake className="inline mr-2" size={16} />,
+      members: <Users className="inline mr-2" size={16} />,
+      posts: <FileText className="inline mr-2" size={16} />,
+      formations: <GraduationCap className="inline mr-2" size={16} />
+    };
+
+    return (
+      <button
+        key={tab}
+        onClick={() => {
+          if (tab === 'formations') {
+            navigate('/new-dashboard');
+          } else {
+            setActiveTab(tab);
+            setSearchTerm('');
+            setCurrentPage(1);
+          }
+        }}
+        className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
+          activeTab === tab 
+            ? 'border-blue-500 text-blue-600' 
+            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+        }`}
+      >
+        {icons[tab]}
+        {LABELS[tab].plural}
+      </button>
+    );
+  })}
+</nav>
         </div>
 
         {/* Messages d'état */}
