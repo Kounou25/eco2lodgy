@@ -16,10 +16,8 @@ export default function AdminDashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const [users, setUsers] = useState([]);
-
-  // États des données
   const [formData, setFormData] = useState({
-    projects: { title: '', description: '', projectType: '', images: [] },
+    projects: { title: '', description: '', projectType: '', images: [], existingImages: [] },
     partners: { name: '', description: '', website: '', image_file: null },
     members: { name: '', role: '', departement: '', description: '', image_file: null },
     posts: { title: '', content: '', author: '', image_file: null },
@@ -44,7 +42,6 @@ export default function AdminDashboard() {
       image_file: null 
     }
   });
-
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -70,16 +67,17 @@ export default function AdminDashboard() {
     const userString = localStorage.getItem('user');
     console.log('Valeur brute de localStorage.user:', userString);
     console.log('Type de userString:', typeof userString);
-  
+
     if (!userString) {
       console.warn('Aucune donnée utilisateur trouvée dans localStorage');
       navigate('/login');
       return;
     }
-  
+
     try {
       const user = JSON.parse(userString);
-      if (!user?.username) {
+      console.log('Données utilisateur parsées:', user);
+      if (!user?.username || !user?.id) {
         console.warn('Données utilisateur invalides ou manquantes:', user);
         navigate('/login');
       } else {
@@ -99,14 +97,14 @@ export default function AdminDashboard() {
     partners: 'https://alphatek.fr:3008/api/partners/partners/',
     members: 'https://alphatek.fr:3008/api/members/member/',
     posts: 'https://alphatek.fr:3008/api/posts/post/',
-    formations: 'https://alphatek.fr:3008/api/formations/formation/',
+    formations: 'https://alphatek.fr:3008/api/formations/',
     users: 'https://alphatek.fr:3008/api/users/users'
   };
 
   // Options pour les listes déroulantes
   const DROPDOWN_OPTIONS = {
     projectType: ['Développement', 'Recherche', 'Innovation', 'Infrastructure'],
-    departement: ['Recherches', 'Technique', 'R&D', 'Economie', 'Numerique','Formation'],
+    departement: ['Recherches', 'Technique', 'R&D', 'Economie', 'Numerique', 'Formation'],
     role: ['Développeur', 'Chercheur', 'Ingenieur', 'Analyste', 'Consultant'],
     formationCategory: ['construction', 'environnement', 'agriculture', 'energie', 'numerique', 'autre'],
     formationLevel: ['Débutant', 'Intermédiaire', 'Avancé'],
@@ -115,42 +113,67 @@ export default function AdminDashboard() {
 
   // Récupération des données initiales
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const user = JSON.parse(localStorage.getItem('user'));
-        if (!user?.id) throw new Error('Authentification requise');
-        setUserData(user);
+    if (!userData?.id) {
+      console.log('Aucun userData.id, attente de l\'authentification...');
+      return;
+    }
 
-        const responses = await Promise.all([
-          ...Object.values(API_ENDPOINTS).map(url => fetch(url))
-        ]);
-        
-        const [projects, partners, members, posts, formations, usersData] = await Promise.all(
-          responses.map(res => res.json())
+    const fetchData = async () => {
+      setStatus({ isFetching: true, error: null, success: null });
+      try {
+        const responses = await Promise.all(
+          Object.entries(API_ENDPOINTS).map(async ([key, url]) => {
+            console.log(`Envoi de la requête GET à: ${url}`);
+            const response = await fetch(url, {
+              headers: {
+                'Authorization': `Bearer ${userData.token || ''}`,
+                'Content-Type': 'application/json'
+              }
+            });
+            console.log(`Réponse reçue pour ${key}:`, {
+              status: response.status,
+              statusText: response.statusText
+            });
+
+            if (!response.ok) {
+              const errorData = await response.json().catch(() => ({}));
+              throw new Error(`Erreur lors de la récupération des ${key}: ${errorData.message || response.statusText}`);
+            }
+
+            const data = await response.json();
+            console.log(`Données reçues pour ${key}:`, data);
+            return { key, data };
+          })
         );
 
-        setData({
-          projects: projects.projects || [],
-          partners: partners.partners || [],
-          members: members.members || [],
-          posts: posts.posts || [],
-          formations: formations.formations || []
+        // Mise à jour des données
+        const newData = {};
+        responses.forEach(({ key, data }) => {
+          newData[key] = Array.isArray(data) ? data : data[key] || [];
         });
-        
-        setUsers(usersData.users || []);
-        setStatus({ isFetching: false, error: null, success: null });
+
+        setData({
+          projects: newData.projects || [],
+          partners: newData.partners || [],
+          members: newData.members || [],
+          posts: newData.posts || [],
+          formations: newData.formations || [],
+          users: newData.users || []
+        });
+        setUsers(newData.users || []);
+        setStatus({ isFetching: false, error: null, success: 'Données chargées avec succès' });
       } catch (err) {
-        console.error('Erreur:', err);
+        console.error('Erreur lors de la récupération des données:', err);
         setStatus({ 
           isFetching: false, 
-          error: err.message || 'Erreur de chargement', 
+          error: err.message || 'Erreur lors du chargement des données', 
           success: null 
         });
       }
     };
 
     fetchData();
-  }, []);
+  }, [userData]);
 
   // Filtrage et pagination
   const getFilteredItems = () => {
@@ -218,6 +241,7 @@ export default function AdminDashboard() {
         preview: URL.createObjectURL(file)
       }));
       
+      console.log('Fichiers sélectionnés pour projects:', newImages);
       setFormData(prev => ({
         ...prev,
         [entity]: { 
@@ -227,7 +251,8 @@ export default function AdminDashboard() {
       }));
     } else {
       const file = e.target.files[0];
-      if (file) {
+      if (file && file instanceof File) {
+        console.log('Fichier sélectionné pour', entity, ':', file);
         setFormData(prev => ({
           ...prev,
           [entity]: { 
@@ -236,13 +261,15 @@ export default function AdminDashboard() {
             image_preview: URL.createObjectURL(file) 
           }
         }));
+      } else {
+        console.log('Aucun fichier valide sélectionné pour', entity);
       }
     }
   };
 
   const resetForm = (entity) => {
     const defaultFormData = {
-      projects: { title: '', description: '', projectType: '', images: [] },
+      projects: { title: '', description: '', projectType: '', images: [], existingImages: [] },
       partners: { name: '', description: '', website: '', image_file: null },
       members: { name: '', role: '', departement: '', description: '', image_file: null },
       posts: { title: '', content: '', author: '', image_file: null },
@@ -287,7 +314,7 @@ export default function AdminDashboard() {
 
       // Ajout des champs texte
       Object.entries(entityData).forEach(([key, value]) => {
-        if (key === 'images' || key === 'image_preview') return;
+        if (key === 'images' || key === 'image_preview' || key === 'image_file' || key === 'existingImages') return;
         if (key === 'objectives' || key === 'program' || key === 'prerequisites' || key === 'included') {
           formDataToSend.append(key, JSON.stringify(value));
         } else if (value) {
@@ -295,36 +322,65 @@ export default function AdminDashboard() {
         }
       });
 
-      // Gestion spéciale pour les images des projets
+      // Gestion des fichiers pour projects
       if (entity === 'projects') {
+        console.log('Images pour projects:', entityData.images);
+        console.log('Images existantes:', entityData.existingImages);
+        
+        // Ajouter les nouvelles images
         entityData.images.forEach((image, index) => {
-          formDataToSend.append(`images`, image.file);
+          if (image.file instanceof File) {
+            formDataToSend.append('images', image.file);
+          }
         });
-      } else if (entityData.image_file) {
+
+        // Ajouter les images existantes (URLs) si aucune nouvelle image n'est ajoutée
+        if (isEditing && entityData.existingImages?.length > 0 && entityData.images.length === 0) {
+          formDataToSend.append('existingImages', JSON.stringify(entityData.existingImages));
+        }
+      } else if (entityData.image_file && entityData.image_file instanceof File) {
+        console.log('Fichier pour', entity, ':', entityData.image_file);
         formDataToSend.append('image', entityData.image_file);
+      } else {
+        console.log('Aucun fichier valide pour', entity);
+      }
+
+      // Loguer le contenu de FormData
+      console.log('Contenu de FormData pour', entity, ':');
+      for (let [key, value] of formDataToSend.entries()) {
+        console.log(`FormData - ${key}:`, value);
       }
 
       // Ajout de l'ID utilisateur
-      formDataToSend.append('user_id', userData.id);
+      if (userData?.id) {
+        formDataToSend.append('user_id', userData.id);
+      } else {
+        throw new Error('ID utilisateur manquant');
+      }
 
       const url = isEditing ? `${API_ENDPOINTS[entity]}${editingId}` : API_ENDPOINTS[entity];
+      console.log('Requête envoyée:', { method: isEditing ? 'PUT' : 'POST', url });
+
       const response = await fetch(url, {
         method: isEditing ? 'PUT' : 'POST',
-        body: formDataToSend
+        body: formDataToSend,
+        headers: {
+          'Authorization': `Bearer ${userData.token || ''}`
+        }
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Erreur serveur');
+        const errorData = await response.json().catch(() => ({}));
+        console.error('Erreur serveur:', errorData);
+        throw new Error(errorData.message || `Erreur serveur: ${response.status}`);
       }
 
-      // Rafraîchir les données après ajout/modification
-      const refreshedData = await fetch(API_ENDPOINTS[entity]);
-      const updatedData = await refreshedData.json();
+      // Rafraîchir les données
+      const updatedData = await response.json();
       
       setData(prev => ({
         ...prev,
-        [entity]: updatedData[entity] || []
+        [entity]: Array.isArray(updatedData) ? updatedData : updatedData[entity] || prev[entity]
       }));
 
       setStatus({ 
@@ -333,47 +389,106 @@ export default function AdminDashboard() {
       });
       resetForm(entity);
     } catch (err) {
-      console.error('Erreur:', err);
-      setStatus({ ...status, error: err.message });
+      console.error('Erreur dans handleSubmit:', err);
+      setStatus({ ...status, error: err.message || 'Erreur lors de la soumission' });
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleEdit = (item, entity) => {
-    setIsEditing(true);
-    setEditingId(item.id);
-    if (entity === 'formations') {
-      setFormData(prev => ({
-        ...prev,
-        [entity]: {
-          ...item,
-          objectives: item.objectives || [''],
-          program: item.program || [{ day: '', title: '', content: '' }],
-          prerequisites: item.prerequisites || [''],
-          included: item.included || [''],
-          image_file: null,
-          image_preview: item.image_url 
-            ? `https://alphatek.fr:3008${item.image_url}` 
-            : null
-        }
-      }));
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        [entity]: {
-          ...item,
-          ...(entity === 'projects' 
-            ? { images: [] } 
-            : { 
-                image_file: null,
-                image_preview: item.image_url 
-                  ? `https://alphatek.fr:3008${item.image_url}` 
-                  : null
+    console.log('Appel de handleEdit pour:', { entity, item });
+    try {
+      if (!item || !item.id) {
+        console.error('Item invalide ou ID manquant:', item);
+        setStatus({ ...status, error: 'Erreur: Données du projet invalides' });
+        return;
+      }
+
+      setIsEditing(true);
+      setEditingId(item.id);
+
+      if (entity === 'formations') {
+        setFormData(prev => ({
+          ...prev,
+          [entity]: {
+            title: item.title || '',
+            description: item.description || '',
+            category: item.category || '',
+            duration: item.duration || '',
+            participants: item.participants || '',
+            location: item.location || '',
+            price: item.price || '',
+            level: item.level || '',
+            startDate: item.startDate || item.start_date || '',
+            endDate: item.endDate || item.end_date || '',
+            instructor: item.instructor || '',
+            instructorBio: item.instructorBio || item.instructor_bio || '',
+            videoUrl: item.videoUrl || item.video_url || '',
+            objectives: Array.isArray(item.objectives) ? item.objectives : [''],
+            program: Array.isArray(item.program) ? item.program : [{ day: '', title: '', content: '' }],
+            prerequisites: Array.isArray(item.prerequisites) ? item.prerequisites : [''],
+            included: Array.isArray(item.included) ? item.included : [''],
+            image_file: null,
+            image_preview: item.image_url ? `https://alphatek.fr:3008${item.image_url}` : null
+          }
+        }));
+      } else {
+        let images = [];
+        let existingImages = [];
+
+        if (entity === 'projects') {
+          try {
+            if (item.image_url && typeof item.image_url === 'string' && item.image_url.trim() !== '') {
+              const parsedImages = JSON.parse(item.image_url);
+              if (Array.isArray(parsedImages)) {
+                images = parsedImages.map(url => ({
+                  file: null,
+                  preview: url.startsWith('http') ? url : `https://alphatek.fr:3008${url}`
+                }));
+                existingImages = parsedImages;
+              } else {
+                console.warn('item.image_url n\'est pas un tableau:', parsedImages);
               }
-          )
+            } else {
+              console.warn('item.image_url est manquant, vide ou invalide:', item.image_url);
+            }
+          } catch (error) {
+            console.error('Erreur lors du parsing de item.image_url:', error);
+            images = [];
+            existingImages = [];
+          }
         }
-      }));
+
+        setFormData(prev => ({
+          ...prev,
+          [entity]: {
+            title: item.title || '',
+            description: item.description || '',
+            projectType: item.project_type || item.projectType || '',
+            ...(entity === 'projects' 
+              ? { images, existingImages } 
+              : {
+                  name: item.name || '',
+                  website: item.website || '',
+                  role: item.role || '',
+                  departement: item.departement || item.department || '',
+                  author: item.author || '',
+                  content: item.content || '',
+                  image_file: null,
+                  image_preview: item.image_url || item.photo_url || item.thumbnail_url || item.logo_url
+                    ? (item.image_url || item.photo_url || item.thumbnail_url || item.logo_url).startsWith('http')
+                      ? (item.image_url || item.photo_url || item.thumbnail_url || item.logo_url)
+                      : `https://alphatek.fr:3008${item.image_url || item.photo_url || item.thumbnail_url || item.logo_url}`
+                    : null
+                }
+            )
+          }
+        }));
+      }
+    } catch (error) {
+      console.error('Erreur dans handleEdit:', error);
+      setStatus({ ...status, error: 'Erreur lors du chargement des données pour modification' });
     }
   };
 
@@ -382,29 +497,41 @@ export default function AdminDashboard() {
 
     try {
       const response = await fetch(`${API_ENDPOINTS[entity]}${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${userData?.token || ''}`
+        }
       });
 
-      if (!response.ok) throw new Error('Échec de la suppression');
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Échec de la suppression');
+      }
 
-      // Rafraîchir les données après suppression
-      const refreshedData = await fetch(API_ENDPOINTS[entity]);
+      // Rafraîchir les données
+      const refreshedData = await fetch(API_ENDPOINTS[entity], {
+        headers: {
+          'Authorization': `Bearer ${userData?.token || ''}`
+        }
+      });
+      if (!refreshedData.ok) {
+        throw new Error('Erreur lors du rafraîchissement des données');
+      }
       const updatedData = await refreshedData.json();
       
       setData(prev => ({
         ...prev,
-        [entity]: updatedData[entity] || []
+        [entity]: Array.isArray(updatedData) ? updatedData : updatedData[entity] || prev[entity]
       }));
 
       setStatus({ ...status, success: 'Suppression réussie' });
       
-      // Ajustement pagination
       if (currentPage > 1 && currentItems.length === 1) {
         setCurrentPage(prev => prev - 1);
       }
     } catch (err) {
-      console.error('Erreur:', err);
-      setStatus({ ...status, error: err.message });
+      console.error('Erreur lors de la suppression:', err);
+      setStatus({ ...status, error: err.message || 'Erreur lors de la suppression' });
     }
   };
 
@@ -503,14 +630,27 @@ export default function AdminDashboard() {
     members: { singular: 'Membre', plural: 'Membres' },
     posts: { singular: 'Article', plural: 'Articles' },
     formations: { singular: 'Formation', plural: 'Formations' }
-    
   };
 
   // Composant Form
   const renderForm = (entity) => {
     const fields = FORM_CONFIG[entity];
     const { singular } = LABELS[entity];
-    const entityData = formData[entity];
+    const entityData = formData[entity] || {};
+
+    if (!entityData) {
+      console.error(`Erreur: formData[${entity}] est indéfini`);
+      return (
+        <div className="bg-red-50 border-l-4 border-red-500 p-4">
+          <div className="flex items-center">
+            <AlertCircle className="h-5 w-5 text-red-500 mr-3" />
+            <div className="text-sm text-red-700">
+              Erreur: Données du formulaire non disponibles
+            </div>
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div className="bg-white rounded-lg shadow border border-gray-200 mb-6">
@@ -532,14 +672,13 @@ export default function AdminDashboard() {
                   {field.required && <span className="text-red-500 ml-1">*</span>}
                 </label>
                 
-                {/* Gestion des différents types de champs */}
                 {field.type === 'array' && (
                   <div className="space-y-2">
                     {entityData[field.name]?.map((item, index) => (
                       <div key={index} className="flex gap-2">
                         <input
                           type="text"
-                          value={item}
+                          value={item || ''}
                           onChange={(e) => updateArrayItem(entity, field.name, index, e.target.value)}
                           className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 transition"
                           placeholder={`${field.label} ${index + 1}`}
@@ -626,6 +765,10 @@ export default function AdminDashboard() {
                                   src={img.preview} 
                                   alt={`Preview ${index}`} 
                                   className="h-24 w-24 object-cover rounded"
+                                  onError={(e) => {
+                                    console.error('Erreur de chargement de l\'image:', img.preview);
+                                    e.target.src = '/placeholder-image.jpg'; // Image de secours
+                                  }}
                                 />
                                 <button
                                   type="button"
@@ -652,6 +795,10 @@ export default function AdminDashboard() {
                               src={entityData.image_preview} 
                               alt="Preview" 
                               className="h-24 w-24 object-contain mb-2 rounded"
+                              onError={(e) => {
+                                console.error('Erreur de chargement de l\'image:', entityData.image_preview);
+                                e.target.src = '/placeholder-image.jpg';
+                              }}
                             />
                             <span className="text-sm text-blue-600 font-medium">Changer</span>
                           </>
@@ -779,7 +926,7 @@ export default function AdminDashboard() {
     const { plural } = LABELS[entity];
     const columns = FORM_CONFIG[entity]
       .filter(field => field.type !== 'textarea' && field.type !== 'file' && field.type !== 'multiple-file' && field.type !== 'array' && field.type !== 'program-array')
-      .slice(0, 4) // Limiter le nombre de colonnes affichées
+      .slice(0, 4)
       .map(field => ({
         key: field.name,
         label: field.label || field.name
@@ -841,8 +988,8 @@ export default function AdminDashboard() {
                           <td key={col.key} className="px-6 py-4 whitespace-nowrap">
                             <div className={`text-sm ${col.key === 'title' || col.key === 'name' ? 'font-medium text-gray-900' : 'text-gray-500'}`}>
                               {col.key === 'startDate' || col.key === 'endDate' ? 
-                                new Date(item[col.key]).toLocaleDateString('fr-FR') : 
-                                item[col.key]
+                                (item[col.key] ? new Date(item[col.key]).toLocaleDateString('fr-FR') : '-') : 
+                                (item[col.key] || '-')
                               }
                             </div>
                           </td>
@@ -936,7 +1083,7 @@ export default function AdminDashboard() {
             <div className="flex items-center space-x-2">
               <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
                 <span className="text-sm font-medium text-blue-800">
-                  {userData?.username?.charAt(0).toUpperCase() || 'A'}
+                  {userData?.username?.charAt(0)?.toUpperCase() || 'A'}
                 </span>
               </div>
               <span className="hidden md:inline text-sm font-medium">
@@ -961,40 +1108,40 @@ export default function AdminDashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Navigation */}
         <div className="border-b border-gray-200 mb-6">
-        <nav className="-mb-px flex space-x-8">
-  {Object.keys(LABELS).map((tab) => {
-    const icons = {
-      projects: <Briefcase className="inline mr-2" size={16} />,
-      partners: <Handshake className="inline mr-2" size={16} />,
-      members: <Users className="inline mr-2" size={16} />,
-      posts: <FileText className="inline mr-2" size={16} />,
-      formations: <GraduationCap className="inline mr-2" size={16} />
-    };
+          <nav className="-mb-px flex space-x-8">
+            {Object.keys(LABELS).map((tab) => {
+              const icons = {
+                projects: <Briefcase className="inline mr-2" size={16} />,
+                partners: <Handshake className="inline mr-2" size={16} />,
+                members: <Users className="inline mr-2" size={16} />,
+                posts: <FileText className="inline mr-2" size={16} />,
+                formations: <GraduationCap className="inline mr-2" size={16} />
+              };
 
-    return (
-      <button
-        key={tab}
-        onClick={() => {
-          if (tab === 'formations') {
-            navigate('/new-dashboard');
-          } else {
-            setActiveTab(tab);
-            setSearchTerm('');
-            setCurrentPage(1);
-          }
-        }}
-        className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
-          activeTab === tab 
-            ? 'border-blue-500 text-blue-600' 
-            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-        }`}
-      >
-        {icons[tab]}
-        {LABELS[tab].plural}
-      </button>
-    );
-  })}
-</nav>
+              return (
+                <button
+                  key={tab}
+                  onClick={() => {
+                    if (tab === 'formations') {
+                      navigate('/new-dashboard');
+                    } else {
+                      setActiveTab(tab);
+                      setSearchTerm('');
+                      setCurrentPage(1);
+                    }
+                  }}
+                  className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
+                    activeTab === tab 
+                      ? 'border-blue-500 text-blue-600' 
+                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  }`}
+                >
+                  {icons[tab]}
+                  {LABELS[tab].plural}
+                </button>
+              );
+            })}
+          </nav>
         </div>
 
         {/* Messages d'état */}
