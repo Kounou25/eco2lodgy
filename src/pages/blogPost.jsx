@@ -16,7 +16,7 @@ const BlogPost = () => {
     const fetchPost = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`https://alphatek.fr:3008/api/posts/${id}`);
+        const response = await fetch(`https://alphatek.fr:3008/api/posts/post/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch post');
         }
