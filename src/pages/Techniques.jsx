@@ -325,13 +325,13 @@ const TechnicalDepartmentSection = () => {
             >
               <span className="relative">
                 Ingénierie <span className="text-[#be9838]">3.0</span>
-                <motion.span 
+                {/* <motion.span 
                   className="absolute -bottom-2 left-0 w-full h-1 bg-[#be9838]"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   transition={{ duration: 1.5, delay: 0.5 }}
                   viewport={{ once: true }}
-                />
+                /> */}
               </span>
               <br className="hidden md:block" /> 
               Construire avec intelligence
@@ -589,7 +589,7 @@ const TechnicalDepartmentSection = () => {
                   </Button>
                 </a>
                 
-                <a href="/#posts">
+                {/* <a href="/#posts">
                   <Button
                     variant="outline"
                     className="bg-transparent border-white text-white hover:bg-white/10 font-semibold px-10 py-7 rounded-full transition-all hover:scale-105 text-lg shadow-xl hover:shadow-2xl group"
@@ -598,7 +598,7 @@ const TechnicalDepartmentSection = () => {
                     Voir nos technologies
                     <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Button>
-                </a>
+                </a> */}
               </motion.div>
             </div>
           </motion.section>

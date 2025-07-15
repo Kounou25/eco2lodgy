@@ -26,6 +26,7 @@ import PartnersPage from './pages/PartnersPage';
 import LoginPage from "./pages/login";
 import BlogPost from "./pages/blogPost";
 import FormationsPage from "./pages/FormationsPage";
+import ProjectsListSection from "./pages/projects";
 import FormationDetail from "./pages/FormationDetail";
 import InscriptionFormation from "./pages/InscriptionFormation";
 import ConfirmationInscription from "./pages/ConfirmationInscription";
@@ -52,6 +53,7 @@ const App = () => (
           {/* Page d'accueil publique */}
           <Route path="/" element={<Index />} />
           <Route path="index" element={<Index />} />
+          <Route path="/projects" element={<ProjectsListSection />} />
 
           {/* Routes des formations */}
           <Route path="/formations" element={<FormationsPage />} />
