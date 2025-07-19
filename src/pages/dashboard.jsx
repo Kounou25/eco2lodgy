@@ -40,7 +40,8 @@ export default function AdminDashboard() {
       prerequisites: [''],
       included: [''],
       image_file: null 
-    }
+    },
+    users: { username: '', email: '', password: '' }
   });
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState(null);
@@ -50,7 +51,8 @@ export default function AdminDashboard() {
     partners: [],
     members: [],
     posts: [],
-    formations: []
+    formations: [],
+    users: []
   });
   const [userData, setUserData] = useState(null);
   const [status, setStatus] = useState({
@@ -292,7 +294,8 @@ export default function AdminDashboard() {
         prerequisites: [''],
         included: [''],
         image_file: null 
-      }
+      },
+      users: { username: '', email: '', password: '' }
     };
     
     setFormData(prev => ({
@@ -322,27 +325,23 @@ export default function AdminDashboard() {
         }
       });
 
-      // Gestion des fichiers pour projects
+      // Gestion des fichiers pour projects, partners, members, posts, formations
       if (entity === 'projects') {
         console.log('Images pour projects:', entityData.images);
         console.log('Images existantes:', entityData.existingImages);
         
-        // Ajouter les nouvelles images
         entityData.images.forEach((image, index) => {
           if (image.file instanceof File) {
             formDataToSend.append('images', image.file);
           }
         });
 
-        // Ajouter les images existantes (URLs) si aucune nouvelle image n'est ajoutée
         if (isEditing && entityData.existingImages?.length > 0 && entityData.images.length === 0) {
           formDataToSend.append('existingImages', JSON.stringify(entityData.existingImages));
         }
-      } else if (entityData.image_file && entityData.image_file instanceof File) {
+      } else if (entity !== 'users' && entityData.image_file && entityData.image_file instanceof File) {
         console.log('Fichier pour', entity, ':', entityData.image_file);
         formDataToSend.append('image', entityData.image_file);
-      } else {
-        console.log('Aucun fichier valide pour', entity);
       }
 
       // Loguer le contenu de FormData
@@ -358,7 +357,11 @@ export default function AdminDashboard() {
         throw new Error('ID utilisateur manquant');
       }
 
-      const url = isEditing ? `${API_ENDPOINTS[entity]}${editingId}` : API_ENDPOINTS[entity];
+      // Utiliser l'endpoint correct pour users
+      const url = entity === 'users' 
+        ? (isEditing ? `https://alphatek.fr:3008/api/users/user/${editingId}` : 'https://alphatek.fr:3008/api/users/')
+        : (isEditing ? `${API_ENDPOINTS[entity]}${editingId}` : API_ENDPOINTS[entity]);
+
       console.log('Requête envoyée:', { method: isEditing ? 'PUT' : 'POST', url });
 
       const response = await fetch(url, {
@@ -401,7 +404,7 @@ export default function AdminDashboard() {
     try {
       if (!item || !item.id) {
         console.error('Item invalide ou ID manquant:', item);
-        setStatus({ ...status, error: 'Erreur: Données du projet invalides' });
+        setStatus({ ...status, error: 'Erreur: Données de l\'élément invalides' });
         return;
       }
 
@@ -431,6 +434,15 @@ export default function AdminDashboard() {
             included: Array.isArray(item.included) ? item.included : [''],
             image_file: null,
             image_preview: item.image_url ? `https://alphatek.fr:3008${item.image_url}` : null
+          }
+        }));
+      } else if (entity === 'users') {
+        setFormData(prev => ({
+          ...prev,
+          [entity]: {
+            username: item.username || '',
+            email: item.email || '',
+            password: ''
           }
         }));
       } else {
@@ -496,7 +508,11 @@ export default function AdminDashboard() {
     if (!window.confirm('Confirmer la suppression ?')) return;
 
     try {
-      const response = await fetch(`${API_ENDPOINTS[entity]}${id}`, {
+      const deleteUrl = entity === 'users' 
+        ? `https://alphatek.fr:3008/api/users/user/${id}` 
+        : `${API_ENDPOINTS[entity]}${id}`;
+      
+      const response = await fetch(deleteUrl, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${userData?.token || ''}`
@@ -621,6 +637,11 @@ export default function AdminDashboard() {
       { name: 'program', label: 'Programme', type: 'program-array' },
       { name: 'prerequisites', label: 'Prérequis', type: 'array' },
       { name: 'included', label: 'Inclus', type: 'array' }
+    ],
+    users: [
+      { name: 'username', label: 'Nom d\'utilisateur', type: 'text', required: true },
+      { name: 'email', label: 'Email', type: 'email', required: true },
+      { name: 'password', label: 'Mot de passe', type: 'password', required: !isEditing }
     ]
   };
 
@@ -629,7 +650,8 @@ export default function AdminDashboard() {
     partners: { singular: 'Partenaire', plural: 'Partenaires' },
     members: { singular: 'Membre', plural: 'Membres' },
     posts: { singular: 'Article', plural: 'Articles' },
-    formations: { singular: 'Formation', plural: 'Formations' }
+    formations: { singular: 'Formation', plural: 'Formations' },
+    users: { singular: 'Utilisateur', plural: 'Utilisateurs' }
   };
 
   // Composant Form
@@ -767,7 +789,7 @@ export default function AdminDashboard() {
                                   className="h-24 w-24 object-cover rounded"
                                   onError={(e) => {
                                     console.error('Erreur de chargement de l\'image:', img.preview);
-                                    e.target.src = '/placeholder-image.jpg'; // Image de secours
+                                    e.target.src = '/placeholder-image.jpg';
                                   }}
                                 />
                                 <button
@@ -986,7 +1008,7 @@ export default function AdminDashboard() {
                       <tr key={item.id} className="hover:bg-gray-50 transition">
                         {columns.map(col => (
                           <td key={col.key} className="px-6 py-4 whitespace-nowrap">
-                            <div className={`text-sm ${col.key === 'title' || col.key === 'name' ? 'font-medium text-gray-900' : 'text-gray-500'}`}>
+                            <div className={`text-sm ${col.key === 'title' || col.key === 'name' || col.key === 'username' ? 'font-medium text-gray-900' : 'text-gray-500'}`}>
                               {col.key === 'startDate' || col.key === 'endDate' ? 
                                 (item[col.key] ? new Date(item[col.key]).toLocaleDateString('fr-FR') : '-') : 
                                 (item[col.key] || '-')
@@ -1115,7 +1137,8 @@ export default function AdminDashboard() {
                 partners: <Handshake className="inline mr-2" size={16} />,
                 members: <Users className="inline mr-2" size={16} />,
                 posts: <FileText className="inline mr-2" size={16} />,
-                formations: <GraduationCap className="inline mr-2" size={16} />
+                formations: <GraduationCap className="inline mr-2" size={16} />,
+                users: <Users className="inline mr-2" size={16} />
               };
 
               return (
