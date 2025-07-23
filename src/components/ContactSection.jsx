@@ -145,7 +145,7 @@ const ContactSection = () => {
             )}
             {submitError && (
               <div className="mb-6 p-4 bg-red-100 border border-red-200 rounded-lg animate-fade-in">
-                <p className="text-red-600 font-medium">{submitError}</p>
+                <p className="text-eco-green font-medium">{submitError}</p>
               </div>
             )}
             <form onSubmit={handleSubmit}>
