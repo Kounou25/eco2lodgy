@@ -1,59 +1,68 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-const ContactForm = () => {
-  const [submitted, setSubmitted] = useState(false);
+export default function ContactForm() {
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Empêche la redirection par défaut
+    e.preventDefault();
+    setLoading(true);
+    setSuccess(false);
+    setError(false);
 
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
+    const form = e.target;
+    const formData = new FormData(form);
 
     try {
       const response = await fetch("https://submit-form.com/ZxRct1DMK", {
         method: "POST",
+        body: formData,
         headers: {
-          "Content-Type": "application/json",
+          Accept: "application/json",
         },
-        body: JSON.stringify(data),
       });
 
       if (response.ok) {
-        setSubmitted(true);
-        setError(false);
-        e.target.reset(); // Réinitialise les champs du formulaire
+        setSuccess(true);
+        form.reset();
       } else {
         setError(true);
       }
     } catch (err) {
-      console.error("Erreur de soumission :", err);
+      console.error("Erreur d'envoi :", err);
       setError(true);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div>
+    <div className="form-container" style={{ maxWidth: 500, margin: "auto" }}>
+      <h2>Contactez-nous</h2>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Votre nom" required />
-        <input type="email" name="email" placeholder="Votre email" required />
-        <textarea name="message" placeholder="Votre message" required></textarea>
-        <button type="submit">Envoyer</button>
+        <label>
+          Nom :
+          <input type="text" name="name" required />
+        </label>
+        <br />
+        <label>
+          Email :
+          <input type="email" name="email" required />
+        </label>
+        <br />
+        <label>
+          Message :
+          <textarea name="message" required />
+        </label>
+        <br />
+        <button type="submit" disabled={loading}>
+          {loading ? "Envoi..." : "Envoyer"}
+        </button>
       </form>
 
-      {submitted && (
-        <p style={{ color: "green", marginTop: "10px" }}>
-          ✅ Votre message a été envoyé avec succès !
-        </p>
-      )}
-
-      {error && (
-        <p style={{ color: "red", marginTop: "10px" }}>
-          ❌ Une erreur s'est produite. Veuillez réessayer.
-        </p>
-      )}
+      {success && <p style={{ color: "green" }}>✅ Message envoyé avec succès !</p>}
+      {error && <p style={{ color: "red" }}>❌ Une erreur est survenue. Veuillez réessayer.</p>}
     </div>
   );
-};
-
-export default ContactForm;
+}
