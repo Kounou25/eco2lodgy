@@ -27,7 +27,7 @@ const ContactSection = () => {
     setIsSubmitting(true);
     setSubmitSuccess(false);
 
-    fetch("https://formsubmit.co/eco2lodgy@gmail.com", {
+    fetch("https://submit-form.com/KFnCFdecD", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
