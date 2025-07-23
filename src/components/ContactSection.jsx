@@ -13,6 +13,7 @@ const ContactSection = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,8 +27,9 @@ const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitSuccess(false);
+    setSubmitError(null);
 
-    fetch("https://submit-form.com/KFnCFdecD", {
+    fetch("https://submit-form.com/ZxRct1DMK", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -39,7 +41,10 @@ const ContactSection = () => {
       setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
       setTimeout(() => setSubmitSuccess(false), 5000); // Hide success message after 5 seconds
     })
-    .catch(error => console.error("Erreur d'envoi :", error))
+    .catch(error => {
+      console.error("Erreur d'envoi :", error);
+      setSubmitError("Une erreur s'est produite lors de l'envoi du formulaire. Veuillez réessayer.");
+    })
     .finally(() => setIsSubmitting(false));
   };
 
@@ -61,7 +66,7 @@ const ContactSection = () => {
     {
       icon: <MapPin className="w-5 h-5 text-eco-green" />,
       title: "Adresse",
-      details: "Quarier Zak, Niamey-Niger",
+      details: "Quartier Zak, Niamey-Niger",
       action: "https://maps.google.com",
       label: "Voir sur la carte"
     },
@@ -136,6 +141,11 @@ const ContactSection = () => {
             {submitSuccess && (
               <div className="mb-6 p-4 bg-eco-green/10 border border-eco-green/20 rounded-lg animate-fade-in">
                 <p className="text-eco-green font-medium">Votre message a été envoyé avec succès !</p>
+              </div>
+            )}
+            {submitError && (
+              <div className="mb-6 p-4 bg-red-100 border border-red-200 rounded-lg animate-fade-in">
+                <p className="text-red-600 font-medium">{submitError}</p>
               </div>
             )}
             <form onSubmit={handleSubmit}>
