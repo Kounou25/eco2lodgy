@@ -1,53 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react';
 
 const ContactSection = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [submitError, setSubmitError] = useState(null);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitSuccess(false);
-    setSubmitError(null);
-
-    fetch("https://submit-form.com/ZxRct1DMK", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log("Form response:", data);
-      setSubmitSuccess(true);
-      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
-      setTimeout(() => setSubmitSuccess(false), 5000); // Hide success message after 5 seconds
-    })
-    .catch(error => {
-      console.error("Erreur d'envoi :", error);
-      setSubmitError("Une erreur s'est produite lors de l'envoi du formulaire. Veuillez réessayer.");
-    })
-    .finally(() => setIsSubmitting(false));
-  };
-
   const contactInfo = [
     {
       icon: <Phone className="w-5 h-5 text-eco-green" />,
@@ -121,131 +76,102 @@ const ContactSection = () => {
                 </div>
               ))}
             </div>
-            
+
             <div className="mt-12">
               <h4 className="text-lg font-semibold mb-4">Suivez-nous</h4>
               <div className="flex space-x-4">
                 <a href="https://www.facebook.com/profile.php?=61560000705955&sk=reviews" className="w-10 h-10 rounded-full bg-gray-200/50 hover:bg-[#D4A017]/20 flex items-center justify-center transition-colors text-gray-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                  {/* Facebook Icon */}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                 </a>
                 <a href="https://www.linkedin.com/company/%C3%A9cotech/" className="w-10 h-10 rounded-full bg-gray-200/50 hover:bg-[#D4A017]/20 flex items-center justify-center transition-colors text-gray-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                  {/* LinkedIn Icon */}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                 </a>
               </div>
             </div>
           </div>
-          
+
           {/* Contact Form */}
           <div className="bg-white rounded-xl p-8 shadow-lg border border-border">
             <h3 className="text-2xl font-semibold mb-6 font-display">Envoyez-nous un message</h3>
-            {submitSuccess && (
-              <div className="mb-6 p-4 bg-eco-green/10 border border-eco-green/20 rounded-lg animate-fade-in">
-                <p className="text-eco-green font-medium">Votre message a été envoyé avec succès !</p>
-              </div>
-            )}
-            {submitError && (
-              <div className="mb-6 p-4 bg-red-100 border border-red-200 rounded-lg animate-fade-in">
-                <p className="text-red-600 font-medium">{submitError}</p>
-              </div>
-            )}
-            <form onSubmit={handleSubmit}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+            <form
+              action="https://submit-form.com/ZxRct1DMK"
+              method="POST"
+              className="space-y-6"
+            >
+              <input type="hidden" name="_redirect" value="https://alphatek.fr/merci" />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                  <label className="block text-sm font-medium text-foreground mb-2">
                     Nom complet
                   </label>
                   <input
-                    id="name"
                     name="name"
                     type="text"
-                    value={formData.name}
-                    onChange={handleChange}
                     required
                     className="w-full px-4 py-3 rounded-lg border border-input focus:border-eco-green focus:ring-2 focus:ring-eco-green/20 outline-none transition-all"
                     placeholder="Votre nom"
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                  <label className="block text-sm font-medium text-foreground mb-2">
                     Email
                   </label>
                   <input
-                    id="email"
                     name="email"
                     type="email"
-                    value={formData.email}
-                    onChange={handleChange}
                     required
                     className="w-full px-4 py-3 rounded-lg border border-input focus:border-eco-green focus:ring-2 focus:ring-eco-green/20 outline-none transition-all"
                     placeholder="votre@email.com"
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
+                  <label className="block text-sm font-medium text-foreground mb-2">
                     Téléphone
                   </label>
                   <input
-                    id="phone"
                     name="phone"
                     type="tel"
-                    value={formData.phone}
-                    onChange={handleChange}
                     className="w-full px-4 py-3 rounded-lg border border-input focus:border-eco-green focus:ring-2 focus:ring-eco-green/20 outline-none transition-all"
                     placeholder="Votre numéro de téléphone"
                   />
                 </div>
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
+                  <label className="block text-sm font-medium text-foreground mb-2">
                     Sujet
                   </label>
                   <input
-                    id="subject"
                     name="subject"
                     type="text"
-                    value={formData.subject}
-                    onChange={handleChange}
                     required
                     className="w-full px-4 py-3 rounded-lg border border-input focus:border-eco-green focus:ring-2 focus:ring-eco-green/20 outline-none transition-all"
                     placeholder="Sujet de votre message"
                   />
                 </div>
               </div>
-              <div className="mb-6">
-                <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
                   Message
                 </label>
                 <textarea
-                  id="message"
                   name="message"
-                  rows="5"
-                  value={formData.message}
-                  onChange={handleChange}
+                  rows={5}
                   required
                   className="w-full px-4 py-3 rounded-lg border border-input focus:border-eco-green focus:ring-2 focus:ring-eco-green/20 outline-none transition-all resize-none"
                   placeholder="Votre message"
-                ></textarea>
+                />
               </div>
-              <Button 
-                type="submit" 
-                className="w-full bg-eco-green hover:bg-eco-light text-white py-6 rounded-lg transition-colors flex items-center justify-center"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  <div className="flex items-center">
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Envoi en cours...
-                  </div>
-                ) : (
-                  <div className="flex items-center">
-                    <Send className="mr-2 h-5 w-5" />
-                    Envoyer le message
-                  </div>
-                )}
+
+              <Button type="submit" className="w-full bg-eco-green hover:bg-eco-light text-white py-6 rounded-lg transition-colors flex items-center justify-center">
+                <Send className="mr-2 h-5 w-5" />
+                Envoyer le message
               </Button>
             </form>
           </div>
