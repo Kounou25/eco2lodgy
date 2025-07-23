@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const FORMSPARK_ACTION_URL = "https://submit-form.com/ZxRct1DMK";
+const FORMSPARK_ACTION_URL = "https://submit-form.com/kFnCFdecD";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
