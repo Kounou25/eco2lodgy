@@ -1,68 +1,76 @@
+// src/components/ContactForm.jsx
 import { useState } from "react";
 
 export default function ContactForm() {
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("idle");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setSuccess(false);
-    setError(false);
+    setStatus("loading");
 
     const form = e.target;
-    const formData = new FormData(form);
+    const data = new FormData(form);
 
     try {
       const response = await fetch("https://submit-form.com/ZxRct1DMK", {
         method: "POST",
-        body: formData,
+        body: data,
         headers: {
           Accept: "application/json",
         },
       });
 
       if (response.ok) {
-        setSuccess(true);
+        setStatus("success");
         form.reset();
       } else {
-        setError(true);
+        setStatus("error");
       }
-    } catch (err) {
-      console.error("Erreur d'envoi :", err);
-      setError(true);
-    } finally {
-      setLoading(false);
+    } catch (error) {
+      console.error("Erreur d’envoi :", error);
+      setStatus("error");
     }
   };
 
   return (
-    <div className="form-container" style={{ maxWidth: 500, margin: "auto" }}>
-      <h2>Contactez-nous</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Nom :
-          <input type="text" name="name" required />
-        </label>
-        <br />
-        <label>
-          Email :
-          <input type="email" name="email" required />
-        </label>
-        <br />
-        <label>
-          Message :
-          <textarea name="message" required />
-        </label>
-        <br />
-        <button type="submit" disabled={loading}>
-          {loading ? "Envoi..." : "Envoyer"}
-        </button>
-      </form>
+    <form onSubmit={handleSubmit} className="space-y-4 max-w-lg mx-auto">
+      <input
+        type="text"
+        name="name"
+        placeholder="Votre nom"
+        required
+        className="w-full p-2 border rounded"
+      />
+      <input
+        type="email"
+        name="email"
+        placeholder="Votre email"
+        required
+        className="w-full p-2 border rounded"
+      />
+      <textarea
+        name="message"
+        placeholder="Votre message"
+        required
+        className="w-full p-2 border rounded h-32"
+      ></textarea>
 
-      {success && <p style={{ color: "green" }}>✅ Message envoyé avec succès !</p>}
-      {error && <p style={{ color: "red" }}>❌ Une erreur est survenue. Veuillez réessayer.</p>}
-    </div>
+      <button
+        type="submit"
+        disabled={status === "loading"}
+        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+      >
+        {status === "loading" ? "Envoi..." : "Envoyer"}
+      </button>
+
+      {status === "success" && (
+        <p className="text-green-600 mt-2">Message envoyé avec succès ✅</p>
+      )}
+      {status === "error" && (
+        <p className="text-red-600 mt-2">
+          Une erreur est survenue. Veuillez réessayer.
+        </p>
+      )}
+    </form>
   );
 }
