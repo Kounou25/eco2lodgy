@@ -91,8 +91,8 @@ const ContactSection = () => {
         </svg>
       ),
       title: "Email",
-      details: "contact@eco2lodgy.com",
-      action: "mailto:contact@eco2lodgy.com",
+      details: "eco2lodgy@gmail.com",
+      action: "mailto:eco2lodgy@gmail.com",
       label: "Envoyer un email",
     },
     {
@@ -119,7 +119,7 @@ const ContactSection = () => {
         </svg>
       ),
       title: "Adresse",
-      details: "Quartier Zak, Niamey-Niger",
+      details: " Niamey-Niger",
       action: "https://maps.google.com",
       label: "Voir sur la carte",
     },
