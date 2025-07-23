@@ -54,7 +54,7 @@ const ContactSection = () => {
     {
       icon: (
         <svg
-          className="w-5 h-5 text-[#D4A017]"
+          className="w-5 h-5 text-eco-green"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -76,7 +76,7 @@ const ContactSection = () => {
     {
       icon: (
         <svg
-          className="w-5 h-5 text-[#D4A017]"
+          className="w-5 h-5 text-eco-green"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -98,7 +98,7 @@ const ContactSection = () => {
     {
       icon: (
         <svg
-          className="w-5 h-5 text-[#D4A017]"
+          className="w-5 h-5 text-eco-green"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -126,7 +126,7 @@ const ContactSection = () => {
     {
       icon: (
         <svg
-          className="w-5 h-5 text-[#D4A017]"
+          className="w-5 h-5 text-eco-green"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -151,11 +151,11 @@ const ContactSection = () => {
     <section className="py-20 bg-white" id="contact">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-display">
             Contactez-Nous
           </h2>
-          <div className="h-1 w-20 bg-[#D4A017] mx-auto mb-6"></div>
-          <p className="text-lg text-gray-600">
+          <div className="h-1 w-20 bg-eco-green mx-auto mb-6"></div>
+          <p className="text-lg text-foreground/80">
             Vous avez un projet en tête ? Discutons-en ensemble et voyons comment
             Eco2lodgy peut vous aider à le concrétiser.
           </p>
@@ -163,26 +163,26 @@ const ContactSection = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
-            <h3 className="text-2xl font-semibold mb-6">
+            <h3 className="text-2xl font-semibold mb-6 font-display">
               Information de Contact
             </h3>
-            <p className="text-gray-600 mb-8 max-w-md">
+            <p className="text-foreground/80 mb-8 max-w-md">
               N'hésitez pas à nous contacter pour toute question, demande de devis
               ou information supplémentaire sur nos services.
             </p>
             <div className="space-y-6">
               {contactInfo.map((info, index) => (
                 <div key={index} className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-[#D4A017]/10 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-eco-green/10 flex items-center justify-center">
                     {info.icon}
                   </div>
                   <div>
                     <h4 className="font-medium">{info.title}</h4>
-                    <p className="text-gray-600 mt-1">{info.details}</p>
+                    <p className="text-foreground/80 mt-1">{info.details}</p>
                     {info.action && (
                       <a
                         href={info.action}
-                        className="text-[#D4A017] text-sm mt-1 inline-block hover:underline"
+                        className="text-eco-green text-sm mt-1 inline-block hover:underline"
                         target={info.action.startsWith("http") ? "_blank" : "_self"}
                         rel="noreferrer"
                       >
@@ -198,7 +198,7 @@ const ContactSection = () => {
               <div className="flex space-x-4">
                 <a
                   href="https://www.facebook.com/profile.php?=61560000705955&sk=reviews"
-                  className="w-10 h-10 rounded-full bg-gray-200/50 hover:bg-[#D4A017]/20 flex items-center justify-center transition-colors text-gray-600"
+                  className="w-10 h-10 rounded-full bg-gray-200/50 hover:bg-eco-green/20 flex items-center justify-center transition-colors text-gray-600"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -216,7 +216,7 @@ const ContactSection = () => {
                 </a>
                 <a
                   href="https://www.linkedin.com/company/%C3%A9cotech/"
-                  className="w-10 h-10 rounded-full bg-gray-200/50 hover:bg-[#D4A017]/20 flex items-center justify-center transition-colors text-gray-600"
+                  className="w-10 h-10 rounded-full bg-gray-200/50 hover:bg-eco-green/20 flex items-center justify-center transition-colors text-gray-600"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -237,11 +237,13 @@ const ContactSection = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-200">
-            <h3 className="text-2xl font-semibold mb-6">Envoyez-nous un message</h3>
+          <div className="bg-white rounded-xl p-8 shadow-lg border border-border">
+            <h3 className="text-2xl font-semibold mb-6 font-display">
+              Envoyez-nous un message
+            </h3>
             {submitSuccess && (
-              <div className="mb-6 p-4 bg-[#D4A017]/10 border border-[#D4A017]/20 rounded-lg">
-                <p className="text-[#D4A017] font-medium">
+              <div className="mb-6 p-4 bg-eco-green/10 border border-eco-green/20 rounded-lg">
+                <p className="text-eco-green font-medium">
                   Votre message a été envoyé avec succès !
                 </p>
               </div>
@@ -256,7 +258,7 @@ const ContactSection = () => {
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-foreground mb-2"
                   >
                     Nom complet
                   </label>
@@ -267,14 +269,14 @@ const ContactSection = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#D4A017] focus:ring-2 focus:ring-[#D4A017]/20 outline-none transition-all"
+                    className="w-full px-4 py-3 rounded-lg border border-input focus:border-eco-green focus:ring-2 focus:ring-eco-green/20 outline-none transition-all"
                     placeholder="Votre nom"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-foreground mb-2"
                   >
                     Email
                   </label>
@@ -285,7 +287,7 @@ const ContactSection = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#D4A017] focus:ring-2 focus:ring-[#D4A017]/20 outline-none transition-all"
+                    className="w-full px-4 py-3 rounded-lg border border-input focus:border-eco-green focus:ring-2 focus:ring-eco-green/20 outline-none transition-all"
                     placeholder="votre@email.com"
                   />
                 </div>
@@ -294,7 +296,7 @@ const ContactSection = () => {
                 <div>
                   <label
                     htmlFor="phone"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-foreground mb-2"
                   >
                     Téléphone
                   </label>
@@ -304,14 +306,14 @@ const ContactSection = () => {
                     type="tel"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#D4A017] focus:ring-2 focus:ring-[#D4A017]/20 outline-none transition-all"
+                    className="w-full px-4 py-3 rounded-lg border border-input focus:border-eco-green focus:ring-2 focus:ring-eco-green/20 outline-none transition-all"
                     placeholder="Votre numéro de téléphone"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="subject"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-foreground mb-2"
                   >
                     Sujet
                   </label>
@@ -322,7 +324,7 @@ const ContactSection = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#D4A017] focus:ring-2 focus:ring-[#D4A017]/20 outline-none transition-all"
+                    className="w-full px-4 py-3 rounded-lg border border-input focus:border-eco-green focus:ring-2 focus:ring-eco-green/20 outline-none transition-all"
                     placeholder="Sujet de votre message"
                   />
                 </div>
@@ -330,7 +332,7 @@ const ContactSection = () => {
               <div className="mb-6">
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-gray-700 mb-2"
+                  className="block text-sm font-medium text-foreground mb-2"
                 >
                   Message
                 </label>
@@ -341,13 +343,13 @@ const ContactSection = () => {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#D4A017] focus:ring-2 focus:ring-[#D4A017]/20 outline-none transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-lg border border-input focus:border-eco-green focus:ring-2 focus:ring-eco-green/20 outline-none transition-all resize-none"
                   placeholder="Votre message"
                 ></textarea>
               </div>
               <button
                 type="submit"
-                className="w-full bg-[#D4A017] hover:bg-[#b38b14] text-white py-6 rounded-lg transition-colors flex items-center justify-center"
+                className="w-full bg-eco-green hover:bg-eco-light text-white py-6 rounded-lg transition-colors flex items-center justify-center"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
